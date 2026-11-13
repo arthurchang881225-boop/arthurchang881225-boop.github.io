@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Chang</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <div class="site-brand">
+          <h1><a href="index.html">Arthur Chang</a></h1>
+        </div>
+        <div class="nav-group">
+          <nav>
+            <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="playbook.html">Playbook</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero animate-on-scroll">
+        <div class="hero-text">
+          <span class="greeting">hello,</span>
+          <h2 id="typed-heading"></h2>
+          <p>
+            CPA, Program Manager @Amazon, Budget Analyst @USAF, and personal finance enthusiast
+            documenting the intersection of finance, tech, and building a thoughtful life.
+          </p>
+        </div>
+
+        <div class="hero-visual">
+          <img src="images/PA.png" alt="Arthur Chang" />
+        </div>
+      </section>
+
+      <section class="section-block animate-on-scroll">
+        <div class="section-header">
+          <h3>Latest Posts</h3>
+          <a href="blog.html">See all &rarr;</a>
+        </div>
+
+        <div class="card-grid stagger">
+          <a href="blog.html" class="card animate-on-scroll" style="text-decoration:none;">
+            <div class="meta">August 8, 2026</div>
+            <h4>How the Super Rich Avoid Paying Taxes</h4>
+            <p>Scott Galloway breaks down legal tax strategies the wealthiest use, and why owning beats earning.</p>
+          </a>
+          <a href="blog.html" class="card animate-on-scroll" style="text-decoration:none;">
+            <div class="meta">August 8, 2026</div>
+            <h4>Start by Making Your Bed</h4>
+            <p>Admiral McRaven's 10 life lessons from Navy SEAL training on resilience, hope, and never quitting.</p>
+          </a>
+          <a href="playbook.html" class="card animate-on-scroll" style="text-decoration:none;">
+            <div class="meta">Rewards Guide</div>
+            <h4>Credit Card Playbook</h4>
+            <p>My curated picks for the best rewards credit cards and how to maximize your welcome bonuses.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="section-block animate-on-scroll">
+        <div class="section-header">
+          <h3>Countdown</h3>
+        </div>
+        <div class="countdown-wrapper">
+          <div id="countdown" class="countdown"></div>
+          <p class="countdown-label">until December 31, 2080</p>
+        </div>
+      </section>
+
+      <section class="section-block animate-on-scroll">
+        <div class="quote">
+          <p>&ldquo;The only way to do great work is to love what you do.&rdquo;</p>
+          <cite>Steve Jobs</cite>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-links">
+        <a href="https://github.com/arthurchang" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/ayo.chill.out" target="_blank">Instagram</a>
+        <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank">Spotify</a>
+        <a href="mailto:arthur@example.com">Email</a>
+      </div>
+      <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

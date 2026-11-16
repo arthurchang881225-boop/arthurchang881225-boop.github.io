@@ -1,3 +1,11 @@
+/*
+  Site behavior script:
+  - remembers the user's theme choice
+  - types the homepage greeting
+  - reveals content on scroll
+  - runs the countdown clock
+*/
+
 /* ─── Theme Toggle ─── */
 (function () {
   var STORAGE_KEY = 'theme';

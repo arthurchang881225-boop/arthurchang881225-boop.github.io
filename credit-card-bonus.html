@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Chang | Credit Card Bonus</title>
+    <meta name="description" content="Travel rewards credit cards with record-high welcome bonuses right now, plus current bank transfer bonuses. Checked weekly.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <!--
+      Credit Card Bonus page.
+      This file is the fixed layout only: every number, card and table row is drawn by
+      js/credit-card-bonus.js from data/cards.json, data/transfers.json and
+      data/referrals.json. The weekly offer check replaces the data files and never
+      edits this page, so the design stays the same from week to week.
+    -->
+
+    <!-- Shared page shell: navigation and theme control -->
+    <header>
+      <div class="header-top">
+        <div class="site-brand">
+          <h1><a href="index.html">Arthur Chang</a></h1>
+        </div>
+        <div class="nav-group">
+          <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="credit-card-bonus.html" class="active">Credit Card Bonus</a></li>
+              <li><a href="referrals.html">Referrals</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Intro: what the page tracks, when offers were checked, and the referral disclosure -->
+      <section class="section-block animate-on-scroll" style="border-top:none; margin-top:0; padding-top:0;">
+        <div class="section-header">
+          <h3>Credit Card Bonus</h3>
+          <a href="referrals.html">All my referral links &rarr;</a>
+        </div>
+
+        <div class="ccb-intro">
+          <p class="ccb-lede" id="ccb-lede">Loading this week's offers&hellip;</p>
+          <p class="ccb-meta" id="ccb-checked"></p>
+          <p class="ccb-meta">
+            Some Apply buttons are my referral links. If you're approved through one, I may earn
+            points at no cost to you. A referral offer can differ from the public offer shown here,
+            so check the amount on the bank's page before you apply.
+          </p>
+        </div>
+      </section>
+
+      <!-- Card type toggle and the ranking rule in one sentence -->
+      <section class="section-block animate-on-scroll ccb-toolbar">
+        <div class="ccb-toggle" role="group" aria-label="Card type">
+          <button type="button" data-segment="personal" aria-pressed="true">Personal</button>
+          <button type="button" data-segment="business" aria-pressed="false">Business</button>
+        </div>
+        <p class="ccb-meta">
+          Any travel rewards card qualifies: airline, hotel and flexible-points cards from any bank.
+          Cards at their record-high bonus come first, ranked by estimated value. If fewer than 5 are,
+          the list is topped up with the cards closest to their record.
+        </p>
+      </section>
+
+      <!-- Eligibility and spending checker: answers stay in the browser and filter the list below -->
+      <section class="section-block animate-on-scroll">
+        <details class="ccb-panel ccb-checker">
+          <summary>Check which bonuses you can get</summary>
+          <p class="ccb-meta">
+            Your answers stay on this page and are not saved or sent anywhere. They apply each bank's
+            published rules, so treat the result as a guide, not an approval.
+          </p>
+          <div class="ccb-fields">
+            <div>
+              <label for="ccb-n524">Personal cards you opened in the last 24 months, from any bank</label>
+              <input type="number" id="ccb-n524" min="0" max="40" step="1" inputmode="numeric" placeholder="0">
+            </div>
+            <div>
+              <label for="ccb-amex">Amex credit cards you have open now (Platinum and Gold are charge cards and don't count)</label>
+              <input type="number" id="ccb-amex" min="0" max="10" step="1" inputmode="numeric" placeholder="0">
+            </div>
+            <div>
+              <label for="ccb-monthly">How much you can put on a new card each month, in dollars</label>
+              <input type="number" id="ccb-monthly" min="0" max="100000" step="100" inputmode="numeric" placeholder="e.g. 2500">
+            </div>
+          </div>
+          <fieldset class="ccb-had">
+            <legend>Cards you have now, or earned a bonus on before</legend>
+            <div id="ccb-had-list"></div>
+          </fieldset>
+          <div class="ccb-checks">
+            <label><input type="checkbox" id="ccb-hide-blocked"> Hide cards I can't get the bonus on</label>
+            <label><input type="checkbox" id="ccb-hide-short"> Hide cards whose minimum spend I can't reach</label>
+          </div>
+          <p class="ccb-summary" id="ccb-fit-summary" aria-live="polite"></p>
+        </details>
+      </section>
+
+      <!-- Ranked cards for the selected type: comparison chart, then one card per offer -->
+      <section class="section-block" id="ccb-cards">
+        <div class="section-header">
+          <h3 id="ccb-segment-title">Personal travel cards at a record-high bonus</h3>
+        </div>
+        <p class="ccb-meta" id="ccb-tier-note"></p>
+
+        <div class="ccb-panel">
+          <h4 class="ccb-panel-title">Bonus value per $100 of required spending</h4>
+          <p class="ccb-meta">
+            How hard each bonus works for the spending it asks of you: estimated bonus value divided
+            by the minimum spend.
+          </p>
+          <div class="ccb-legend">
+            <span><i class="ccb-swatch ccb-swatch-record"></i>Record-high offer</span>
+            <span><i class="ccb-swatch ccb-swatch-near"></i>Near record</span>
+          </div>
+          <div class="ccb-chart" id="ccb-chart"></div>
+        </div>
+
+        <ol class="cc-grid ccb-list" id="ccb-list"></ol>
+      </section>
+
+      <!-- Bank transfer bonuses that have not ended yet -->
+      <section class="section-block animate-on-scroll" id="ccb-transfers">
+        <div class="section-header">
+          <h3>Bank transfer bonuses running now</h3>
+        </div>
+        <div class="ccb-table-wrap">
+          <table class="ccb-table">
+            <thead>
+              <tr>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col" class="ccb-num">Bonus</th>
+                <th scope="col">Ends</th>
+                <th scope="col" class="ccb-num">Days left</th>
+                <th scope="col">When it is worth it</th>
+              </tr>
+            </thead>
+            <tbody id="ccb-transfer-rows"></tbody>
+          </table>
+        </div>
+        <p class="ccb-meta" id="ccb-transfer-note"></p>
+      </section>
+
+      <!-- Award sweet spots priced with today's transfer bonuses -->
+      <section class="section-block animate-on-scroll" id="ccb-sweet-spots">
+        <div class="section-header">
+          <h3>Transfer sweet spots, priced with today's bonuses</h3>
+        </div>
+        <p class="ccb-meta">
+          Typical starting award prices. Award space and prices change, so search the partner's site
+          before you transfer.
+        </p>
+        <ul class="card-grid ccb-spots" id="ccb-spots"></ul>
+      </section>
+
+      <!-- Method and issuer rules: static reference text -->
+      <section class="section-block animate-on-scroll" id="ccb-method">
+        <details class="ccb-panel">
+          <summary>How the ranking works</summary>
+          <div class="ccb-prose">
+            <p>
+              A card is a record-high offer when its current public welcome bonus matches or beats the
+              most points or miles it has ever offered, based on each card's offer history (Upgraded
+              Points, CreditCompound, CardCurator and Doctor of Credit), then confirmed on the issuer's
+              application page. Offers that were bigger only because they added free nights or
+              certificates are noted on the card. Special links that only some people see do not count.
+            </p>
+            <p>
+              Record-high cards are ranked by estimated bonus value. If fewer than 5 qualify, the next
+              cards are the ones whose current bonus is the largest share of their best-ever bonus.
+            </p>
+            <p>
+              Estimated value multiplies the bonus by the cents-per-point figure shown on each card.
+              Yearly credits are shown at face value; perks without a fixed dollar amount are listed but
+              not counted.
+            </p>
+          </div>
+        </details>
+
+        <details class="ccb-panel">
+          <summary>Before you apply</summary>
+          <dl class="ccb-rules">
+            <dt>Chase 5/24 rule</dt>
+            <dd>Chase usually declines you if you opened 5 or more personal cards from any bank in the past 24 months. Most business cards from other banks do not count.</dd>
+            <dt>Chase 24-month bonus rule</dt>
+            <dd>United, Southwest and IHG cards pay no bonus if you have the card now or earned its bonus in the past 24 months.</dd>
+            <dt>Chase IHG family rule</dt>
+            <dd>IHG Premier and the no-fee IHG card exclude people who hold any personal IHG card, or earned a personal IHG bonus in 24 months. Premier Select is separate.</dd>
+            <dt>Amex lifetime rule</dt>
+            <dd>You can usually earn a card's welcome bonus only once in your life.</dd>
+            <dt>Amex family rule</dt>
+            <dd>Having held the personal Platinum can block the Gold bonus, so open Gold first.</dd>
+            <dt>Amex eligibility pop-up</dt>
+            <dd>Amex warns you before approval if you will not get the bonus. Close the application when you see it and no hard pull happens.</dd>
+            <dt>Amex 5-card limit</dt>
+            <dd>Amex lets you hold about 5 Amex credit cards at once. Charge cards like Platinum, Gold and the business charge cards do not count toward it.</dd>
+            <dt>Amex 2/90 rule</dt>
+            <dd>Amex approves at most 2 new credit cards in 90 days.</dd>
+            <dt>Citi 48-month rule</dt>
+            <dd>No bonus if you earned a bonus on the same Citi card in the past 48 months.</dd>
+            <dt>Citi 8/65 rule</dt>
+            <dd>Wait 8 days between Citi applications, and no more than 2 in 65 days.</dd>
+            <dt>BofA 2/3/4 rule</dt>
+            <dd>Bank of America approves at most 2 new cards in 2 months, 3 in 12 months and 4 in 24 months.</dd>
+            <dt>Barclays 6/24 caution</dt>
+            <dd>Barclays often declines people with 6 or more new accounts in 24 months.</dd>
+            <dt>Minimum spend reality check</dt>
+            <dd>Only open a card whose minimum spend you can reach with spending you would do anyway. Interest charges erase the bonus quickly.</dd>
+          </dl>
+        </details>
+      </section>
+
+      <!-- Card layout: js/credit-card-bonus.js copies this once per card and fills each data-slot -->
+      <template id="ccb-card-template">
+        <li class="cc-card ccb-card">
+          <div class="ccb-card-head">
+            <div class="ccb-art" data-slot="art"></div>
+            <div class="ccb-card-title">
+              <div class="cc-issuer" data-slot="issuer"></div>
+              <h4><a data-slot="name" target="_blank" rel="noopener"></a></h4>
+              <div class="ccb-chips" data-slot="chips"></div>
+            </div>
+            <span class="ccb-rank" data-slot="rank"></span>
+          </div>
+
+          <div class="cc-details">
+            <div class="cc-detail-box">
+              <div class="lbl">Welcome bonus</div>
+              <div class="val" data-slot="bonus"></div>
+              <div class="sub" data-slot="spend"></div>
+            </div>
+            <div class="cc-detail-box">
+              <div class="lbl">Estimated value</div>
+              <div class="val" data-slot="value"></div>
+              <div class="sub" data-slot="cpp"></div>
+            </div>
+            <div class="cc-detail-box">
+              <div class="lbl">Annual fee</div>
+              <div class="val fee" data-slot="fee"></div>
+              <div class="sub" data-slot="fee-note"></div>
+            </div>
+            <div class="cc-detail-box">
+              <div class="lbl">Yearly credits</div>
+              <div class="val" data-slot="credits"></div>
+              <div class="sub">At face value, if you use every one</div>
+            </div>
+          </div>
+
+          <div class="ccb-history">
+            <div class="lbl">Offer history</div>
+            <div class="ccb-spark" data-slot="spark"></div>
+            <p class="ccb-meta" data-slot="spark-note"></p>
+          </div>
+
+          <div class="ccb-columns">
+            <div>
+              <div class="lbl">Earning rates</div>
+              <ul class="ccb-earn" data-slot="earn"></ul>
+            </div>
+            <div>
+              <div class="lbl">Highlights and their value</div>
+              <ul class="ccb-perks" data-slot="highlights"></ul>
+            </div>
+          </div>
+
+          <div class="ccb-card-foot">
+            <p class="ccb-meta" data-slot="verified"></p>
+            <div class="ccb-actions">
+              <a class="cc-cta" data-slot="apply" target="_blank" rel="noopener">Apply &rarr;</a>
+              <a class="ccb-official" data-slot="official" target="_blank" rel="noopener">Official offer page</a>
+            </div>
+          </div>
+        </li>
+      </template>
+    </main>
+
+    <footer>
+      <!-- Footer links: social destinations with their logos -->
+      <div class="footer-links">
+        <a href="https://github.com/arthurchang881225-boop" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-github"></use></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-linkedin"></use></svg>LinkedIn</a>
+        <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-instagram"></use></svg>Instagram</a>
+        <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-spotify"></use></svg>Spotify</a>
+      </div>
+      <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="js/credit-card-bonus.js"></script>
+  </body>
+</html>

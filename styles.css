@@ -11,6 +11,9 @@
   --faint:       #6b7280;
   --line:        rgba(0, 0, 0, 0.08);
   --accent:      #111827;
+  --good:        #15803d;
+  --warn:        #b45309;
+  --bad:         #b91c1c;
   --toggle-icon: block;
   --toggle-moon: none;
 }
@@ -25,6 +28,9 @@ html.dark {
   --faint:       #9ca3af;
   --line:        rgba(255, 255, 255, 0.08);
   --accent:      #ffffff;
+  --good:        #4ade80;
+  --warn:        #fbbf24;
+  --bad:         #f87171;
   --toggle-icon: none;
   --toggle-moon: block;
 }
@@ -429,6 +435,9 @@ main {
 }
 
 .contact-card .label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--ink);
@@ -693,19 +702,627 @@ button:hover,
   transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 
-/* ─── Playbook / Credit Card Cards ─── */
-.playbook-intro {
-  max-width: 640px;
-  margin-bottom: 2rem;
+/* ─── Credit Card Bonus page ───
+   Shared card pieces (.cc-*) are also used by the Referrals page.
+   Status colors come from --good / --warn / --bad so both themes stay readable. */
+.ccb-intro {
+  max-width: 680px;
 }
 
-.playbook-intro p {
+.ccb-lede {
+  margin: 0 0 0.75rem;
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--muted);
-  margin: 0 0 0.75rem;
 }
 
+.ccb-lede b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.ccb-meta {
+  margin: 0 0 0.6rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--faint);
+}
+
+/* Personal / Business toggle */
+.ccb-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+
+.ccb-toolbar .ccb-meta {
+  flex: 1 1 320px;
+  margin: 0;
+}
+
+.ccb-toggle {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+}
+
+.ccb-toggle button {
+  padding: 0.4rem 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--faint);
+  font-weight: 500;
+}
+
+.ccb-toggle button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.ccb-toggle button:hover {
+  opacity: 1;
+  color: var(--ink);
+}
+
+.ccb-toggle button[aria-pressed="true"]:hover {
+  color: var(--bg);
+}
+
+.ccb-toggle button:focus-visible,
+.ccb-panel summary:focus-visible,
+.cc-cta:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Panels and collapsible sections */
+.ccb-panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
+}
+
+.ccb-panel summary {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.ccb-panel[open] summary {
+  margin-bottom: 1rem;
+}
+
+.ccb-panel-title {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.ccb-prose p {
+  margin: 0 0 0.75rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* Eligibility checker */
+.ccb-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0 1rem;
+  margin-top: 0.75rem;
+}
+
+.ccb-fields label {
+  min-height: 2.6em;
+  font-weight: 400;
+}
+
+.ccb-had {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+}
+
+.ccb-had legend {
+  padding: 0 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.ccb-had h5 {
+  margin: 0.5rem 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.ccb-had-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.15rem 1rem;
+}
+
+.ccb-had label,
+.ccb-checks label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.ccb-checker input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.ccb-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ccb-summary {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink);
+}
+
+/* Chart: bonus value per $100 of spend */
+.ccb-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.75rem;
+  color: var(--faint);
+}
+
+.ccb-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ccb-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.ccb-swatch-record,
+.ccb-bar-record {
+  background: var(--good);
+  fill: var(--good);
+}
+
+.ccb-swatch-near,
+.ccb-bar-near {
+  background: var(--faint);
+  fill: var(--faint);
+  opacity: 0.55;
+}
+
+.ccb-chart,
+.ccb-spark {
+  position: relative;
+}
+
+.ccb-chart svg,
+.ccb-spark svg {
+  display: block;
+  overflow: visible;
+}
+
+.ccb-chart-label {
+  font-size: 12px;
+  fill: var(--muted);
+}
+
+.ccb-chart-value {
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+
+.ccb-chart-tick {
+  font-size: 11px;
+  fill: var(--faint);
+}
+
+.ccb-chart-grid {
+  stroke: var(--line);
+}
+
+.ccb-hit {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.ccb-tip {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 150px;
+  max-width: 240px;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--bg);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  font-size: 0.75rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.ccb-tip b {
+  color: var(--ink);
+}
+
+/* Card list */
+.ccb-list {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+
+.ccb-card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ccb-art {
+  flex: 0 0 132px;
+}
+
+.ccb-art img {
+  width: 132px;
+  height: auto;
+  border-radius: 0.45rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.ccb-art-fallback {
+  display: flex;
+  align-items: flex-end;
+  width: 132px;
+  aspect-ratio: 1.586;
+  padding: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.45rem;
+  background: linear-gradient(135deg, var(--panel), var(--bg-soft));
+  font-size: 0.68rem;
+  color: var(--faint);
+}
+
+.ccb-card-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.ccb-card-title h4 {
+  margin: 0.2rem 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.ccb-card-title h4 a {
+  color: inherit;
+}
+
+.ccb-card-title h4 a:hover {
+  opacity: 0.7;
+}
+
+.ccb-rank {
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--faint);
+}
+
+.ccb-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* Long chip text wraps instead of pushing the card wider than the screen */
+.ccb-chips .cc-badge {
+  flex-shrink: 1;
+  min-width: 0;
+  white-space: normal;
+}
+
+.ccb-dim {
+  opacity: 0.55;
+}
+
+.ccb-history {
+  margin-top: 1rem;
+}
+
+.ccb-history .ccb-meta {
+  margin: 0.35rem 0 0;
+}
+
+.ccb-spark {
+  min-height: 64px;
+}
+
+.ccb-spark-line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.ccb-spark-best {
+  stroke: var(--faint);
+  stroke-dasharray: 3 3;
+}
+
+.ccb-spark-now {
+  fill: var(--good);
+}
+
+.ccb-spark-hover {
+  fill: var(--bg);
+  stroke: var(--ink);
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.ccb-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.ccb-card .lbl {
+  margin-bottom: 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.ccb-earn,
+.ccb-perks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ccb-earn li,
+.ccb-perks li {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.ccb-earn li:last-child,
+.ccb-perks li:last-child {
+  border-bottom: 0;
+}
+
+.ccb-earn b {
+  flex: 0 0 2.8rem;
+  color: var(--ink);
+}
+
+.ccb-perks li {
+  justify-content: space-between;
+}
+
+.ccb-perks b {
+  flex-shrink: 0;
+  max-width: 45%;
+  text-align: right;
+  font-weight: 500;
+  color: var(--good);
+}
+
+.ccb-perks .ccb-perk b {
+  color: var(--faint);
+}
+
+.ccb-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.ccb-card-foot .ccb-meta {
+  margin: 0;
+}
+
+.ccb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.ccb-actions .cc-cta {
+  margin-top: 0;
+}
+
+.ccb-official {
+  font-size: 0.78rem;
+  color: var(--faint);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ccb-empty {
+  padding: 1rem 0;
+  font-size: 0.85rem;
+  color: var(--faint);
+  list-style: none;
+}
+
+/* Transfer bonus table */
+.ccb-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+}
+
+.ccb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.ccb-table th,
+.ccb-table td {
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ccb-table th {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--faint);
+  background: var(--panel);
+  white-space: nowrap;
+}
+
+.ccb-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ccb-table td {
+  color: var(--muted);
+}
+
+.ccb-table .ccb-num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.ccb-date {
+  white-space: nowrap;
+}
+
+.ccb-pct {
+  font-weight: 600;
+  color: var(--good);
+}
+
+.ccb-soon {
+  font-weight: 600;
+  color: var(--warn);
+}
+
+.ccb-why {
+  min-width: 240px;
+  color: var(--faint);
+}
+
+/* Sweet spots grid (reuses .card-grid and .card) */
+.ccb-spots,
+.ref-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ccb-spot-value {
+  margin-top: 0.75rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--good);
+  font-variant-numeric: tabular-nums;
+}
+
+.ccb-spots .card p.ccb-meta {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  color: var(--faint);
+}
+
+/* Issuer rules */
+.ccb-rules {
+  display: grid;
+  grid-template-columns: minmax(170px, max-content) 1fr;
+  gap: 0.55rem 1.25rem;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.ccb-rules dt {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ccb-rules dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Referrals page */
+.ref-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ref-card p {
+  flex: 1;
+}
+
+.ref-badge {
+  margin-top: 0.75rem;
+}
+
+.ref-badge:hover {
+  color: var(--good);
+  opacity: 0.8;
+}
+
+/* Shared credit card pieces */
 .cc-grid {
   display: grid;
   gap: 1.25rem;
@@ -723,39 +1340,11 @@ button:hover,
   border-color: rgba(128, 128, 128, 0.25);
 }
 
-.cc-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.cc-card-top h4 {
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--ink);
-  transition: color 0.35s ease;
-}
-
-.cc-card-top h4 a {
-  color: inherit;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.cc-card-top h4 a:hover {
-  opacity: 0.7;
-}
-
 .cc-issuer {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--faint);
-  margin-top: 0.15rem;
 }
 
 .cc-badge {
@@ -769,22 +1358,34 @@ button:hover,
 }
 
 .cc-badge.high {
-  background: rgba(74, 222, 128, 0.1);
-  color: #4ade80;
-  border: 1px solid rgba(74, 222, 128, 0.2);
+  background: color-mix(in srgb, var(--good) 10%, transparent);
+  color: var(--good);
+  border: 1px solid color-mix(in srgb, var(--good) 25%, transparent);
 }
 
 .cc-badge.near {
-  background: rgba(251, 191, 36, 0.1);
-  color: #fbbf24;
-  border: 1px solid rgba(251, 191, 36, 0.2);
+  background: color-mix(in srgb, var(--warn) 10%, transparent);
+  color: var(--warn);
+  border: 1px solid color-mix(in srgb, var(--warn) 25%, transparent);
+}
+
+.cc-badge.bad {
+  background: color-mix(in srgb, var(--bad) 10%, transparent);
+  color: var(--bad);
+  border: 1px solid color-mix(in srgb, var(--bad) 25%, transparent);
+}
+
+.cc-badge.plain {
+  background: rgba(128, 128, 128, 0.08);
+  color: var(--faint);
+  border: 1px solid var(--line);
+  font-weight: 500;
 }
 
 .cc-details {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-top: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
 }
 
 .cc-detail-box {
@@ -803,31 +1404,20 @@ button:hover,
 }
 
 .cc-detail-box .val {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #4ade80;
+  color: var(--good);
 }
 
 .cc-detail-box .val.fee {
-  color: #fbbf24;
+  color: var(--warn);
 }
 
 .cc-detail-box .sub {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
   color: var(--faint);
-  margin-top: 0.2rem;
-}
-
-.cc-detail-box ul {
-  list-style: disc;
-  padding-left: 1rem;
-  margin: 0;
-}
-
-.cc-detail-box ul li {
-  font-size: 0.82rem;
-  color: var(--muted);
-  margin-bottom: 0.2rem;
+  margin-top: 0.25rem;
 }
 
 .cc-cta {
@@ -923,8 +1513,18 @@ footer {
 }
 
 .footer-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-size: 0.82rem;
   color: var(--faint);
+}
+
+/* Social logos from images/icons.svg; they take the color of their link */
+.icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 .footer-links a:hover {
@@ -966,6 +1566,106 @@ footer .copyright {
   }
 
   nav ul {
+    gap: 0.5rem 1rem;
+    flex-wrap: wrap;
+  }
+
+  .ccb-card {
+    padding: 1.1rem;
+  }
+
+  .ccb-card-head {
+    flex-wrap: wrap;
+  }
+
+  .cc-details {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cc-detail-box {
+    padding: 0.75rem;
+  }
+
+  .cc-detail-box .val {
+    font-size: 1.05rem;
+  }
+
+  .ccb-art,
+  .ccb-art img,
+  .ccb-art-fallback {
+    width: 110px;
+    flex-basis: 110px;
+  }
+
+  .ccb-card-title {
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .ccb-rank {
+    margin-left: auto;
+  }
+
+  /* Transfer table becomes one stacked block per bonus, labelled from data-label */
+  .ccb-table thead {
+    display: none;
+  }
+
+  .ccb-table,
+  .ccb-table tbody,
+  .ccb-table tr,
+  .ccb-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .ccb-table tr {
+    padding: 0.75rem 0.9rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ccb-table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .ccb-table td,
+  .ccb-table .ccb-num {
+    display: flex;
+    justify-content: space-between;
     gap: 1rem;
+    padding: 0.15rem 0;
+    border: 0;
+    text-align: right;
+  }
+
+  .ccb-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--faint);
+  }
+
+  .ccb-table td.ccb-why {
+    display: block;
+    min-width: 0;
+    padding-top: 0.4rem;
+    text-align: left;
+  }
+
+  .ccb-table td.ccb-why::before {
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .ccb-rules {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .ccb-rules dd {
+    margin-bottom: 0.6rem;
   }
 }

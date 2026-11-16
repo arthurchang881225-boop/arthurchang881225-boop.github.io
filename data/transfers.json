@@ -1,0 +1,138 @@
+{
+  "updated": "2026-11-14",
+  "note": "Bilt has no partner bonus running. Its Rent Day promotions usually add one-day transfer bonuses on the 1st of the month, so check on December 1. Transfers cannot be undone, so find award space before you move points.",
+  "transfers": [
+    {
+      "id": "chase_ihg",
+      "program": "Chase Ultimate Rewards",
+      "partner": "IHG One Rewards",
+      "bonus_pct": 80,
+      "base_ratio": 1,
+      "ends": "2026-12-03",
+      "note": "Only for a specific IHG stay you already priced; IHG points are worth about half a cent.",
+      "sweet_spot": "A 40,000-point IHG night at a mid-range hotel",
+      "partner_points": 40000
+    },
+    {
+      "id": "citi_turkish",
+      "program": "Citi ThankYou",
+      "partner": "Turkish Airlines Miles&Smiles",
+      "bonus_pct": 40,
+      "base_ratio": 1,
+      "ends": "2026-11-30",
+      "note": "Bonus capped at 50,000 miles. Cheap Star Alliance awards, including United flights.",
+      "sweet_spot": "One-way United economy within the U.S., from about 12,500 miles",
+      "partner_points": 12500
+    },
+    {
+      "id": "amex_marriott",
+      "program": "Amex Membership Rewards",
+      "partner": "Marriott Bonvoy",
+      "bonus_pct": 35,
+      "base_ratio": 1,
+      "ends": "2026-12-10",
+      "note": "Still a weak rate for most stays; skip unless topping off an award.",
+      "sweet_spot": "A 40,000-point Marriott night (5th night free on 5-night award stays)",
+      "partner_points": 40000
+    },
+    {
+      "id": "amex_virgin",
+      "program": "Amex Membership Rewards",
+      "partner": "Virgin Atlantic Flying Club",
+      "bonus_pct": 30,
+      "base_ratio": 1,
+      "ends": "2026-11-30",
+      "note": "Strong for Delta One and ANA business class award space.",
+      "sweet_spot": "One-way Delta One business class to Europe, from about 50,000 points",
+      "partner_points": 50000
+    },
+    {
+      "id": "c1_virgin",
+      "program": "Capital One Miles",
+      "partner": "Virgin Atlantic Flying Club",
+      "bonus_pct": 30,
+      "base_ratio": 1,
+      "ends": "2026-11-20",
+      "note": "Same sweet spots as Amex to Virgin, ending sooner.",
+      "sweet_spot": "One-way Delta One business class to Europe, from about 50,000 points",
+      "partner_points": 50000
+    },
+    {
+      "id": "c1_copa",
+      "program": "Capital One Miles",
+      "partner": "Copa ConnectMiles",
+      "bonus_pct": 30,
+      "base_ratio": 0.75,
+      "ends": "2026-12-01",
+      "note": "Transfer ratio is 2:1.5; trackers disagree on the math, so confirm before moving points.",
+      "sweet_spot": "",
+      "partner_points": 0
+    },
+    {
+      "id": "chase_ba",
+      "program": "Chase Ultimate Rewards",
+      "partner": "British Airways Executive Club",
+      "bonus_pct": 30,
+      "base_ratio": 1,
+      "ends": "2026-12-01",
+      "note": "Avios for short-haul American and Alaska flights.",
+      "sweet_spot": "Short one-way American or Alaska flight, from about 9,000 Avios",
+      "partner_points": 9000
+    },
+    {
+      "id": "chase_iberia",
+      "program": "Chase Ultimate Rewards",
+      "partner": "Iberia Plus",
+      "bonus_pct": 30,
+      "base_ratio": 1,
+      "ends": "2026-12-01",
+      "note": "Off-peak Iberia business class to Madrid is the classic use.",
+      "sweet_spot": "Off-peak one-way business class, East Coast to Madrid, from about 34,000 Avios",
+      "partner_points": 34000
+    },
+    {
+      "id": "chase_aerlingus",
+      "program": "Chase Ultimate Rewards",
+      "partner": "Aer Lingus AerClub",
+      "bonus_pct": 30,
+      "base_ratio": 1,
+      "ends": "2026-12-01",
+      "note": "Avios pool; good for off-peak Dublin business class.",
+      "sweet_spot": "",
+      "partner_points": 0
+    },
+    {
+      "id": "chase_wyndham",
+      "program": "Chase Ultimate Rewards",
+      "partner": "Wyndham Rewards",
+      "bonus_pct": 30,
+      "base_ratio": 1,
+      "ends": "2026-12-03",
+      "note": "Useful for Vacasa rentals and fixed-price go free nights.",
+      "sweet_spot": "A night in a Vacasa vacation rental, 15,000 points per bedroom",
+      "partner_points": 15000
+    },
+    {
+      "id": "c1_flyingblue",
+      "program": "Capital One Miles",
+      "partner": "Air France-KLM Flying Blue",
+      "bonus_pct": 20,
+      "base_ratio": 1,
+      "ends": "2026-11-30",
+      "note": "Pair with monthly Promo Rewards to Europe.",
+      "sweet_spot": "One-way economy to Europe on a Promo Rewards sale, often from about 15,000 miles",
+      "partner_points": 15000
+    },
+    {
+      "id": "citi_cathay",
+      "program": "Citi ThankYou",
+      "partner": "Cathay Pacific Asia Miles",
+      "bonus_pct": 10,
+      "base_ratio": 1,
+      "ends": "2026-11-14",
+      "note": "Last day.",
+      "sweet_spot": "",
+      "partner_points": 0
+    }
+  ]
+}

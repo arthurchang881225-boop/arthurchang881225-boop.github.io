@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <!-- Shared page shell: header, navigation, and theme toggle for every page -->
     <header>
       <div class="header-top">
         <div class="site-brand">
@@ -18,7 +19,8 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="blog.html">Blog</a></li>
-            <li><a href="playbook.html">Playbook</a></li>
+            <li><a href="credit-card-bonus.html">Credit Card Bonus</a></li>
+            <li><a href="referrals.html">Referrals</a></li>
             <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
           </nav>
@@ -37,31 +39,33 @@
     </header>
 
     <main>
+      <!-- Contact directory: quick-access links to the main profiles and channels -->
       <section class="section-block animate-on-scroll" style="border-top:none; margin-top:0; padding-top:0;">
         <div class="section-header">
           <h3>Contact</h3>
         </div>
 
         <div class="contact-grid stagger">
-          <a href="mailto:arthur@example.com" class="contact-card animate-on-scroll" style="text-decoration:none;">
-            <div class="label">Email</div>
-            <div class="value">arthur@example.com</div>
+          <a href="https://github.com/arthurchang881225-boop" target="_blank" rel="noopener" class="contact-card animate-on-scroll" style="text-decoration:none;">
+            <div class="label"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-github"></use></svg>GitHub</div>
+            <div class="value">arthurchang881225-boop</div>
           </a>
-          <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank" class="contact-card animate-on-scroll" style="text-decoration:none;">
-            <div class="label">LinkedIn</div>
+          <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank" rel="noopener" class="contact-card animate-on-scroll" style="text-decoration:none;">
+            <div class="label"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-linkedin"></use></svg>LinkedIn</div>
             <div class="value">in/arthurchangcpa</div>
           </a>
-          <a href="https://www.instagram.com/ayo.chill.out" target="_blank" class="contact-card animate-on-scroll" style="text-decoration:none;">
-            <div class="label">Instagram</div>
+          <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener" class="contact-card animate-on-scroll" style="text-decoration:none;">
+            <div class="label"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-instagram"></use></svg>Instagram</div>
             <div class="value">@ayo.chill.out</div>
           </a>
-          <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" class="contact-card animate-on-scroll" style="text-decoration:none;">
-            <div class="label">Spotify</div>
+          <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener" class="contact-card animate-on-scroll" style="text-decoration:none;">
+            <div class="label"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-spotify"></use></svg>Spotify</div>
             <div class="value">Arthur's Playlists</div>
           </a>
         </div>
       </section>
 
+      <!-- Contact form: visitor can send a note directly from the page -->
       <section class="section-block animate-on-scroll">
         <div class="contact-form-section">
           <h3>Or send a message</h3>
@@ -69,10 +73,6 @@
             <div>
               <label for="name">Name</label>
               <input type="text" id="name" name="name" required>
-            </div>
-            <div>
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required>
             </div>
             <div>
               <label for="message">Message</label>
@@ -85,12 +85,12 @@
     </main>
 
     <footer>
+      <!-- Footer links: quick connections to the author's main social profiles -->
       <div class="footer-links">
-        <a href="https://github.com/arthurchang" target="_blank">GitHub</a>
-        <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank">LinkedIn</a>
-        <a href="https://www.instagram.com/ayo.chill.out" target="_blank">Instagram</a>
-        <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank">Spotify</a>
-        <a href="mailto:arthur@example.com">Email</a>
+        <a href="https://github.com/arthurchang881225-boop" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-github"></use></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-linkedin"></use></svg>LinkedIn</a>
+        <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-instagram"></use></svg>Instagram</a>
+        <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-spotify"></use></svg>Spotify</a>
       </div>
       <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
     </footer>

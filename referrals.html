@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Chang | Referrals</title>
+    <meta name="description" content="Arthur Chang's referral links for credit cards and bank accounts.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <!--
+      Referrals page.
+      Fixed layout only: js/referrals.js draws one section per group in
+      data/referrals.json into #ref-groups. To add a link (including bank accounts),
+      add an item to that file; this page does not need to change.
+    -->
+
+    <!-- Shared page shell: navigation and theme control -->
+    <header>
+      <div class="header-top">
+        <div class="site-brand">
+          <h1><a href="index.html">Arthur Chang</a></h1>
+        </div>
+        <div class="nav-group">
+          <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="credit-card-bonus.html">Credit Card Bonus</a></li>
+              <li><a href="referrals.html" class="active">Referrals</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Intro and referral disclosure -->
+      <section class="section-block animate-on-scroll" style="border-top:none; margin-top:0; padding-top:0;">
+        <div class="section-header">
+          <h3>Referrals</h3>
+          <a href="credit-card-bonus.html">Which cards are at a record high &rarr;</a>
+        </div>
+        <div class="ccb-intro">
+          <p class="ccb-lede">
+            These are my referral links. If you're approved through one, I may earn points or a bonus
+            at no cost to you, and some banks give you a bonus too.
+          </p>
+          <p class="ccb-meta">
+            Referral offers can differ from the public offer, so compare the amount on the bank's page
+            before you apply. Only open an account you'd want anyway.
+          </p>
+        </div>
+      </section>
+
+      <!-- Referral groups: drawn by js/referrals.js -->
+      <div id="ref-groups">
+        <p class="ccb-meta">Loading referral links&hellip;</p>
+      </div>
+    </main>
+
+    <footer>
+      <!-- Footer links: social destinations with their logos -->
+      <div class="footer-links">
+        <a href="https://github.com/arthurchang881225-boop" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-github"></use></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-linkedin"></use></svg>LinkedIn</a>
+        <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-instagram"></use></svg>Instagram</a>
+        <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-spotify"></use></svg>Spotify</a>
+      </div>
+      <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="js/referrals.js"></script>
+  </body>
+</html>

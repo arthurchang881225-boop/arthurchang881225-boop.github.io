@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-14",
+  "updated": "2026-11-16",
   "note": "Bilt has no partner bonus running. Its Rent Day promotions usually add one-day transfer bonuses on the 1st of the month, so check on December 1. Transfers cannot be undone, so find award space before you move points.",
   "transfers": [
     {
@@ -122,17 +122,6 @@
       "note": "Pair with monthly Promo Rewards to Europe.",
       "sweet_spot": "One-way economy to Europe on a Promo Rewards sale, often from about 15,000 miles",
       "partner_points": 15000
-    },
-    {
-      "id": "citi_cathay",
-      "program": "Citi ThankYou",
-      "partner": "Cathay Pacific Asia Miles",
-      "bonus_pct": 10,
-      "base_ratio": 1,
-      "ends": "2026-11-14",
-      "note": "Last day.",
-      "sweet_spot": "",
-      "partner_points": 0
     }
   ]
 }

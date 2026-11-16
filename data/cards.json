@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-14",
+  "updated": "2026-11-16",
   "cards": [
     {
       "id": "amex_platinum",
@@ -26,7 +26,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 14, 2026",
+      "verified": "Checked on americanexpress.com, Nov 16, 2026",
       "history": [
         {
           "month": "2021-07",
@@ -148,7 +148,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 14, 2026",
+      "verified": "Checked on americanexpress.com, Nov 16, 2026",
       "history": [
         {
           "month": "2020-10",
@@ -256,7 +256,7 @@
       "amex_credit": true,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 14, 2026",
+      "verified": "Checked on americanexpress.com, Nov 16, 2026",
       "history": [
         {
           "month": "2025-01",
@@ -350,7 +350,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Citi's site hides the amount from automated browsers; figure from Doctor of Credit and US Credit Card Guide, Nov 2026",
+      "verified": "Citi's site hides the amount from automated browsers; figure from US Credit Card Guide and Doctor of Credit, Nov 16, 2026 (DoC lists it via Citi's in-flight/airport link)",
       "history": [],
       "history_source": "",
       "earn": [
@@ -415,7 +415,7 @@
       "amex_credit": false,
       "chase_524": true,
       "barclays": false,
-      "verified": "Checked on chase.com, Nov 14, 2026",
+      "verified": "Checked on chase.com, Nov 16, 2026",
       "history": [
         {
           "month": "2022-01",
@@ -563,7 +563,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": true,
-      "verified": "Checked on luxurycard.com, Nov 14, 2026 (spend requirement from US Credit Card Guide)",
+      "verified": "Checked on luxurycard.com, Nov 16, 2026 (spend requirement from US Credit Card Guide)",
       "history": [],
       "history_source": "",
       "earn": [
@@ -628,7 +628,7 @@
       "amex_credit": true,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 14, 2026",
+      "verified": "Checked on americanexpress.com, Nov 16, 2026",
       "history": [
         {
           "month": "2023-07",
@@ -779,7 +779,7 @@
       "amex_credit": false,
       "chase_524": true,
       "barclays": false,
-      "verified": "Checked on chase.com, Nov 14, 2026",
+      "verified": "Checked on chase.com, Nov 16, 2026 (end date from earlier check; chase.com shows Offer ends soon without a date)",
       "history": [
         {
           "month": "2026-10",
@@ -873,7 +873,7 @@
       "amex_credit": false,
       "chase_524": true,
       "barclays": false,
-      "verified": "Checked on chase.com, Nov 14, 2026",
+      "verified": "Checked on chase.com, Nov 16, 2026 (end date from earlier check; chase.com shows Offer ends soon without a date)",
       "history": [
         {
           "month": "2022-04",
@@ -1019,7 +1019,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on bankofamerica.com, Nov 14, 2026",
+      "verified": "Checked on bankofamerica.com, Nov 16, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1089,7 +1089,7 @@
       "amex_credit": false,
       "chase_524": true,
       "barclays": false,
-      "verified": "Checked on chase.com, Nov 14, 2026",
+      "verified": "Checked on chase.com, Nov 16, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1162,7 +1162,7 @@
       "amex_credit": false,
       "chase_524": true,
       "barclays": false,
-      "verified": "Checked on chase.com, Nov 14, 2026",
+      "verified": "Checked on chase.com, Nov 16, 2026 (end date from earlier check; chase.com shows Offer ends soon without a date)",
       "history": [
         {
           "month": "2022-03",
@@ -1296,7 +1296,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on bankofamerica.com, Nov 14, 2026",
+      "verified": "Checked on bankofamerica.com, Nov 16, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1356,7 +1356,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 14, 2026",
+      "verified": "Checked on americanexpress.com, Nov 16, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1460,7 +1460,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 14, 2026",
+      "verified": "Checked on americanexpress.com, Nov 16, 2026",
       "history": [
         {
           "month": "2019-11",
@@ -1551,7 +1551,7 @@
       "amex_credit": false,
       "chase_524": true,
       "barclays": false,
-      "verified": "Checked on chase.com, Nov 14, 2026",
+      "verified": "Checked on chase.com, Nov 16, 2026",
       "history": [
         {
           "month": "2025-06",
@@ -1595,11 +1595,7 @@
       ],
       "highlights": [
         {
-          "label": "The Edit hotel credit (max $250 per booking",
-          "annual": 0
-        },
-        {
-          "label": " $1,000 from 2027)",
+          "label": "The Edit hotel credit (max $250 per booking, $1,000 from 2027)",
           "value": "$500 a year",
           "annual": 500
         },
@@ -1675,7 +1671,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Citi's site hides the amount from automated browsers; figure from Doctor of Credit and US Credit Card Guide, Nov 2026",
+      "verified": "Citi's site hides the amount from automated browsers; figure from US Credit Card Guide and Doctor of Credit, Nov 16, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1740,7 +1736,7 @@
       "amex_credit": true,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 14, 2026",
+      "verified": "Checked on americanexpress.com, Nov 16, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1766,6 +1762,79 @@
         },
         {
           "label": "Earns transferable Membership Rewards points with no annual fee",
+          "value": "Included",
+          "annual": 0
+        }
+      ]
+    },
+    {
+      "id": "us_bank_business_altitude_connect",
+      "segment": "business",
+      "card": "U.S. Bank Business Altitude Connect Visa Signature Card",
+      "short": "USB Biz Altitude Connect",
+      "issuer": "U.S. Bank",
+      "program": "U.S. Bank points",
+      "kind": "Travel points",
+      "url": "https://www.usbank.com/business-banking/business-credit-cards/business-altitude-connect-credit-card.html",
+      "image": "images/cards/us_bank_business_altitude_connect.jpg",
+      "bonus_points": 75000,
+      "as_high_as": false,
+      "bonus_extra": "Points are worth 1 cent each toward travel or cash",
+      "spend": 6000,
+      "months": 6,
+      "ends": "",
+      "best_ever": 75000,
+      "best_note": "Ties its highest offer (Mar 2026)",
+      "annual_fee": 0,
+      "fee_note": "$0 the first year, then $95",
+      "cpp": 1,
+      "rule_family": "usbank_altitude_connect_business",
+      "amex_credit": false,
+      "chase_524": false,
+      "barclays": false,
+      "verified": "Checked on usbank.com, Nov 16, 2026 (record status from CreditCompound and Doctor of Credit)",
+      "history": [
+        {
+          "month": "2026-03",
+          "points": 75000
+        },
+        {
+          "month": "2026-11",
+          "points": 75000
+        }
+      ],
+      "history_source": "Doctor of Credit (bonus raised to 75,000 on Mar 28, 2026); CreditCompound all-time-high list, Nov 9, 2026",
+      "earn": [
+        {
+          "rate": "5x",
+          "what": "Prepaid hotels and car rentals in the U.S. Bank Travel Center"
+        },
+        {
+          "rate": "4x",
+          "what": "Travel, gas and EV charging (first $150,000 a year)"
+        },
+        {
+          "rate": "2x",
+          "what": "Dining, takeout, delivery and cell phone services"
+        },
+        {
+          "rate": "1x",
+          "what": "Everything else"
+        }
+      ],
+      "highlights": [
+        {
+          "label": "Priority Pass membership with 4 lounge visits a year",
+          "value": "Lounge access",
+          "annual": 0
+        },
+        {
+          "label": "Rideshare credit after 3 straight months of taxi or rideshare purchases",
+          "value": "$25",
+          "annual": 0
+        },
+        {
+          "label": "No foreign transaction fees and free employee cards",
           "value": "Included",
           "annual": 0
         }

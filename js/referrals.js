@@ -38,6 +38,20 @@
   // One referral entry, styled like the site's other content cards.
   function buildItem(item, records) {
     var li = el('li', 'card ref-card');
+
+    // Card art, or a plain placeholder for entries without one (for example bank accounts).
+    if (item.image) {
+      var img = el('img', 'ref-art');
+      img.src = item.image;
+      img.alt = item.name + ' card art';
+      img.loading = 'lazy';
+      img.width = 220;
+      img.height = 139;
+      li.appendChild(img);
+    } else {
+      li.appendChild(el('div', 'ref-art ccb-art-fallback', item.issuer));
+    }
+
     li.appendChild(el('div', 'meta', item.issuer));
     li.appendChild(el('h4', null, item.name));
     if (item.note) li.appendChild(el('p', null, item.note));

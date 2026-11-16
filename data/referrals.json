@@ -8,73 +8,109 @@
           "id": "amex-platinum",
           "name": "The Platinum Card from American Express",
           "issuer": "American Express",
+          "image": "images/cards/amex_platinum.jpg",
           "note": "The link also opens Amex's list of personal cards with referral offers, including the Gold Card.",
           "url": "https://www.americanexpress.com/en-us/referral/personal/platinum-card?CORID=A~R~T~H~U~C~e~u~A~L-1794789490653-140308&GENCODE=349992803625302&XL=MIZNS&extlink=US-MGM-MOBI_OVERVIEW_PZN-native-137-205937-K5SH%3A9841&ref=ARTHUCeuAL",
-          "card_ids": ["amex_platinum"]
+          "card_ids": [
+            "amex_platinum"
+          ]
         },
         {
           "id": "amex-hilton",
           "name": "Hilton Honors cards from American Express",
           "issuer": "American Express",
+          "image": "images/cards/hilton_aspire.jpg",
           "note": "Choose the Hilton Honors, Surpass or Aspire card.",
           "url": "https://www.americanexpress.com/en-us/credit-cards/referral/prospect/hilton-honors/personal?CORID=A~R~T~H~U~C~P~L~J~k-1794789500211-141264&GENCODE=349993550408112&XL=MIZNS&extlink=US-MGM-MOBI_OVERVIEW_PZN-native-117-205937-K7GE%3A9999&ref=ARTHUCPLJk",
-          "card_ids": ["hilton_honors", "hilton_surpass", "hilton_aspire"]
+          "card_ids": [
+            "hilton_honors",
+            "hilton_surpass",
+            "hilton_aspire"
+          ]
         },
         {
           "id": "amex-blue-business-plus",
           "name": "The Blue Business Plus Card from American Express",
           "issuer": "American Express",
+          "image": "images/cards/amex_blue_business_plus.jpg",
           "note": "Business card. Earns transferable Membership Rewards points with no annual fee.",
           "url": "https://www.americanexpress.com/en-us/referral/business/bluebusinessplus-credit-card?CORID=A~R~T~H~U~C~0~s~U~z-1794789503779-139035&GENCODE=349993368934200&XL=MIZNS&extlink=US-MGM-MOBI_OVERVIEW_PZN-native-1110-205937-K44D%3A9933&ref=ARTHUC0sUz",
-          "card_ids": ["amex_blue_business_plus"]
+          "card_ids": [
+            "amex_blue_business_plus"
+          ]
         },
         {
           "id": "amex-marriott-business",
           "name": "Marriott Bonvoy Business American Express Card",
           "issuer": "American Express",
+          "image": "images/cards/amex_marriott_business.png",
           "note": "Business card. Earns Marriott Bonvoy points.",
           "url": "https://www.americanexpress.com/en-us/referral/business/marriott-bonvoy-business-american-express-card?CORID=A~R~T~H~U~C~7~e~W~R-1794789506967-138727&GENCODE=349993465088421&XL=MIZNS&extlink=US-MGM-MOBI_OVERVIEW_PZN-native-474-205937-KB9Q%3A9969&ref=ARTHUC7eWR",
-          "card_ids": ["amex_marriott_business"]
+          "card_ids": [
+            "amex_marriott_business"
+          ]
         },
         {
           "id": "amex-delta-gold-business",
           "name": "Delta SkyMiles Gold Business American Express Card",
           "issuer": "American Express",
+          "image": "images/cards/delta_gold_business.png",
           "note": "Business card. Earns Delta SkyMiles.",
           "url": "https://www.americanexpress.com/en-us/referral/business/delta-skymiles-gold?CORID=A~R~T~H~U~C~Q~W~c~3-1794789509223-141097&GENCODE=349993484180555&XL=MIZNS&extlink=US-MGM-MOBI_OVERVIEW_PZN-native-112-205937-K4DL%3A9906&ref=ARTHUCQWc3",
-          "card_ids": ["delta_gold_business"]
+          "card_ids": [
+            "delta_gold_business"
+          ]
         },
         {
           "id": "chase-sapphire",
           "name": "Chase Sapphire Reserve or Sapphire Preferred",
           "issuer": "Chase",
+          "image": "images/cards/chase_sapphire_reserve.png",
           "note": "Choose either Sapphire card on Chase's page.",
           "url": "https://www.referyourchasecard.com/19y/CD9F4B89AR",
-          "card_ids": ["chase_sapphire_reserve", "chase_sapphire_preferred"]
+          "card_ids": [
+            "chase_sapphire_reserve",
+            "chase_sapphire_preferred"
+          ]
         },
         {
           "id": "chase-business",
           "name": "Chase business cards",
           "issuer": "Chase",
+          "image": "images/cards/chase_sapphire_reserve_business.jpg",
           "note": "Sapphire Reserve for Business, Ink Business Cash or Ink Business Unlimited.",
           "url": "https://www.referyourchasecard.com/21h/BWFFJ918UH",
-          "card_ids": ["chase_sapphire_reserve_business", "ink_business_cash", "ink_business_unlimited"]
+          "card_ids": [
+            "chase_sapphire_reserve_business",
+            "ink_business_cash",
+            "ink_business_unlimited"
+          ]
         },
         {
           "id": "chase-marriott",
           "name": "Marriott Bonvoy cards from Chase",
           "issuer": "Chase",
+          "image": "images/cards/marriott_boundless.png",
           "note": "Choose the Boundless, Bold or Bountiful card.",
           "url": "https://www.referyourchasecard.com/252x/IYOLOLOJPY",
-          "card_ids": ["marriott_boundless", "marriott_bold", "marriott_bountiful"]
+          "card_ids": [
+            "marriott_boundless",
+            "marriott_bold",
+            "marriott_bountiful"
+          ]
         },
         {
           "id": "capital-one",
           "name": "Capital One travel cards",
           "issuer": "Capital One",
+          "image": "images/cards/capital_one_venture_x.png",
           "note": "Choose Venture X, Venture or VentureOne. Checking your offer does not affect your credit score.",
           "url": "https://i.capitalone.com/GCZg5VkvT",
-          "card_ids": ["capital_one_venture_x", "capital_one_venture", "capital_one_ventureone"]
+          "card_ids": [
+            "capital_one_venture_x",
+            "capital_one_venture",
+            "capital_one_ventureone"
+          ]
         }
       ]
     },
@@ -86,25 +122,35 @@
           "id": "chase-freedom",
           "name": "Chase Freedom Unlimited or Freedom Flex",
           "issuer": "Chase",
+          "image": "images/cards/chase_freedom_unlimited.png",
           "note": "Choose either Freedom card on Chase's page.",
           "url": "https://www.referyourchasecard.com/18s/NAHSMASQKN",
-          "card_ids": ["chase_freedom_unlimited", "chase_freedom_flex"]
+          "card_ids": [
+            "chase_freedom_unlimited",
+            "chase_freedom_flex"
+          ]
         },
         {
           "id": "amex-blue-business-cash",
           "name": "The Blue Business Cash Card from American Express",
           "issuer": "American Express",
+          "image": "images/cards/amex_blue_business_cash.png",
           "note": "Business card with no annual fee.",
           "url": "https://www.americanexpress.com/en-us/referral/business/bluebusinesscash-credit-card?CORID=A~R~T~H~U~C~m~A~o~T-1794789511824-138759&GENCODE=349993435701590&XL=MIZNS&extlink=US-MGM-MOBI_OVERVIEW_PZN-native-1169-205937-K466%3A9956&ref=ARTHUCmAoT",
-          "card_ids": ["amex_blue_business_cash"]
+          "card_ids": [
+            "amex_blue_business_cash"
+          ]
         },
         {
           "id": "discover-it",
           "name": "Discover it Cash Back",
           "issuer": "Discover",
+          "image": "images/cards/discover_it_cash_back.png",
           "note": "No annual fee.",
           "url": "https://i.capitalone.com/GrbSDMbhZ",
-          "card_ids": ["discover_it_cash_back"]
+          "card_ids": [
+            "discover_it_cash_back"
+          ]
         }
       ]
     },

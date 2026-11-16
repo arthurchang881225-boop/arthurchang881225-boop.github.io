@@ -281,7 +281,7 @@
   /* ─── 4. Drawing ─── */
 
   // Intro sentence: record counts, top pick per segment and the richest transfer bonus.
-  function drawIntro(checkedNote, updated) {
+  function drawIntro() {
     function top(segment) {
       return data.ranked.filter(function (r) { return r.segment === segment && r.rank === 1; })[0];
     }
@@ -302,8 +302,6 @@
         ' from ' + t.t.program + ' to ' + t.t.partner + ', through ' + fmtDay(t.t.ends) + '.');
     }
     fill(document.getElementById('ccb-lede'), parts);
-    document.getElementById('ccb-checked').textContent =
-      'Last updated ' + fmtDay(updated, true) + '. ' + (checkedNote || '');
   }
 
   // Checkbox list of every card, grouped by type, for "cards you have had".
@@ -608,8 +606,7 @@
       slot('highlights').appendChild(li);
     });
 
-    // Footer: where the offer was checked, Apply (referral link when there is one).
-    slot('verified').textContent = c.verified || '';
+    // Footer: Apply (referral link when there is one).
     var apply = slot('apply');
     apply.href = applyUrl;
     apply.setAttribute('aria-label', 'Apply for ' + c.card);
@@ -646,14 +643,10 @@
       list.appendChild(el('li', 'ccb-empty', hidden + ' ' + plural(hidden, 'card is', 'cards are') + ' hidden by your filters.'));
     }
     // Sparklines need the card in the page first so they can measure their width.
+    // Cards without enough offer history hide the whole Offer history block.
     built.forEach(function (b) {
       var box = b.node.querySelector('[data-slot="spark"]');
-      var note = b.node.querySelector('[data-slot="spark-note"]');
-      var drawn = drawSparkline(box, b.r);
-      note.textContent = drawn
-        ? 'Dashed line: best offer before today (' + fmtInt(b.r.card.best_ever) + '). Source: ' + b.r.card.history_source + '.'
-        : 'No dated offer history on file yet. Best offer before today: ' + fmtInt(b.r.card.best_ever) + ' ' + unit(b.r.card) + '.';
-      if (!drawn) box.hidden = true;
+      if (!drawSparkline(box, b.r)) box.closest('.ccb-history').hidden = true;
     });
   }
 
@@ -785,7 +778,7 @@
     data.transfers = liveTransfers(transfersFile.transfers || []);
     data.referralByCard = referralMap(referralsFile);
 
-    drawIntro(cardsFile.checked_note, cardsFile.updated);
+    drawIntro();
     drawHadList();
     drawTransfers(transfersFile.note);
     drawSweetSpots();

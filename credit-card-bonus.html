@@ -48,7 +48,7 @@
     </header>
 
     <main>
-      <!-- Intro: what the page tracks, when offers were checked, and the referral disclosure -->
+      <!-- Intro: one-sentence summary of this week's best offers -->
       <section class="section-block animate-on-scroll" style="border-top:none; margin-top:0; padding-top:0;">
         <div class="section-header">
           <h3>Credit Card Bonus</h3>
@@ -57,26 +57,15 @@
 
         <div class="ccb-intro">
           <p class="ccb-lede" id="ccb-lede">Loading this week's offers&hellip;</p>
-          <p class="ccb-meta" id="ccb-checked"></p>
-          <p class="ccb-meta">
-            Some Apply buttons are my referral links. If you're approved through one, I may earn
-            points at no cost to you. A referral offer can differ from the public offer shown here,
-            so check the amount on the bank's page before you apply.
-          </p>
         </div>
       </section>
 
-      <!-- Card type toggle and the ranking rule in one sentence -->
+      <!-- Card type toggle -->
       <section class="section-block animate-on-scroll ccb-toolbar">
         <div class="ccb-toggle" role="group" aria-label="Card type">
           <button type="button" data-segment="personal" aria-pressed="true">Personal</button>
           <button type="button" data-segment="business" aria-pressed="false">Business</button>
         </div>
-        <p class="ccb-meta">
-          Any travel rewards card qualifies: airline, hotel and flexible-points cards from any bank.
-          Cards at their record-high bonus come first, ranked by estimated value. If fewer than 5 are,
-          the list is topped up with the cards closest to their record.
-        </p>
       </section>
 
       <!-- Eligibility and spending checker: answers stay in the browser and filter the list below -->
@@ -171,30 +160,8 @@
         <ul class="card-grid ccb-spots" id="ccb-spots"></ul>
       </section>
 
-      <!-- Method and issuer rules: static reference text -->
-      <section class="section-block animate-on-scroll" id="ccb-method">
-        <details class="ccb-panel">
-          <summary>How the ranking works</summary>
-          <div class="ccb-prose">
-            <p>
-              A card is a record-high offer when its current public welcome bonus matches or beats the
-              most points or miles it has ever offered, based on each card's offer history (Upgraded
-              Points, CreditCompound, CardCurator and Doctor of Credit), then confirmed on the issuer's
-              application page. Offers that were bigger only because they added free nights or
-              certificates are noted on the card. Special links that only some people see do not count.
-            </p>
-            <p>
-              Record-high cards are ranked by estimated bonus value. If fewer than 5 qualify, the next
-              cards are the ones whose current bonus is the largest share of their best-ever bonus.
-            </p>
-            <p>
-              Estimated value multiplies the bonus by the cents-per-point figure shown on each card.
-              Yearly credits are shown at face value; perks without a fixed dollar amount are listed but
-              not counted.
-            </p>
-          </div>
-        </details>
-
+      <!-- Issuer rules: static reference text -->
+      <section class="section-block animate-on-scroll" id="ccb-rules">
         <details class="ccb-panel">
           <summary>Before you apply</summary>
           <dl class="ccb-rules">
@@ -267,7 +234,7 @@
           <div class="ccb-history">
             <div class="lbl">Offer history</div>
             <div class="ccb-spark" data-slot="spark"></div>
-            <p class="ccb-meta" data-slot="spark-note"></p>
+            <p class="ccb-meta">Dashed line: the best offer before today.</p>
           </div>
 
           <div class="ccb-columns">
@@ -282,7 +249,6 @@
           </div>
 
           <div class="ccb-card-foot">
-            <p class="ccb-meta" data-slot="verified"></p>
             <div class="ccb-actions">
               <a class="cc-cta" data-slot="apply" target="_blank" rel="noopener">Apply &rarr;</a>
               <a class="ccb-official" data-slot="official" target="_blank" rel="noopener">Official offer page</a>
@@ -295,10 +261,10 @@
     <footer>
       <!-- Footer links: social destinations with their logos -->
       <div class="footer-links">
-        <a href="https://github.com/arthurchang881225-boop" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-github"></use></svg>GitHub</a>
-        <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-linkedin"></use></svg>LinkedIn</a>
-        <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-instagram"></use></svg>Instagram</a>
-        <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#icon-spotify"></use></svg>Spotify</a>
+        <a href="https://github.com/arthurchang881225-boop" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-github"></use></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-linkedin"></use></svg>LinkedIn</a>
+        <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>Instagram</a>
+        <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-spotify"></use></svg>Spotify</a>
       </div>
       <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
     </footer>

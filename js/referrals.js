@@ -60,7 +60,7 @@
     var hit = (item.card_ids || []).filter(function (id) { return records[id]; })[0];
     if (hit) {
       var badge = el('a', 'cc-badge high ref-badge', 'Record-high bonus this week');
-      badge.href = 'credit-card-bonus.html#' + records[hit];
+      badge.href = '/credit-card-bonus#' + records[hit];
       li.appendChild(badge);
     }
 

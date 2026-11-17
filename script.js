@@ -3,7 +3,9 @@
   - remembers the user's theme choice
   - types the homepage greeting
   - reveals content on scroll
-  - runs the countdown clock
+  - home page: 40 summers / 40 winters dots and countdown clock, word-by-word reveal
+  - pages the arrow buttons of any .gallery
+  - shows old .html addresses as clean ones, and keeps the current page visible in the nav
   - adds the social logos used in footers and on the contact page
 */
 
@@ -77,42 +79,192 @@
   }
 })();
 
-/* ─── Countdown Timer to 2080/12/31 23:59:59 ─── */
+/* ─── 40 Summers, 40 Winters ───
+   One summer (June to August) and one winter (December to February) per year from
+   2024 through 2063, ending December 31, 2063. Fills the "left" counts, one dot per
+   season, and a live countdown clock. */
 (function () {
-  var container = document.getElementById('countdown');
-  if (!container) return;
+  var FIRST_YEAR = 2024;
+  var LAST_YEAR = 2063;
+  var END = new Date(LAST_YEAR, 11, 31, 23, 59, 59);   // December 31, 2063
 
-  var target = new Date(2080, 11, 31, 23, 59, 59).getTime();
+  var clock = document.getElementById('countdown');
+  var grid = document.getElementById('season-grid');
+  if (!clock && !grid) return;
+
+  /* Start and end of one season; the last winter is cut off at END */
+  function season(kind, year) {
+    var start = kind === 'summer' ? new Date(year, 5, 1) : new Date(year, 11, 1);
+    var end = kind === 'summer' ? new Date(year, 8, 1) : new Date(year + 1, 2, 1);
+    return { start: start, end: end < END ? end : END };
+  }
+
+  /* 'spent' once a season is over, 'now' while it is happening, otherwise 'ahead' */
+  function seasonState(kind, year, now) {
+    var s = season(kind, year);
+    if (now >= s.end) return 'spent';
+    if (now >= s.start) return 'now';
+    return 'ahead';
+  }
+
+  function drawSeasons() {
+    var now = new Date();
+    ['summer', 'winter'].forEach(function (kind) {
+      var row = grid.querySelector('[data-season="' + kind + '"]');
+      var left = 0;
+      row.innerHTML = '';
+      for (var year = FIRST_YEAR; year <= LAST_YEAR; year++) {
+        var state = seasonState(kind, year, now);
+        if (state !== 'spent') left++;
+        var dot = document.createElement('span');
+        dot.className = 'season-dot ' + kind + ' ' + state;
+        dot.style.setProperty('--i', year - FIRST_YEAR);
+        dot.title = kind === 'summer' ? 'Summer ' + year : 'Winter ' + year + '–' + String(year + 1).slice(2);
+        row.appendChild(dot);
+      }
+      var count = document.getElementById(kind + 's-left');
+      if (count) count.textContent = left;
+    });
+  }
+
+  /* Whole calendar years, then days, hours, minutes and seconds */
+  function timeLeft(now) {
+    var years = 0;
+    var mark = new Date(now.getTime());
+    while (true) {
+      var next = new Date(mark.getTime());
+      next.setFullYear(next.getFullYear() + 1);
+      if (next > END) break;
+      mark = next;
+      years++;
+    }
+    var rest = Math.max(0, END - mark);
+    return {
+      years: years,
+      days: Math.floor(rest / 86400000),
+      hours: Math.floor((rest % 86400000) / 3600000),
+      minutes: Math.floor((rest % 3600000) / 60000),
+      seconds: Math.floor((rest % 60000) / 1000)
+    };
+  }
 
   function pad(n) {
     return n < 10 ? '0' + n : '' + n;
   }
 
-  function render() {
-    var now = Date.now();
-    var diff = Math.max(0, target - now);
-
-    var secs  = Math.floor(diff / 1000);
-    var mins  = Math.floor(secs / 60);
-    var hrs   = Math.floor(mins / 60);
-    var days  = Math.floor(hrs / 24);
-    var years = Math.floor(days / 365.25);
-
-    days  = Math.floor((diff - years * 365.25 * 86400000) / 86400000);
-    hrs   = Math.floor((diff % 86400000) / 3600000);
-    mins  = Math.floor((diff % 3600000) / 60000);
-    secs  = Math.floor((diff % 60000) / 1000);
-
-    container.innerHTML =
-      '<div class="unit"><span class="num">' + years + '</span><span class="lbl">Years</span></div>' +
-      '<div class="unit"><span class="num">' + days + '</span><span class="lbl">Days</span></div>' +
-      '<div class="unit"><span class="num">' + pad(hrs) + '</span><span class="lbl">Hours</span></div>' +
-      '<div class="unit"><span class="num">' + pad(mins) + '</span><span class="lbl">Minutes</span></div>' +
-      '<div class="unit"><span class="num">' + pad(secs) + '</span><span class="lbl">Seconds</span></div>';
+  function drawClock() {
+    var t = timeLeft(new Date());
+    clock.innerHTML =
+      '<div class="unit"><span class="num">' + t.years + '</span><span class="lbl">Years</span></div>' +
+      '<div class="unit"><span class="num">' + t.days + '</span><span class="lbl">Days</span></div>' +
+      '<div class="unit"><span class="num">' + pad(t.hours) + '</span><span class="lbl">Hours</span></div>' +
+      '<div class="unit"><span class="num">' + pad(t.minutes) + '</span><span class="lbl">Minutes</span></div>' +
+      '<div class="unit"><span class="num">' + pad(t.seconds) + '</span><span class="lbl">Seconds</span></div>';
   }
 
-  render();
-  setInterval(render, 1000);
+  if (grid) drawSeasons();
+  if (clock) {
+    drawClock();
+    setInterval(drawClock, 1000);
+  }
+})();
+
+/* ─── Word Reveal ───
+   Splits each .reveal-words element into words that light up one by one as the
+   element moves up the screen, like a sentence being read. With reduced motion the
+   CSS shows every word at once. */
+(function () {
+  var blocks = document.querySelectorAll('.reveal-words');
+  if (!blocks.length) return;
+
+  blocks.forEach(function (block) {
+    var words = block.textContent.trim().split(/\s+/);
+    block.setAttribute('aria-label', words.join(' '));
+    block.textContent = '';
+    words.forEach(function (w, i) {
+      var span = document.createElement('span');
+      span.className = 'word';
+      span.setAttribute('aria-hidden', 'true');
+      span.textContent = w;
+      if (i) block.appendChild(document.createTextNode(' '));
+      block.appendChild(span);
+    });
+  });
+
+  function update() {
+    var vh = window.innerHeight;
+    blocks.forEach(function (block) {
+      var box = block.getBoundingClientRect();
+      // 0 when the block's top reaches 85% down the screen, 1 when its bottom reaches 45%.
+      var start = vh * 0.85;
+      var end = vh * 0.45;
+      var progress = (start - box.top) / (start - end + box.height);
+      progress = Math.min(1, Math.max(0, progress));
+      var words = block.querySelectorAll('.word');
+      var lit = Math.round(progress * words.length);
+      words.forEach(function (w, i) { w.classList.toggle('lit', i < lit); });
+    });
+  }
+
+  var queued = false;
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { queued = false; update(); });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+
+/* ─── Gallery Arrows ───
+   The arrow buttons under a .gallery page its track left or right and turn off at
+   either end. */
+(function () {
+  document.querySelectorAll('.gallery').forEach(function (gallery) {
+    var track = gallery.querySelector('.gallery-track');
+    var prev = gallery.querySelector('[data-dir="-1"]');
+    var next = gallery.querySelector('[data-dir="1"]');
+    if (!track || !prev || !next) return;
+
+    function updateButtons() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max;
+    }
+
+    [prev, next].forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var dir = Number(btn.getAttribute('data-dir'));
+        track.scrollBy({ left: dir * track.clientWidth * 0.8, behavior: 'smooth' });
+      });
+    });
+
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+  });
+})();
+
+/* ─── Clean Addresses ───
+   Old links such as /about.html still work; this shows them as /about in the
+   address bar, matching the site's links. */
+(function () {
+  var path = location.pathname;
+  if (!/\.html$/.test(path) || location.protocol === 'file:') return;
+  var clean = path.replace(/index\.html$/, '').replace(/\.html$/, '');
+  history.replaceState(null, '', clean + location.search + location.hash);
+})();
+
+/* ─── Current Page in the Nav ───
+   On narrow screens the nav is one row you can swipe; this brings the current
+   page's link into view. */
+(function () {
+  var nav = document.querySelector('nav');
+  var active = nav && nav.querySelector('a.active');
+  if (!active || nav.scrollWidth <= nav.clientWidth) return;
+  nav.scrollLeft = active.offsetLeft - (nav.clientWidth - active.offsetWidth) / 2;
 })();
 
 /* ─── Social Icons ───

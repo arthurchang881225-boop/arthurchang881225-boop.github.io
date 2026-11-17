@@ -20,7 +20,8 @@
       "best_ever": 175000,
       "best_note": "Highest offer on record",
       "annual_fee": 895,
-      "fee_note": "Not waived",
+      "first_year_fee": 895,
+      "fee_note": "",
       "cpp": 2,
       "rule_family": "amex_platinum_personal",
       "amex_credit": false,
@@ -60,7 +61,7 @@
           "what": "Everything else"
         }
       ],
-      "highlights": [
+      "credits": [
         {
           "label": "Hotel credit on prepaid Fine Hotels + Resorts or The Hotel Collection",
           "value": "$300 twice a year",
@@ -110,16 +111,16 @@
           "label": "Global Entry or TSA PreCheck fee credit",
           "value": "$120 every 4 years",
           "annual": 30
-        },
+        }
+      ],
+      "highlights": [
         {
           "label": "Centurion, Priority Pass and Delta Sky Club lounge access",
-          "value": "Amex values it at $850+",
-          "annual": 0
+          "value": "Amex values it at $850+"
         },
         {
           "label": "Hilton Gold and Marriott Gold Elite status",
-          "value": "Status",
-          "annual": 0
+          "value": "Status"
         }
       ]
     },
@@ -142,7 +143,8 @@
       "best_ever": 100000,
       "best_note": "Ties its highest public offer",
       "annual_fee": 325,
-      "fee_note": "Not waived",
+      "first_year_fee": 325,
+      "fee_note": "",
       "cpp": 2,
       "rule_family": "amex_gold_personal",
       "amex_credit": false,
@@ -198,7 +200,7 @@
           "what": "Everything else"
         }
       ],
-      "highlights": [
+      "credits": [
         {
           "label": "Dining credit at Grubhub, Five Guys, Cheesecake Factory and others",
           "value": "$10 a month",
@@ -223,11 +225,12 @@
           "label": "The Hotel Collection credit",
           "value": "$100 per stay of 2+ nights",
           "annual": 0
-        },
+        }
+      ],
+      "highlights": [
         {
           "label": "No foreign transaction fees",
-          "value": "Included",
-          "annual": 0
+          "value": ""
         }
       ]
     },
@@ -250,7 +253,8 @@
       "best_ever": 125000,
       "best_note": "Ties its best (Oct 2025); some earlier 125k offers also added Comfort certificates",
       "annual_fee": 650,
-      "fee_note": "Not waived",
+      "first_year_fee": 650,
+      "fee_note": "",
       "cpp": 1.2,
       "rule_family": "delta_reserve",
       "amex_credit": true,
@@ -282,7 +286,7 @@
           "what": "Everything else"
         }
       ],
-      "highlights": [
+      "credits": [
         {
           "label": "Resy restaurant credit",
           "value": "$20 a month",
@@ -302,91 +306,24 @@
           "label": "Global Entry or TSA PreCheck fee credit",
           "value": "$120 every 4 years",
           "annual": 30
-        },
-        {
-          "label": "Delta Sky Club: 15 visits a year, unlimited after $75,000 spend",
-          "value": "Lounge access",
-          "annual": 0
-        },
-        {
-          "label": "Centurion Lounge access when flying Delta",
-          "value": "Lounge access",
-          "annual": 0
-        },
-        {
-          "label": "Companion Certificate each renewal (First, Comfort or Main)",
-          "value": "Certificate",
-          "annual": 0
-        },
-        {
-          "label": "$2,500 MQD Headstart toward Medallion status",
-          "value": "Status boost",
-          "annual": 0
-        }
-      ]
-    },
-    {
-      "id": "citi_aa_platinum_select",
-      "segment": "personal",
-      "card": "Citi / AAdvantage Platinum Select World Elite Mastercard",
-      "short": "Citi AA Platinum Select",
-      "issuer": "Citi",
-      "program": "AAdvantage miles",
-      "kind": "Airline",
-      "url": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-elite-credit-card",
-      "image": "images/cards/citi_aa_platinum_select.jpg",
-      "bonus_points": 80000,
-      "as_high_as": false,
-      "bonus_extra": "",
-      "spend": 3500,
-      "months": 4,
-      "ends": "",
-      "best_ever": 80000,
-      "best_note": "Best public offer (earlier high 75,000)",
-      "annual_fee": 0,
-      "fee_note": "$0 the first year, then $99 ($150 from Jan 24, 2027)",
-      "cpp": 1.6,
-      "rule_family": "citi_aa_platinum",
-      "amex_credit": false,
-      "chase_524": false,
-      "barclays": false,
-      "verified": "Citi's site hides the amount from automated browsers; figure from US Credit Card Guide and Doctor of Credit, Nov 16, 2026 (DoC lists it via Citi's in-flight/airport link)",
-      "history": [],
-      "history_source": "",
-      "earn": [
-        {
-          "rate": "2x",
-          "what": "Restaurants and gas stations"
-        },
-        {
-          "rate": "2x",
-          "what": "Eligible American Airlines purchases"
-        },
-        {
-          "rate": "1x",
-          "what": "Everything else"
         }
       ],
       "highlights": [
         {
-          "label": "First checked bag free on domestic American itineraries, for you and up to 4 companions",
-          "value": "Saves up to $40 per bag each way",
-          "annual": 0
+          "label": "Delta Sky Club: 15 visits a year, unlimited after $75,000 spend",
+          "value": "Lounge access"
         },
         {
-          "label": "Preferred boarding on American flights",
-          "value": "Included",
-          "annual": 0
+          "label": "Centurion Lounge access when flying Delta",
+          "value": "Lounge access"
         },
         {
-          "label": "25% back on inflight food and drink",
-          "value": "Statement credit",
-          "annual": 0
+          "label": "Companion Certificate each renewal (First, Comfort or Main)",
+          "value": "Certificate"
         },
         {
-          "label": "$125 American flight discount after $20,000 spend in a card year",
-          "value": "Spend-based",
-          "annual": 0
+          "label": "$2,500 MQD Headstart toward Medallion status",
+          "value": "Status boost"
         }
       ]
     },
@@ -408,8 +345,9 @@
       "ends": "",
       "best_ever": 80000,
       "best_note": "Matches its best (Apr 2026); Chase labels it Our best offer returns",
-      "annual_fee": 0,
-      "fee_note": "$0 the first year, then $150",
+      "annual_fee": 150,
+      "first_year_fee": 0,
+      "fee_note": "",
       "cpp": 1.3,
       "rule_family": "united_explorer",
       "amex_credit": false,
@@ -505,36 +443,34 @@
           "what": "Everything else"
         }
       ],
-      "highlights": [
+      "credits": [
         {
           "label": "Global Entry, TSA PreCheck or NEXUS fee credit",
           "value": "$120 every 4 years",
           "annual": 30
         },
         {
-          "label": "Free first checked bag for you and a companion",
-          "value": "Saves up to $200 per round trip",
-          "annual": 0
-        },
-        {
-          "label": "2 United Club one-time passes a year",
-          "value": "Chase values them at $100+",
-          "annual": 0
-        },
-        {
-          "label": "Group 2 priority boarding",
-          "value": "Included",
-          "annual": 0
-        },
-        {
           "label": "United travel credit after $10,000 spend in a year",
           "value": "$100, spend-based",
           "annual": 0
+        }
+      ],
+      "highlights": [
+        {
+          "label": "Free first checked bag for you and a companion",
+          "value": "Saves up to $200 per round trip"
+        },
+        {
+          "label": "2 United Club one-time passes a year",
+          "value": "Chase values them at $100+"
+        },
+        {
+          "label": "Group 2 priority boarding",
+          "value": ""
         },
         {
           "label": "25% back on inflight purchases",
-          "value": "Statement credit",
-          "annual": 0
+          "value": "Statement credit"
         }
       ]
     },
@@ -546,7 +482,7 @@
       "issuer": "Luxury Card (Barclays)",
       "program": "Luxury Card points",
       "kind": "Travel points",
-      "url": "https://www.luxurycard.com/",
+      "url": "https://www.luxurycard.com/blackcard",
       "image": "images/cards/luxury_black.jpg",
       "bonus_points": 75000,
       "as_high_as": false,
@@ -557,13 +493,14 @@
       "best_ever": 75000,
       "best_note": "Highest offer on record",
       "annual_fee": 699,
+      "first_year_fee": 699,
       "fee_note": "$249 per authorized user",
       "cpp": 1.5,
       "rule_family": "luxury_black",
       "amex_credit": false,
       "chase_524": false,
       "barclays": true,
-      "verified": "Checked on luxurycard.com, Nov 16, 2026 (spend requirement from US Credit Card Guide)",
+      "verified": "Checked on luxurycard.com, Nov 16, 2026 (card page link fixed)",
       "history": [],
       "history_source": "",
       "earn": [
@@ -580,26 +517,39 @@
           "what": "Point value toward airfare (1.5% as cash back)"
         }
       ],
+      "credits": [
+        {
+          "label": "Airline credit",
+          "value": "$200 a year",
+          "annual": 200
+        },
+        {
+          "label": "Dining credit",
+          "value": "$100 a year",
+          "annual": 100
+        },
+        {
+          "label": "Global Entry or TSA PreCheck application credit",
+          "value": "Up to $120",
+          "annual": 0
+        }
+      ],
       "highlights": [
         {
           "label": "Luxury Card Travel hotel perks at 3,000+ properties",
-          "value": "Luxury Card values them at $750 per stay",
-          "annual": 0
+          "value": "Luxury Card values them at $750 per stay"
         },
         {
           "label": "Priority Pass Select lounge membership",
-          "value": "Lounge access",
-          "annual": 0
+          "value": "Lounge access"
         },
         {
           "label": "24/7 Luxury Card Concierge",
-          "value": "Included",
-          "annual": 0
+          "value": ""
         },
         {
           "label": "No transfer partners, so points top out near 2 cents",
-          "value": "Note",
-          "annual": 0
+          "value": "Note"
         }
       ]
     },
@@ -622,7 +572,8 @@
       "best_ever": 180000,
       "best_note": "Beats its previous high of 180,000 (Oct 2023)",
       "annual_fee": 550,
-      "fee_note": "Not waived",
+      "first_year_fee": 550,
+      "fee_note": "",
       "cpp": 0.5,
       "rule_family": "hilton_aspire",
       "amex_credit": true,
@@ -726,7 +677,7 @@
           "what": "Everything else"
         }
       ],
-      "highlights": [
+      "credits": [
         {
           "label": "Hilton resort credit",
           "value": "$200 twice a year",
@@ -741,256 +692,16 @@
           "label": "Flight credit",
           "value": "$50 a quarter",
           "annual": 200
-        },
+        }
+      ],
+      "highlights": [
         {
           "label": "Annual Free Night Reward, plus more after $30,000 and $60,000 spend",
-          "value": "Free night",
-          "annual": 0
+          "value": "Free night"
         },
         {
           "label": "Hilton Diamond status",
-          "value": "Status",
-          "annual": 0
-        }
-      ]
-    },
-    {
-      "id": "ihg_premier_select",
-      "segment": "personal",
-      "card": "IHG One Rewards Premier Select Credit Card",
-      "short": "IHG Premier Select",
-      "issuer": "Chase",
-      "program": "IHG One Rewards points",
-      "kind": "Hotel",
-      "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select",
-      "image": "images/cards/ihg_premier_select.jpg",
-      "bonus_points": 200000,
-      "as_high_as": false,
-      "bonus_extra": "Launch offer",
-      "spend": 5000,
-      "months": 3,
-      "ends": "2026-11-18",
-      "best_ever": 200000,
-      "best_note": "Launch offer, the card's only offer so far",
-      "annual_fee": 350,
-      "fee_note": "Free authorized users",
-      "cpp": 0.5,
-      "rule_family": "ihg_premier_select",
-      "amex_credit": false,
-      "chase_524": true,
-      "barclays": false,
-      "verified": "Checked on chase.com, Nov 16, 2026 (end date from earlier check; chase.com shows Offer ends soon without a date)",
-      "history": [
-        {
-          "month": "2026-10",
-          "points": 200000
-        },
-        {
-          "month": "2026-11",
-          "points": 200000
-        }
-      ],
-      "history_source": "Upgraded Points",
-      "earn": [
-        {
-          "rate": "12x",
-          "what": "IHG hotels (up to 28x total with status and member points)"
-        },
-        {
-          "rate": "6x",
-          "what": "Dining and all other travel, including rideshare"
-        },
-        {
-          "rate": "3x",
-          "what": "Everything else"
-        }
-      ],
-      "highlights": [
-        {
-          "label": "IHG food and beverage credit (during stays)",
-          "value": "$75 a quarter",
-          "annual": 300
-        },
-        {
-          "label": "Airline credit on flights of $250+",
-          "value": "$200 a year",
-          "annual": 200
-        },
-        {
-          "label": "Instacart credit",
-          "value": "$10 a month",
-          "annual": 120
-        },
-        {
-          "label": "DoorDash grocery and retail promo",
-          "value": "$10 a month",
-          "annual": 120
-        },
-        {
-          "label": "United TravelBank cash",
-          "value": "$25 twice a year",
-          "annual": 50
-        },
-        {
-          "label": "Global Entry, TSA PreCheck or NEXUS fee credit",
-          "value": "$120 every 4 years",
-          "annual": 30
-        },
-        {
-          "label": "Anniversary free night worth up to 60,000 points",
-          "value": "Free night",
-          "annual": 0
-        },
-        {
-          "label": "IHG Platinum Elite status",
-          "value": "Status",
-          "annual": 0
-        }
-      ]
-    },
-    {
-      "id": "ihg_premier",
-      "segment": "personal",
-      "card": "IHG One Rewards Premier Credit Card",
-      "short": "IHG Premier",
-      "issuer": "Chase",
-      "program": "IHG One Rewards points",
-      "kind": "Hotel",
-      "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier",
-      "image": "images/cards/ihg_premier.jpg",
-      "bonus_points": 180000,
-      "as_high_as": false,
-      "bonus_extra": "Chase marks it Offer ends soon",
-      "spend": 3000,
-      "months": 3,
-      "ends": "2026-11-18",
-      "best_ever": 175000,
-      "best_note": "Highest points-only offer (previous 175,000); a 2025 five-free-night offer could be worth more",
-      "annual_fee": 150,
-      "fee_note": "Not waived",
-      "cpp": 0.5,
-      "rule_family": "ihg_personal",
-      "amex_credit": false,
-      "chase_524": true,
-      "barclays": false,
-      "verified": "Checked on chase.com, Nov 16, 2026 (end date from earlier check; chase.com shows Offer ends soon without a date)",
-      "history": [
-        {
-          "month": "2022-04",
-          "points": 140000
-        },
-        {
-          "month": "2023-01",
-          "points": 175000
-        },
-        {
-          "month": "2023-04",
-          "points": 140000
-        },
-        {
-          "month": "2024-02",
-          "points": 165000
-        },
-        {
-          "month": "2024-04",
-          "points": 140000
-        },
-        {
-          "month": "2024-09",
-          "points": 140000
-        },
-        {
-          "month": "2025-01",
-          "points": 170000
-        },
-        {
-          "month": "2025-03",
-          "points": 140000
-        },
-        {
-          "month": "2025-07",
-          "points": 140000
-        },
-        {
-          "month": "2025-09",
-          "points": 165000
-        },
-        {
-          "month": "2025-10",
-          "points": 140000
-        },
-        {
-          "month": "2026-01",
-          "points": 175000
-        },
-        {
-          "month": "2026-03",
-          "points": 140000
-        },
-        {
-          "month": "2026-10",
-          "points": 180000
-        },
-        {
-          "month": "2026-11",
-          "points": 180000
-        }
-      ],
-      "history_source": "Upgraded Points",
-      "earn": [
-        {
-          "rate": "10x",
-          "what": "IHG hotels (up to 24x total with status and member points)"
-        },
-        {
-          "rate": "5x",
-          "what": "Travel, gas and dining"
-        },
-        {
-          "rate": "3x",
-          "what": "Everything else"
-        }
-      ],
-      "highlights": [
-        {
-          "label": "Instacart credit",
-          "value": "$10 a month",
-          "annual": 120
-        },
-        {
-          "label": "DoorDash grocery and retail promo",
-          "value": "$10 a month",
-          "annual": 120
-        },
-        {
-          "label": "IHG food and beverage reward",
-          "value": "$25 a quarter",
-          "annual": 100
-        },
-        {
-          "label": "Airline credit after $250 of flights",
-          "value": "$100 a year",
-          "annual": 100
-        },
-        {
-          "label": "Global Entry, TSA PreCheck or NEXUS fee credit",
-          "value": "$120 every 4 years",
-          "annual": 30
-        },
-        {
-          "label": "Anniversary free night worth up to 40,000 points",
-          "value": "Free night",
-          "annual": 0
-        },
-        {
-          "label": "IHG Platinum Elite status",
-          "value": "Status",
-          "annual": 0
-        },
-        {
-          "label": "DashPass membership",
-          "value": "$120 value",
-          "annual": 0
+          "value": "Status"
         }
       ]
     },
@@ -1002,7 +713,7 @@
       "issuer": "Bank of America",
       "program": "Bank of America points",
       "kind": "Travel points",
-      "url": "https://www.bankofamerica.com/credit-cards/travel-credit-cards/",
+      "url": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-elite-credit-card/",
       "image": "",
       "bonus_points": 75000,
       "as_high_as": false,
@@ -1013,13 +724,14 @@
       "best_ever": 75000,
       "best_note": "Ties its highest recorded offer",
       "annual_fee": 550,
-      "fee_note": "Not waived",
+      "first_year_fee": 550,
+      "fee_note": "",
       "cpp": 1,
       "rule_family": "bofa_pre",
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on bankofamerica.com, Nov 16, 2026",
+      "verified": "Checked on bankofamerica.com, Nov 16, 2026 (card page link fixed)",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1036,7 +748,7 @@
           "what": "More points with top-tier Preferred Rewards banking"
         }
       ],
-      "highlights": [
+      "credits": [
         {
           "label": "Airline incidental credit",
           "value": "$300 a year",
@@ -1051,16 +763,16 @@
           "label": "Global Entry or TSA PreCheck fee credit",
           "value": "$120 every 4 years",
           "annual": 30
-        },
+        }
+      ],
+      "highlights": [
         {
           "label": "Priority Pass Select lounge membership",
-          "value": "Lounge access",
-          "annual": 0
+          "value": "Lounge access"
         },
         {
           "label": "20% off airfare paid with points through BofA Travel",
-          "value": "Included",
-          "annual": 0
+          "value": ""
         }
       ]
     },
@@ -1083,7 +795,8 @@
       "best_ever": 50000,
       "best_note": "Chase labels it Our best offer ever",
       "annual_fee": 0,
-      "fee_note": "No annual fee",
+      "first_year_fee": 0,
+      "fee_note": "",
       "cpp": 1.3,
       "rule_family": "united_gateway",
       "amex_credit": false,
@@ -1114,160 +827,23 @@
           "what": "Everything else"
         }
       ],
+      "credits": [],
       "highlights": [
         {
           "label": "0% intro APR on purchases for 12 months",
-          "value": "Interest saved varies",
-          "annual": 0
+          "value": "Interest saved varies"
         },
         {
           "label": "25% back on inflight purchases",
-          "value": "Statement credit",
-          "annual": 0
+          "value": "Statement credit"
         },
         {
           "label": "2 free checked bags after $10,000 spend in a year",
-          "value": "Spend-based",
-          "annual": 0
+          "value": "Spend-based"
         },
         {
           "label": "10% or more off award flights after $10,000 spend",
-          "value": "Spend-based",
-          "annual": 0
-        }
-      ]
-    },
-    {
-      "id": "ihg_traveler",
-      "segment": "personal",
-      "card": "IHG One Rewards Credit Card",
-      "short": "IHG One Rewards (no fee)",
-      "issuer": "Chase",
-      "program": "IHG One Rewards points",
-      "kind": "Hotel",
-      "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/traveler",
-      "image": "images/cards/ihg_traveler.jpg",
-      "bonus_points": 125000,
-      "as_high_as": false,
-      "bonus_extra": "Chase marks it Offer ends soon",
-      "spend": 2000,
-      "months": 3,
-      "ends": "2026-11-18",
-      "best_ever": 125000,
-      "best_note": "Highest offer on record",
-      "annual_fee": 0,
-      "fee_note": "No annual fee",
-      "cpp": 0.5,
-      "rule_family": "ihg_personal",
-      "amex_credit": false,
-      "chase_524": true,
-      "barclays": false,
-      "verified": "Checked on chase.com, Nov 16, 2026 (end date from earlier check; chase.com shows Offer ends soon without a date)",
-      "history": [
-        {
-          "month": "2022-03",
-          "points": 120000
-        },
-        {
-          "month": "2022-07",
-          "points": 80000
-        },
-        {
-          "month": "2023-01",
-          "points": 120000
-        },
-        {
-          "month": "2023-04",
-          "points": 80000
-        },
-        {
-          "month": "2024-02",
-          "points": 100000
-        },
-        {
-          "month": "2024-04",
-          "points": 80000
-        },
-        {
-          "month": "2024-07",
-          "points": 100000
-        },
-        {
-          "month": "2024-09",
-          "points": 80000
-        },
-        {
-          "month": "2024-10",
-          "points": 100000
-        },
-        {
-          "month": "2024-11",
-          "points": 80000
-        },
-        {
-          "month": "2025-01",
-          "points": 100000
-        },
-        {
-          "month": "2025-03",
-          "points": 80000
-        },
-        {
-          "month": "2025-05",
-          "points": 120000
-        },
-        {
-          "month": "2025-07",
-          "points": 80000
-        },
-        {
-          "month": "2025-10",
-          "points": 80000
-        },
-        {
-          "month": "2026-01",
-          "points": 120000
-        },
-        {
-          "month": "2026-03",
-          "points": 80000
-        },
-        {
-          "month": "2026-10",
-          "points": 125000
-        },
-        {
-          "month": "2026-11",
-          "points": 125000
-        }
-      ],
-      "history_source": "Upgraded Points",
-      "earn": [
-        {
-          "rate": "17x",
-          "what": "Total at IHG hotels with status and member points (see Chase's page for other categories)"
-        }
-      ],
-      "highlights": [
-        {
-          "label": "Instacart credit (with Instacart+)",
-          "value": "$10 a month",
-          "annual": 120
-        },
-        {
-          "label": "DoorDash grocery and retail promo",
-          "value": "$10 a month",
-          "annual": 120
-        },
-        {
-          "label": "DashPass membership",
-          "value": "$120 value",
-          "annual": 0
-        },
-        {
-          "label": "No annual fee",
-          "value": "Included",
-          "annual": 0
+          "value": "Spend-based"
         }
       ]
     },
@@ -1279,7 +855,7 @@
       "issuer": "Bank of America",
       "program": "Bank of America points",
       "kind": "Travel points",
-      "url": "https://www.bankofamerica.com/credit-cards/travel-credit-cards/",
+      "url": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-credit-card/",
       "image": "",
       "bonus_points": 60000,
       "as_high_as": false,
@@ -1290,13 +866,14 @@
       "best_ever": 60000,
       "best_note": "Ties its highest recorded offer",
       "annual_fee": 95,
-      "fee_note": "Not waived",
+      "first_year_fee": 95,
+      "fee_note": "",
       "cpp": 1,
       "rule_family": "bofa_pr",
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on bankofamerica.com, Nov 16, 2026",
+      "verified": "Checked on bankofamerica.com, Nov 16, 2026 (card page link fixed)",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1313,7 +890,7 @@
           "what": "More points with top-tier Preferred Rewards banking"
         }
       ],
-      "highlights": [
+      "credits": [
         {
           "label": "Airline incidental credit",
           "value": "$100 a year",
@@ -1323,11 +900,12 @@
           "label": "Global Entry or TSA PreCheck fee credit",
           "value": "$100 every 4 years",
           "annual": 25
-        },
+        }
+      ],
+      "highlights": [
         {
           "label": "No foreign transaction fees",
-          "value": "Included",
-          "annual": 0
+          "value": ""
         }
       ]
     },
@@ -1350,7 +928,8 @@
       "best_ever": 300000,
       "best_note": "Highest offer on record",
       "annual_fee": 895,
-      "fee_note": "Not waived",
+      "first_year_fee": 895,
+      "fee_note": "",
       "cpp": 2,
       "rule_family": "amex_business_platinum",
       "amex_credit": false,
@@ -1377,12 +956,7 @@
           "what": "Points back on flights paid with points on your chosen airline (up to 1 million a year)"
         }
       ],
-      "highlights": [
-        {
-          "label": "Dell credit ($1,000 more after $5,000 of Dell spend)",
-          "value": "$150 a year",
-          "annual": 150
-        },
+      "credits": [
         {
           "label": "Hotel credit on prepaid Fine Hotels + Resorts or The Hotel Collection",
           "value": "$300 twice a year",
@@ -1419,6 +993,11 @@
           "annual": 200
         },
         {
+          "label": "Dell credit ($1,000 more after $5,000 of Dell spend)",
+          "value": "$150 a year",
+          "annual": 150
+        },
+        {
           "label": "Wireless phone credit",
           "value": "$10 a month",
           "annual": 120
@@ -1427,11 +1006,12 @@
           "label": "Global Entry or TSA PreCheck fee credit",
           "value": "$120 every 4 years",
           "annual": 30
-        },
+        }
+      ],
+      "highlights": [
         {
           "label": "Centurion, Priority Pass and Delta Sky Club lounge access",
-          "value": "Amex values it at $850+",
-          "annual": 0
+          "value": "Amex values it at $850+"
         }
       ]
     },
@@ -1454,7 +1034,8 @@
       "best_ever": 200000,
       "best_note": "Highest offer on record",
       "annual_fee": 375,
-      "fee_note": "Not waived",
+      "first_year_fee": 375,
+      "fee_note": "",
       "cpp": 2,
       "rule_family": "amex_business_gold",
       "amex_credit": false,
@@ -1498,7 +1079,7 @@
           "what": "Everything else"
         }
       ],
-      "highlights": [
+      "credits": [
         {
           "label": "ChatGPT Business credit",
           "value": "$300 a year",
@@ -1518,11 +1099,12 @@
           "label": "Squarespace credit",
           "value": "$150 a year",
           "annual": 150
-        },
+        }
+      ],
+      "highlights": [
         {
           "label": "No preset spending limit",
-          "value": "Included",
-          "annual": 0
+          "value": ""
         }
       ]
     },
@@ -1545,6 +1127,7 @@
       "best_ever": 200000,
       "best_note": "Ties its best public offer (a targeted 300,000 ran in early 2026)",
       "annual_fee": 795,
+      "first_year_fee": 795,
       "fee_note": "Free employee cards",
       "cpp": 2,
       "rule_family": "chase_csr_business",
@@ -1593,7 +1176,7 @@
           "what": "Everything else"
         }
       ],
-      "highlights": [
+      "credits": [
         {
           "label": "The Edit hotel credit (max $250 per booking, $1,000 from 2027)",
           "value": "$500 a year",
@@ -1633,16 +1216,16 @@
           "label": "Global Entry, TSA PreCheck or NEXUS fee credit",
           "value": "$120 every 4 years",
           "annual": 30
-        },
+        }
+      ],
+      "highlights": [
         {
           "label": "Chase Sapphire Lounge and Priority Pass access",
-          "value": "Chase values it at $850+",
-          "annual": 0
+          "value": "Chase values it at $850+"
         },
         {
           "label": "IHG Platinum Elite status through 2027",
-          "value": "Status",
-          "annual": 0
+          "value": "Status"
         }
       ]
     },
@@ -1664,14 +1247,15 @@
       "ends": "",
       "best_ever": 75000,
       "best_note": "Ties its best (standard offer is 65,000)",
-      "annual_fee": 0,
-      "fee_note": "$0 the first year, then $99",
+      "annual_fee": 99,
+      "first_year_fee": 0,
+      "fee_note": "",
       "cpp": 1.6,
       "rule_family": "citi_aa_business",
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Citi's site hides the amount from automated browsers; figure from US Credit Card Guide and Doctor of Credit, Nov 16, 2026",
+      "verified": "Checked on citi.com, Nov 16, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1688,26 +1272,23 @@
           "what": "Everything else"
         }
       ],
+      "credits": [],
       "highlights": [
         {
           "label": "First checked bag free on domestic American itineraries",
-          "value": "Saves up to $40 per bag each way",
-          "annual": 0
+          "value": "Saves up to $40 per bag each way"
         },
         {
           "label": "Preferred boarding on American flights",
-          "value": "Included",
-          "annual": 0
+          "value": ""
         },
         {
           "label": "25% back on inflight food and drink",
-          "value": "Statement credit",
-          "annual": 0
+          "value": "Statement credit"
         },
         {
           "label": "Free employee cards",
-          "value": "Included",
-          "annual": 0
+          "value": ""
         }
       ]
     },
@@ -1730,7 +1311,8 @@
       "best_ever": 50000,
       "best_note": "Ties its highest public offer",
       "annual_fee": 0,
-      "fee_note": "No annual fee",
+      "first_year_fee": 0,
+      "fee_note": "",
       "cpp": 2,
       "rule_family": "amex_bbp",
       "amex_credit": true,
@@ -1749,21 +1331,19 @@
           "what": "Everything after that"
         }
       ],
+      "credits": [],
       "highlights": [
         {
-          "label": "0% intro APR on purchases for 12 months",
-          "value": "Interest saved varies",
-          "annual": 0
+          "label": "Expanded Buying Power above your credit limit",
+          "value": ""
         },
         {
-          "label": "Expanded Buying Power above your credit limit",
-          "value": "Included",
-          "annual": 0
+          "label": "0% intro APR on purchases for 12 months",
+          "value": "Interest saved varies"
         },
         {
           "label": "Earns transferable Membership Rewards points with no annual fee",
-          "value": "Included",
-          "annual": 0
+          "value": ""
         }
       ]
     },
@@ -1785,8 +1365,9 @@
       "ends": "",
       "best_ever": 75000,
       "best_note": "Ties its highest offer (Mar 2026)",
-      "annual_fee": 0,
-      "fee_note": "$0 the first year, then $95",
+      "annual_fee": 95,
+      "first_year_fee": 0,
+      "fee_note": "",
       "cpp": 1,
       "rule_family": "usbank_altitude_connect_business",
       "amex_credit": false,
@@ -1822,21 +1403,21 @@
           "what": "Everything else"
         }
       ],
-      "highlights": [
-        {
-          "label": "Priority Pass membership with 4 lounge visits a year",
-          "value": "Lounge access",
-          "annual": 0
-        },
+      "credits": [
         {
           "label": "Rideshare credit after 3 straight months of taxi or rideshare purchases",
           "value": "$25",
           "annual": 0
+        }
+      ],
+      "highlights": [
+        {
+          "label": "Priority Pass membership with 4 lounge visits a year",
+          "value": "Lounge access"
         },
         {
           "label": "No foreign transaction fees and free employee cards",
-          "value": "Included",
-          "annual": 0
+          "value": ""
         }
       ]
     }

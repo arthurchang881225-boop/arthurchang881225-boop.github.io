@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arthur Chang | Credit Card Bonus</title>
     <meta name="description" content="Travel rewards credit cards with record-high welcome bonuses right now, plus current bank transfer bonuses. Checked weekly.">
+    <link rel="canonical" href="https://ayochillout.com/credit-card-bonus">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -20,17 +21,17 @@
     <header>
       <div class="header-top">
         <div class="site-brand">
-          <h1><a href="index.html">Arthur Chang</a></h1>
+          <h1><a href="/">Arthur Chang</a></h1>
         </div>
         <div class="nav-group">
           <nav>
             <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="blog.html">Blog</a></li>
-              <li><a href="credit-card-bonus.html" class="active">Credit Card Bonus</a></li>
-              <li><a href="referrals.html">Referrals</a></li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/credit-card-bonus" class="active">Credit Card Bonus</a></li>
+              <li><a href="/referrals">Referrals</a></li>
+              <li><a href="/contact">Contact</a></li>
             </ul>
           </nav>
           <button class="theme-toggle" aria-label="Toggle theme">
@@ -49,10 +50,10 @@
 
     <main>
       <!-- Intro: one-sentence summary of this week's best offers -->
-      <section class="section-block animate-on-scroll" style="border-top:none; margin-top:0; padding-top:0;">
+      <section class="section-block page-intro animate-on-scroll">
         <div class="section-header">
           <h3>Credit Card Bonus</h3>
-          <a href="referrals.html">All my referral links &rarr;</a>
+          <a href="/referrals">All my referral links</a>
         </div>
 
         <div class="ccb-intro">
@@ -68,38 +69,81 @@
         </div>
       </section>
 
-      <!-- Eligibility and spending checker: answers stay in the browser and filter the list below -->
+      <!-- Bonus checker: four short questions, one at a time. js/credit-card-bonus.js
+           shows one panel at a time (data-panel) and keeps the answers in memory only. -->
       <section class="section-block animate-on-scroll">
-        <details class="ccb-panel ccb-checker">
-          <summary>Check which bonuses you can get</summary>
-          <p class="ccb-meta">
-            Your answers stay on this page and are not saved or sent anywhere. They apply each bank's
-            published rules, so treat the result as a guide, not an approval.
-          </p>
-          <div class="ccb-fields">
+        <div class="ccb-panel ccb-checker" id="ccb-checker">
+
+          <!-- Before starting -->
+          <div class="ccb-check-start" data-panel="start">
             <div>
-              <label for="ccb-n524">Personal cards you opened in the last 24 months, from any bank</label>
-              <input type="number" id="ccb-n524" min="0" max="40" step="1" inputmode="numeric" placeholder="0">
+              <h4 class="ccb-panel-title">Which of these bonuses can you get?</h4>
+              <p class="ccb-meta">Four quick questions. Your answers stay on this page.</p>
             </div>
-            <div>
-              <label for="ccb-amex">Amex credit cards you have open now (Platinum and Gold are charge cards and don't count)</label>
-              <input type="number" id="ccb-amex" min="0" max="10" step="1" inputmode="numeric" placeholder="0">
+            <button type="button" data-action="start">Find out</button>
+          </div>
+
+          <!-- Questions -->
+          <div class="ccb-quiz" data-panel="quiz" hidden>
+            <div class="ccb-progress">
+              <span>Question <b id="ccb-step-num">1</b> of 4</span>
+              <span class="ccb-progress-bar"><i id="ccb-step-bar"></i></span>
             </div>
-            <div>
-              <label for="ccb-monthly">How much you can put on a new card each month, in dollars</label>
-              <input type="number" id="ccb-monthly" min="0" max="100000" step="100" inputmode="numeric" placeholder="e.g. 2500">
+
+            <div class="ccb-step" data-step="1">
+              <h4 class="ccb-question">How many personal credit cards have you opened in the last 24 months, at any bank?</h4>
+              <div class="ccb-options" data-field="n524" role="group" aria-label="Cards opened in the last 24 months">
+                <button type="button" data-value="2">0 to 2</button>
+                <button type="button" data-value="4">3 or 4</button>
+                <button type="button" data-value="5">5</button>
+                <button type="button" data-value="6">6 or more</button>
+              </div>
+            </div>
+
+            <div class="ccb-step" data-step="2" hidden>
+              <h4 class="ccb-question">What's the most you'd pay in annual fees for one card?</h4>
+              <div class="ccb-options" data-field="maxFee" role="group" aria-label="Highest annual fee">
+                <button type="button" data-value="0">$0</button>
+                <button type="button" data-value="100">Up to $100</button>
+                <button type="button" data-value="400">Up to $400</button>
+                <button type="button" data-value="700">Up to $700</button>
+                <button type="button" data-value="-1">Any fee</button>
+              </div>
+            </div>
+
+            <div class="ccb-step" data-step="3" hidden>
+              <h4 class="ccb-question">How much could you put on a new card each month?</h4>
+              <div class="ccb-options" data-field="monthly" role="group" aria-label="Monthly spending">
+                <button type="button" data-value="500">Under $1,000</button>
+                <button type="button" data-value="1000">$1,000 to $2,500</button>
+                <button type="button" data-value="2500">$2,500 to $5,000</button>
+                <button type="button" data-value="5000">$5,000 or more</button>
+              </div>
+            </div>
+
+            <div class="ccb-step" data-step="4" hidden>
+              <h4 class="ccb-question">Have you had any of these cards? Tap any that apply.</h4>
+              <p class="ccb-meta">Most banks pay a card's bonus only once, or once every few years.</p>
+              <div class="ccb-options ccb-options-multi" id="ccb-had-options" role="group" aria-label="Cards you have had"></div>
+            </div>
+
+            <div class="ccb-quiz-nav">
+              <button type="button" class="ccb-text-button" data-action="back">Back</button>
+              <button type="button" data-action="next" hidden>None of these</button>
             </div>
           </div>
-          <fieldset class="ccb-had">
-            <legend>Cards you have now, or earned a bonus on before</legend>
-            <div id="ccb-had-list"></div>
-          </fieldset>
-          <div class="ccb-checks">
-            <label><input type="checkbox" id="ccb-hide-blocked"> Hide cards I can't get the bonus on</label>
-            <label><input type="checkbox" id="ccb-hide-short"> Hide cards whose minimum spend I can't reach</label>
+
+          <!-- After the last question -->
+          <div class="ccb-check-done" data-panel="done" hidden>
+            <p class="ccb-result" id="ccb-fit-summary" aria-live="polite"></p>
+            <div class="ccb-answers" id="ccb-answers"></div>
+            <div class="ccb-done-actions">
+              <label class="ccb-switch"><input type="checkbox" id="ccb-only-fits" checked> Show only cards that fit</label>
+              <button type="button" class="ccb-text-button" data-action="edit">Change answers</button>
+              <button type="button" class="ccb-text-button" data-action="reset">Start over</button>
+            </div>
           </div>
-          <p class="ccb-summary" id="ccb-fit-summary" aria-live="polite"></p>
-        </details>
+        </div>
       </section>
 
       <!-- Ranked cards for the selected type: comparison chart, then one card per offer -->
@@ -221,13 +265,8 @@
             </div>
             <div class="cc-detail-box">
               <div class="lbl">Annual fee</div>
-              <div class="val fee" data-slot="fee"></div>
+              <div class="val" data-slot="fee"></div>
               <div class="sub" data-slot="fee-note"></div>
-            </div>
-            <div class="cc-detail-box">
-              <div class="lbl">Yearly credits</div>
-              <div class="val" data-slot="credits"></div>
-              <div class="sub">At face value, if you use every one</div>
             </div>
           </div>
 
@@ -237,15 +276,20 @@
             <p class="ccb-meta">Dashed line: the best offer before today.</p>
           </div>
 
-          <div class="ccb-columns">
-            <div>
-              <div class="lbl">Earning rates</div>
+          <!-- Three sections: earning rates (one row per rate), credits with a yearly total, highlights -->
+          <div class="ccb-sections">
+            <section>
+              <h5 class="lbl">Earning rates</h5>
               <ul class="ccb-earn" data-slot="earn"></ul>
-            </div>
-            <div>
-              <div class="lbl">Highlights and their value</div>
+            </section>
+            <section>
+              <h5 class="lbl">Credits</h5>
+              <ul class="ccb-credits" data-slot="credits"></ul>
+            </section>
+            <section>
+              <h5 class="lbl">Highlights</h5>
               <ul class="ccb-perks" data-slot="highlights"></ul>
-            </div>
+            </section>
           </div>
 
           <div class="ccb-card-foot">

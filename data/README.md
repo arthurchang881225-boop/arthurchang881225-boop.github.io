@@ -7,15 +7,16 @@ HTML, CSS and JS alone.
 
 | File | Who changes it | Used by |
 |---|---|---|
-| `cards.json` | Weekly offer check (replaced each run) | Credit Card Bonus, Referrals |
+| `cards.json` | Weekly offer check (replaced each run) | Credit Card Bonus, Referrals, Home (bonus gallery) |
 | `transfers.json` | Weekly offer check (replaced each run) | Credit Card Bonus |
 | `referrals.json` | Arthur, by hand. The weekly check never edits it | Credit Card Bonus, Referrals |
 
 Preview locally with a small web server. Pages opened straight from the file system
-can't load JSON:
+can't load JSON. The site links to clean addresses such as `/about`, which GitHub
+Pages maps to `about.html`; `serve` does the same locally:
 
 ```bash
-python3 -m http.server 8000
+npx serve
 ```
 
 ## cards.json
@@ -35,7 +36,7 @@ Each card:
 | `segment` | `"personal"` or `"business"` | Which toggle tab shows the card |
 | `card`, `short` | string | Full name and short name (charts, checkboxes) |
 | `issuer`, `program`, `kind` | string | Bank, rewards currency, for example "Transferable points" |
-| `url` | string | Official application page |
+| `url` | string | The card's own application page, which must show this offer (not a general list of cards) |
 | `image` | string | `images/cards/<id>.jpg` or `.png`, or `""` to show a placeholder |
 | `bonus_points` | number | Current public welcome bonus |
 | `as_high_as` | boolean | Offer is "as high as" (Amex personalized offers) |
@@ -43,17 +44,23 @@ Each card:
 | `spend`, `months` | number | Minimum spend and the months to reach it |
 | `ends` | string | Offer end date `YYYY-MM-DD`, or `""` |
 | `best_ever`, `best_note` | number, string | Best public bonus before today, with a short note |
-| `annual_fee`, `fee_note` | number, string | Annual fee in dollars, with a note |
+| `annual_fee` | number | The regular yearly fee in dollars (also for cards whose first year is free) |
+| `first_year_fee` | number | What the first year costs. Equal to `annual_fee` unless the first year is waived or reduced; the page then crosses out the regular fee |
+| `fee_note` | string | Only extra fee facts, such as "$249 per authorized user", or `""`. Never "Not waived", "No annual fee" or the first-year waiver, which the page shows itself |
 | `cpp` | number | Cents per point used for the estimated value |
 | `rule_family` | string | Groups cards that share a bonus rule (for example `ihg_personal`) |
-| `amex_credit`, `chase_524`, `barclays` | boolean | Card counts toward the Amex 5-card limit, is subject to Chase 5/24, or is a Barclays card |
+| `amex_credit`, `chase_524`, `barclays` | boolean | Card counts toward the Amex 5-card limit (kept for reference; the checker doesn't ask about it), is subject to Chase 5/24, or is a Barclays card |
 | `verified` | string | Where and when the offer was checked (for the weekly check; not shown on the page) |
 | `history` | array of `{ "month": "YYYY-MM", "points": number }` | Past offers, oldest first. Two or more entries draw the sparkline |
 | `history_source` | string | Where the history came from (not shown on the page) |
-| `earn` | array of `{ "rate": "5x", "what": "…" }` | Earning rates |
-| `highlights` | array of `{ "label", "value", "annual": number }` | Perks. `annual` is the yearly dollar value, or 0 if it has none |
+| `earn` | array of `{ "rate": "5x", "what": "…" }` | Earning rates, one entry per category. The page puts categories with the same `rate` on one row, highest rate first |
+| `credits` | array of `{ "label", "value", "annual": number }` | Statement credits, largest first. `value` is the wording ("$25 a month"); `annual` is the yearly dollar value, or 0 when it can't be counted per year (per stay, after a spend threshold). The page adds up `annual` as the yearly total |
+| `highlights` | array of `{ "label", "value" }` | Other perks: lounges, status, free nights, certificates. `value` is a short note or `""` |
 
 A card is a record-high offer when `bonus_points >= best_ever`.
+
+The home page gallery reads `segment`, `short`, `issuer`, `image`, `bonus_points`,
+`as_high_as`, `best_ever` and `cpp`, so keep those on every card.
 
 ## transfers.json
 

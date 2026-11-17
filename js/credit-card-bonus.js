@@ -34,15 +34,18 @@
     referralByCard: {} // card id -> referral link
   };
 
+  var QUESTIONS = 4; // questions in the bonus checker
+
   // What the visitor has chosen. Kept in memory only, never saved.
+  // An answer is null until its question is answered.
   var state = {
     segment: 'personal',
-    n524: 0,          // personal cards opened in 24 months
-    amexCredit: 0,    // Amex credit cards open now
-    monthly: 0,       // dollars a month the visitor can spend
-    had: {},          // card ids the visitor has held
-    hideBlocked: false,
-    hideShort: false
+    step: 0,          // checker: 0 not started, 1-4 the question shown, 5 finished
+    n524: null,       // personal cards opened in 24 months (2, 4, 5, or 6 meaning 6 or more)
+    maxFee: null,     // highest annual fee they would pay, -1 for any
+    monthly: null,    // dollars a month they can put on a new card
+    had: {},          // card ids they have held
+    onlyFits: true    // after the checker: hide cards that don't fit
   };
 
   // Bonus rule named when a visitor already had that issuer's card.
@@ -159,11 +162,38 @@
 
   /* ─── 3. Calculations ─── */
 
-  // Yearly dollar value of a card's credits (perks with a fixed dollar amount).
+  // Yearly dollar value of a card's statement credits, if every one is used.
   function yearlyCredits(card) {
-    return (card.highlights || []).reduce(function (sum, h) {
-      return sum + (Number(h.annual) || 0);
+    return (card.credits || []).reduce(function (sum, c) {
+      return sum + (Number(c.annual) || 0);
     }, 0);
+  }
+
+  /*
+    One row per earning rate: categories that share a rate are joined, and "Nx"
+    rates are listed highest first. Other rates (such as "2%" or "+75%") follow in
+    their original order.
+  */
+  function groupEarn(earn) {
+    var groups = [];
+    var byRate = {};
+    (earn || []).forEach(function (e) {
+      if (!byRate[e.rate]) {
+        byRate[e.rate] = { rate: e.rate, what: [], order: groups.length };
+        groups.push(byRate[e.rate]);
+      }
+      byRate[e.rate].what.push(e.what);
+    });
+    function multiplier(rate) {
+      var m = /^(\d+(?:\.\d+)?)x$/i.exec(rate);
+      return m ? Number(m[1]) : -1;
+    }
+    return groups.sort(function (a, b) {
+      var ma = multiplier(a.rate), mb = multiplier(b.rate);
+      if (ma >= 0 && mb >= 0) return mb - ma;
+      if (ma >= 0 || mb >= 0) return ma >= 0 ? -1 : 1;
+      return a.order - b.order;
+    });
   }
 
   /*
@@ -204,14 +234,26 @@
     return data.cards.some(function (c) { return state.had[c.id] && c.rule_family === family; });
   }
 
+  // True once the visitor has answered at least one checker question.
+  function answeredAny() {
+    return state.n524 !== null || state.maxFee !== null || state.monthly !== null ||
+      Object.keys(state.had).length > 0;
+  }
+
   /*
-    Apply the issuers' published bonus and approval rules to the visitor's answers.
-    Returns { status: 'ok' | 'blocked' | 'caution', rule, monthlyNeeded, fits }.
-    `fits` is null until the visitor enters a monthly budget.
+    Apply the issuers' published bonus and approval rules, the fee limit and the
+    spending budget to the visitor's answers. Returns:
+      status         'ok' | 'blocked' | 'caution' (bank rules)
+      rule           the rule behind a block or caution
+      monthlyNeeded  spending a month the minimum spend asks for
+      spendOk        true / false, or null before the spending question
+      feeOk          true / false, or null before the fee question
+      fits           false when any answer rules the card out
   */
   function checkFit(card) {
     var status = 'ok';
     var rule = '';
+    var n524 = state.n524 === null ? 0 : state.n524;
     if (state.had[card.id]) {
       status = 'blocked';
       rule = OWN_CARD_RULE[card.issuer] || 'Issuer bonus rule';
@@ -221,22 +263,23 @@
     } else if (card.rule_family === 'ihg_personal' && hadFamily('ihg_personal')) {
       status = 'blocked';
       rule = 'Chase IHG family rule';
-    } else if (card.chase_524 && state.n524 >= 5) {
+    } else if (card.chase_524 && n524 >= 5) {
       status = 'blocked';
       rule = 'Chase 5/24 rule';
-    } else if (card.amex_credit && state.amexCredit >= 5) {
-      status = 'blocked';
-      rule = 'Amex 5-card limit';
-    } else if (card.barclays && state.n524 >= 6) {
+    } else if (card.barclays && n524 >= 6) {
       status = 'caution';
       rule = 'Barclays 6/24 caution';
     }
     var monthlyNeeded = Math.ceil(card.spend / card.months);
+    var spendOk = state.monthly === null ? null : state.monthly >= monthlyNeeded;
+    var feeOk = state.maxFee === null ? null : state.maxFee < 0 || card.annual_fee <= state.maxFee;
     return {
       status: status,
       rule: rule,
       monthlyNeeded: monthlyNeeded,
-      fits: state.monthly > 0 ? state.monthly >= monthlyNeeded : null
+      spendOk: spendOk,
+      feeOk: feeOk,
+      fits: status !== 'blocked' && spendOk !== false && feeOk !== false
     };
   }
 
@@ -304,49 +347,59 @@
     fill(document.getElementById('ccb-lede'), parts);
   }
 
-  // Checkbox list of every card, grouped by type, for "cards you have had".
-  function drawHadList() {
-    var box = document.getElementById('ccb-had-list');
+  /*
+    Question 4: one tap-to-select button per card listed in the current tab, so the
+    visitor only sees the cards that matter here (never the whole data file).
+  */
+  function drawHadOptions() {
+    var box = document.getElementById('ccb-had-options');
     box.textContent = '';
-    ['personal', 'business'].forEach(function (segment) {
-      box.appendChild(el('h5', null, segment === 'personal' ? 'Personal cards' : 'Business cards'));
-      var group = el('div', 'ccb-had-group');
-      data.cards.filter(function (c) { return c.segment === segment; }).forEach(function (c) {
-        var label = el('label');
-        var input = el('input');
-        input.type = 'checkbox';
-        input.value = c.id;
-        input.addEventListener('change', function () {
-          if (input.checked) state.had[c.id] = true;
-          else delete state.had[c.id];
-          drawResults();
-        });
-        label.appendChild(input);
-        label.appendChild(document.createTextNode(' ' + c.short));
-        group.appendChild(label);
+    segmentRows().forEach(function (r) {
+      var btn = el('button', null, r.card.short);
+      btn.type = 'button';
+      btn.setAttribute('aria-pressed', String(Boolean(state.had[r.card.id])));
+      btn.addEventListener('click', function () {
+        if (state.had[r.card.id]) delete state.had[r.card.id];
+        else state.had[r.card.id] = true;
+        btn.setAttribute('aria-pressed', String(Boolean(state.had[r.card.id])));
+        drawQuizNav();
+        drawResults();
       });
-      box.appendChild(group);
+      box.appendChild(btn);
     });
   }
 
-  // One-line answer under the checker: how many cards still fit.
+  // The label of the chosen answer, read from the question's own button.
+  function answerLabel(field) {
+    var btn = document.querySelector('.ccb-options[data-field="' + field + '"] [data-value="' + state[field] + '"]');
+    return btn ? btn.textContent : '';
+  }
+
+  // Small recap of the answers shown after the last question.
+  function drawAnswers() {
+    var box = document.getElementById('ccb-answers');
+    var had = segmentRows().filter(function (r) { return state.had[r.card.id]; }).length;
+    var parts = [
+      answerLabel('n524') + ' new cards in 24 months',
+      state.maxFee < 0 ? 'Any annual fee' : 'Annual fee ' + answerLabel('maxFee').replace(/^Up to/, 'up to'),
+      answerLabel('monthly') + ' a month',
+      had ? 'Had ' + had + ' ' + plural(had, 'card', 'cards') + ' listed here' : 'New to these cards'
+    ];
+    fill(box, parts.map(function (text) { return el('span', 'cc-badge plain', text); }));
+  }
+
+  // One-line result after the checker: how many cards in this tab fit.
   function drawFitSummary() {
+    if (state.step !== QUESTIONS + 1) return;
+    var rows = segmentRows();
+    var ok = rows.filter(function (r) { return checkFit(r.card).fits; }).length;
     var out = document.getElementById('ccb-fit-summary');
-    var answered = state.n524 > 0 || state.amexCredit > 0 || state.monthly > 0 || Object.keys(state.had).length > 0;
-    if (!answered) {
-      out.textContent = 'Answer any of the questions above and each card will show whether you can get its bonus.';
-      return;
+    if (!ok) {
+      out.textContent = 'None of these ' + state.segment + ' cards fit your answers right now.';
+    } else {
+      fill(out, [bold(ok + ' of ' + rows.length), ' ' + state.segment + ' cards fit your answers.']);
     }
-    function part(segment) {
-      var rows = data.cards.filter(function (c) { return c.segment === segment; });
-      var ok = rows.filter(function (c) {
-        var f = checkFit(c);
-        return f.status !== 'blocked' && f.fits !== false;
-      }).length;
-      return ok + ' of ' + rows.length + ' ' + segment;
-    }
-    out.textContent = 'With your answers, ' + part('personal') + ' and ' + part('business') +
-      ' cards fit: you can likely earn the bonus and reach the minimum spend.';
+    drawAnswers();
   }
 
   // Segment heading and the sentence explaining record vs near-record cards.
@@ -535,6 +588,25 @@
     return el('span', 'cc-badge ' + tone, text);
   }
 
+  /*
+    Annual fee box. A fee waived for the first year shows the regular fee crossed
+    out in red next to the first-year price; a regular fee is just the amount.
+  */
+  function drawFee(feeNode, noteNode, card) {
+    var notes = [];
+    feeNode.textContent = '';
+    if (card.first_year_fee < card.annual_fee) {
+      feeNode.appendChild(el('s', 'ccb-fee-old', fmtUsd(card.annual_fee)));
+      feeNode.appendChild(el('span', null, fmtUsd(card.first_year_fee)));
+      feeNode.setAttribute('aria-label', fmtUsd(card.first_year_fee) + ' the first year, then ' + fmtUsd(card.annual_fee));
+      notes.push('First year, then ' + fmtUsd(card.annual_fee) + ' a year');
+    } else {
+      feeNode.textContent = fmtUsd(card.annual_fee);
+    }
+    if (card.fee_note) notes.push(card.fee_note);
+    noteNode.textContent = notes.join('. ');
+  }
+
   // Fill one card from the template.
   function buildCard(template, r) {
     var c = r.card;
@@ -545,7 +617,7 @@
     function slot(name) { return node.querySelector('[data-slot="' + name + '"]'); }
 
     node.id = 'card-' + c.id;
-    if (fit.status === 'blocked') node.classList.add('ccb-dim');
+    if (answeredAny() && !fit.fits) node.classList.add('ccb-dim');
 
     // Card art, or a plain placeholder with the short name.
     var art = slot('art');
@@ -578,33 +650,53 @@
       var soon = left >= 0 && left <= 14;
       chips.appendChild(chip('Ends ' + fmtDay(c.ends, true) + (soon ? ' (' + left + ' ' + plural(left, 'day', 'days') + ' left)' : ''), soon ? 'near' : 'plain'));
     }
+    // Checker results, shown once the visitor has answered something.
     if (fit.status === 'blocked') chips.appendChild(chip('No bonus for you: ' + fit.rule, 'bad'));
     if (fit.status === 'caution') chips.appendChild(chip('Check first: ' + fit.rule, 'near'));
-    if (fit.fits === true) chips.appendChild(chip('Fits your spending (' + fmtUsd(fit.monthlyNeeded) + ' a month)', 'high'));
-    if (fit.fits === false) chips.appendChild(chip('Needs ' + fmtUsd(fit.monthlyNeeded) + ' a month', 'near'));
+    if (fit.feeOk === false) chips.appendChild(chip('Fee above your ' + fmtUsd(state.maxFee) + ' limit', 'near'));
+    if (fit.spendOk === false) chips.appendChild(chip('Needs about ' + fmtUsd(fit.monthlyNeeded) + ' a month', 'near'));
+    if (state.step === QUESTIONS + 1 && fit.fits) chips.appendChild(chip('Fits your answers', 'high'));
 
     // Offer numbers.
     slot('bonus').textContent = (c.as_high_as ? 'Up to ' : '') + fmtInt(c.bonus_points) + ' ' + unit(c);
     slot('spend').textContent = 'After ' + fmtUsd(c.spend) + ' in ' + c.months + ' months' + (c.bonus_extra ? '. ' + c.bonus_extra : '');
     slot('value').textContent = '≈ ' + fmtUsd(r.estValue);
     slot('cpp').textContent = 'At ' + c.cpp + '¢ per ' + unit(c).replace(/s$/, '') + '. $' + r.returnPer100 + ' back per $100 of required spend';
-    slot('fee').textContent = fmtUsd(c.annual_fee);
-    slot('fee-note').textContent = c.fee_note || '';
-    slot('credits').textContent = fmtUsd(r.credits);
+    drawFee(slot('fee'), slot('fee-note'), c);
 
-    // Earning rates and highlights.
-    (c.earn || []).forEach(function (e) {
+    // Earning rates: one row per rate.
+    groupEarn(c.earn).forEach(function (g) {
       var li = el('li');
-      li.appendChild(el('b', null, e.rate));
-      li.appendChild(el('span', null, e.what));
+      li.appendChild(el('b', null, g.rate));
+      li.appendChild(el('span', null, g.what.join(' · ')));
       slot('earn').appendChild(li);
     });
+
+    // Credits, then their yearly total.
+    var credits = slot('credits');
+    (c.credits || []).forEach(function (k) {
+      var li = el('li');
+      li.appendChild(el('span', null, k.label));
+      li.appendChild(el('b', null, k.value));
+      credits.appendChild(li);
+    });
+    if (!(c.credits || []).length) {
+      credits.appendChild(el('li', 'ccb-none', 'No statement credits'));
+    } else if (r.credits > 0) {
+      var total = el('li', 'ccb-total');
+      total.appendChild(el('span', null, 'Yearly total, if you use every one'));
+      total.appendChild(el('b', null, fmtUsd(r.credits)));
+      credits.appendChild(total);
+    }
+
+    // Highlights: perks without a fixed yearly dollar value.
     (c.highlights || []).forEach(function (h) {
-      var li = el('li', h.annual > 0 ? null : 'ccb-perk');
+      var li = el('li');
       li.appendChild(el('span', null, h.label));
-      li.appendChild(el('b', null, h.value));
+      if (h.value) li.appendChild(el('b', null, h.value));
       slot('highlights').appendChild(li);
     });
+    if (!(c.highlights || []).length) slot('highlights').appendChild(el('li', 'ccb-none', 'None listed'));
 
     // Footer: Apply (referral link when there is one).
     var apply = slot('apply');
@@ -627,11 +719,11 @@
     var list = document.getElementById('ccb-list');
     var template = document.getElementById('ccb-card-template');
     list.textContent = '';
+    var filtering = state.step === QUESTIONS + 1 && state.onlyFits;
     var hidden = 0;
     var built = [];
     segmentRows().forEach(function (r) {
-      var fit = checkFit(r.card);
-      if ((state.hideBlocked && fit.status === 'blocked') || (state.hideShort && fit.fits === false)) {
+      if (filtering && !checkFit(r.card).fits) {
         hidden += 1;
         return;
       }
@@ -640,7 +732,13 @@
       built.push({ node: node, r: r });
     });
     if (hidden > 0) {
-      list.appendChild(el('li', 'ccb-empty', hidden + ' ' + plural(hidden, 'card is', 'cards are') + ' hidden by your filters.'));
+      var note = el('li', 'ccb-empty', hidden + ' ' + plural(hidden, 'card is', 'cards are') + " hidden because " +
+        plural(hidden, "it doesn't", "they don't") + ' fit your answers. ');
+      var showAll = el('button', 'ccb-text-button', 'Show ' + plural(hidden, 'it', 'them'));
+      showAll.type = 'button';
+      showAll.addEventListener('click', function () { setOnlyFits(false); });
+      note.appendChild(showAll);
+      list.appendChild(note);
     }
     // Sparklines need the card in the page first so they can measure their width.
     // Cards without enough offer history hide the whole Offer history block.
@@ -727,6 +825,72 @@
     if (updateHash && window.history.replaceState) {
       window.history.replaceState(null, '', '#' + state.segment);
     }
+    drawHadOptions();   // question 4 lists the cards of the current tab
+    drawQuizNav();
+    drawResults();
+  }
+
+  /* Checker: show one of its panels (start, quiz, done) */
+  function showPanel(name) {
+    document.querySelectorAll('#ccb-checker [data-panel]').forEach(function (panel) {
+      panel.hidden = panel.getAttribute('data-panel') !== name;
+    });
+  }
+
+  /* Checker: show question n, with the progress bar and the current answer marked */
+  function showStep(n) {
+    state.step = n;
+    showPanel('quiz');
+    document.querySelectorAll('#ccb-checker .ccb-step').forEach(function (step) {
+      step.hidden = Number(step.getAttribute('data-step')) !== n;
+    });
+    document.querySelectorAll('#ccb-checker .ccb-options[data-field]').forEach(function (group) {
+      var field = group.getAttribute('data-field');
+      group.querySelectorAll('button').forEach(function (btn) {
+        btn.setAttribute('aria-pressed', String(Number(btn.getAttribute('data-value')) === state[field]));
+      });
+    });
+    document.getElementById('ccb-step-num').textContent = n;
+    document.getElementById('ccb-step-bar').style.width = (100 * n / QUESTIONS) + '%';
+    drawQuizNav();
+    var heading = document.querySelector('#ccb-checker .ccb-step[data-step="' + n + '"] .ccb-question');
+    if (heading) {
+      heading.setAttribute('tabindex', '-1');
+      heading.focus({ preventScroll: true });
+    }
+  }
+
+  /* Checker: Back on every question but the first; on the last, a button that
+     reads "None of these" until a card is picked, then "See my cards". */
+  function drawQuizNav() {
+    var back = document.querySelector('#ccb-checker [data-action="back"]');
+    var next = document.querySelector('#ccb-checker [data-action="next"]');
+    if (!back || !next) return;
+    back.hidden = state.step <= 1;
+    next.hidden = state.step !== QUESTIONS;
+    var picked = segmentRows().some(function (r) { return state.had[r.card.id]; });
+    next.textContent = picked ? 'See my cards' : 'None of these';
+  }
+
+  function finishQuiz() {
+    state.step = QUESTIONS + 1;
+    showPanel('done');
+    drawResults();
+  }
+
+  function resetQuiz() {
+    state.step = 0;
+    state.n524 = state.maxFee = state.monthly = null;
+    state.had = {};
+    setOnlyFits(true);
+    drawHadOptions();
+    showPanel('start');
+    drawResults();
+  }
+
+  function setOnlyFits(on) {
+    state.onlyFits = on;
+    document.getElementById('ccb-only-fits').checked = on;
     drawResults();
   }
 
@@ -737,21 +901,32 @@
       });
     });
 
-    // Number inputs update the matching state field and redraw.
-    [['ccb-n524', 'n524'], ['ccb-amex', 'amexCredit'], ['ccb-monthly', 'monthly']].forEach(function (pair) {
-      var input = document.getElementById(pair[0]);
-      input.addEventListener('input', function () {
-        state[pair[1]] = Math.max(0, Number(input.value) || 0);
+    // Single-answer questions: tapping an answer saves it and moves to the next question.
+    document.querySelectorAll('#ccb-checker .ccb-options[data-field] button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var field = btn.parentNode.getAttribute('data-field');
+        state[field] = Number(btn.getAttribute('data-value'));
+        btn.parentNode.querySelectorAll('button').forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b === btn));
+        });
         drawResults();
+        setTimeout(function () { showStep(state.step + 1); }, 220);
       });
     });
 
-    [['ccb-hide-blocked', 'hideBlocked'], ['ccb-hide-short', 'hideShort']].forEach(function (pair) {
-      var input = document.getElementById(pair[0]);
-      input.addEventListener('change', function () {
-        state[pair[1]] = input.checked;
-        drawResults();
-      });
+    var actions = {
+      start: function () { showStep(1); },
+      back: function () { showStep(Math.max(1, state.step - 1)); },
+      next: finishQuiz,
+      edit: function () { showStep(1); },
+      reset: resetQuiz
+    };
+    document.querySelectorAll('#ccb-checker [data-action]').forEach(function (btn) {
+      btn.addEventListener('click', actions[btn.getAttribute('data-action')]);
+    });
+
+    document.getElementById('ccb-only-fits').addEventListener('change', function (event) {
+      setOnlyFits(event.target.checked);
     });
 
     // Charts are sized to their container, so redraw them when the width changes.
@@ -779,7 +954,6 @@
     data.referralByCard = referralMap(referralsFile);
 
     drawIntro();
-    drawHadList();
     drawTransfers(transfersFile.note);
     drawSweetSpots();
     bindControls();

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arthur Chang</title>
+    <link rel="canonical" href="https://ayochillout.com/">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -11,17 +12,17 @@
     <header>
       <div class="header-top">
         <div class="site-brand">
-          <h1><a href="index.html">Arthur Chang</a></h1>
+          <h1><a href="/">Arthur Chang</a></h1>
         </div>
         <div class="nav-group">
           <nav>
             <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="credit-card-bonus.html">Credit Card Bonus</a></li>
-            <li><a href="referrals.html">Referrals</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="/" class="active">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/credit-card-bonus">Credit Card Bonus</a></li>
+            <li><a href="/referrals">Referrals</a></li>
+            <li><a href="/contact">Contact</a></li>
             </ul>
           </nav>
           <button class="theme-toggle" aria-label="Toggle theme">
@@ -48,6 +49,10 @@
             CPA, Program Manager @Amazon, Budget Analyst @USAF, and personal finance enthusiast
             documenting the intersection of finance, tech, and building a thoughtful life.
           </p>
+          <div class="hero-actions">
+            <a class="button" href="/about">About me</a>
+            <a class="link-more" href="/credit-card-bonus">This week's card bonuses</a>
+          </div>
         </div>
 
         <div class="hero-visual">
@@ -58,22 +63,22 @@
       <!-- Content feed: highlights the newest writing and curated links -->
       <section class="section-block animate-on-scroll">
         <div class="section-header">
-          <h3>Latest Posts</h3>
-          <a href="blog.html">See all &rarr;</a>
+          <h3>Latest posts</h3>
+          <a href="/blog">See all</a>
         </div>
 
         <div class="card-grid stagger">
-          <a href="blog.html" class="card animate-on-scroll" style="text-decoration:none;">
+          <a href="/blog" class="card animate-on-scroll" style="text-decoration:none;">
             <div class="meta">August 8, 2026</div>
             <h4>How the Super Rich Avoid Paying Taxes</h4>
             <p>Scott Galloway breaks down legal tax strategies the wealthiest use, and why owning beats earning.</p>
           </a>
-          <a href="blog.html" class="card animate-on-scroll" style="text-decoration:none;">
+          <a href="/blog" class="card animate-on-scroll" style="text-decoration:none;">
             <div class="meta">August 8, 2026</div>
             <h4>Start by Making Your Bed</h4>
             <p>Admiral McRaven's 10 life lessons from Navy SEAL training on resilience, hope, and never quitting.</p>
           </a>
-          <a href="credit-card-bonus.html" class="card animate-on-scroll" style="text-decoration:none;">
+          <a href="/credit-card-bonus" class="card animate-on-scroll" style="text-decoration:none;">
             <div class="meta">Rewards Guide</div>
             <h4>Credit Card Bonus</h4>
             <p>Travel cards with record-high welcome bonuses right now, plus current transfer bonuses. Checked weekly.</p>
@@ -81,15 +86,46 @@
         </div>
       </section>
 
-      <!-- Countdown area: a simple time-based milestone display -->
-      <section class="section-block animate-on-scroll">
+      <!-- Record-high card bonuses: js/home.js fills this gallery from data/cards.json
+           (the same data as the Credit Card Bonus page) and hides it if the data can't load -->
+      <section class="section-block animate-on-scroll" id="home-bonuses">
         <div class="section-header">
-          <h3>Countdown</h3>
+          <h3>Record-high card bonuses this week</h3>
+          <a href="/credit-card-bonus">See all</a>
         </div>
-        <div class="countdown-wrapper">
-          <div id="countdown" class="countdown"></div>
-          <p class="countdown-label">until December 31, 2080</p>
+        <div class="gallery">
+          <ul class="gallery-track" id="home-bonus-track"></ul>
+          <div class="gallery-paddles">
+            <button type="button" data-dir="-1" aria-label="Previous cards">&lsaquo;</button>
+            <button type="button" data-dir="1" aria-label="Next cards">&rsaquo;</button>
+          </div>
         </div>
+      </section>
+
+      <!-- 40 summers, 40 winters: the statement, one dot per season and a live countdown.
+           script.js fills the counts, the dots and the clock. -->
+      <section class="section-block seasons" id="seasons">
+        <span class="eyebrow animate-on-scroll">40 summers. 40 winters.</span>
+        <h3 class="seasons-statement reveal-words">
+          After graduation, most of us get about 40 summers and 40 winters to build the life
+          we want. It sounds like plenty. It isn't. Don't waste a single one.
+        </h3>
+
+        <p class="seasons-left animate-on-scroll">
+          <b id="summers-left">40</b> summers and <b id="winters-left">40</b> winters left on my clock.
+        </p>
+        <p class="seasons-sub animate-on-scroll">Mine started in 2024 and run through December 31, 2063.</p>
+
+        <div class="season-grid animate-on-scroll" id="season-grid" aria-hidden="true">
+          <span class="season-row-label">Summers</span>
+          <div class="season-dots" data-season="summer"></div>
+          <span class="season-row-label">Winters</span>
+          <div class="season-dots" data-season="winter"></div>
+        </div>
+        <p class="season-caption">One dot per season, 2024 to 2063. Filled dots are already behind me.</p>
+
+        <div id="countdown" class="countdown" role="timer" aria-label="Time left until December 31, 2063"></div>
+        <p class="countdown-label">until December 31, 2063</p>
       </section>
 
       <!-- Quote block: a short motivational note for the homepage -->
@@ -111,6 +147,22 @@
       </div>
       <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
     </footer>
+
+    <!-- Bonus tile layout: js/home.js copies this once per card and fills each data-slot -->
+    <template id="home-bonus-template">
+      <li>
+        <a class="bonus-tile" data-slot="link">
+          <span class="bonus-tile-issuer" data-slot="issuer"></span>
+          <h4 data-slot="name"></h4>
+          <span data-slot="art"></span>
+          <span class="bonus-tile-points" data-slot="points"></span>
+          <span class="bonus-tile-value" data-slot="value"></span>
+          <span class="link-more">Learn more</span>
+        </a>
+      </li>
+    </template>
+
     <script src="script.js"></script>
+    <script src="js/home.js"></script>
   </body>
 </html>

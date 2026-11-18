@@ -157,7 +157,21 @@
     {
       "id": "bank-accounts",
       "title": "Bank accounts",
-      "items": []
+      "items": [
+        {
+          "id": "capital-one-360-checking",
+          "name": "Capital One 360 Checking",
+          "issuer": "Capital One",
+          "image": "",
+          "logo": "images/banks/capitalone.png",
+          "note": "Earn a $300 bonus after two direct deposits of $500 or more within 75 days. No monthly fee.",
+          "url": "https://i.capitalone.com/J9fwhSIoA",
+          "card_ids": [],
+          "account_ids": [
+            "capital_one_360_checking"
+          ]
+        }
+      ]
     }
   ]
 }

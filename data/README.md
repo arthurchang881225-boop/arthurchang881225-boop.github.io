@@ -1,7 +1,8 @@
 # Site data
 
-The Credit Card Bonus page (`credit-card-bonus.html`) and the Referrals page
-(`referrals.html`) contain no card content of their own. Their scripts in `js/` read
+The Credit Card Bonus page (`credit-card-bonus.html`), the Bank Account Bonus page
+(`bank-account-bonus.html`) and the Referrals page (`referrals.html`) contain no
+offer content of their own. Their scripts in `js/` read
 these files and draw everything. To update a page, change its data and leave the
 HTML, CSS and JS alone.
 
@@ -9,7 +10,8 @@ HTML, CSS and JS alone.
 |---|---|---|
 | `cards.json` | Weekly offer check (replaced each run) | Credit Card Bonus, Referrals, Home (bonus gallery) |
 | `transfers.json` | Weekly offer check (replaced each run) | Credit Card Bonus |
-| `referrals.json` | Arthur, by hand. The weekly check never edits it | Credit Card Bonus, Referrals |
+| `banks.json` | Weekly bank bonus check (replaced each run). Nationwide offers only | Bank Account Bonus |
+| `referrals.json` | Arthur, by hand. The weekly check never edits it | Credit Card Bonus, Bank Account Bonus, Referrals |
 
 Preview locally with a small web server. Pages opened straight from the file system
 can't load JSON. The site links to clean addresses such as `/about`, which GitHub
@@ -86,6 +88,42 @@ The home page gallery reads `segment`, `short`, `issuer`, `image`, `bonus_points
 
 Bonuses whose `ends` date has passed are hidden automatically.
 
+## banks.json
+
+```jsonc
+{
+  "updated": "2026-11-17",          // date the offers were checked; not shown on the page
+  "accounts": [ /* one object per account, below */ ]
+}
+```
+
+Each account:
+
+| Field | Type | Meaning |
+|---|---|---|
+| `id` | string | Stable snake_case id. Referral links match on it |
+| `segment` | `"personal"` or `"business"` | Which toggle tab shows the account |
+| `type` | `"checking"` or `"savings"` | The Checking / Savings filter (shown when a tab has both) |
+| `bank`, `account`, `short` | string | Bank name, full account name, short name for the chart |
+| `logo` | string | `images/banks/<bank>.png` or `.svg`, the bank's square logo (shown on a white tile). Every bank needs one |
+| `url` | string | The bank's own offer page, which must show this bonus |
+| `referral_only` | boolean | The bonus only comes through a referral link; `url` is then the account's page |
+| `requirement` | `"direct_deposit"` or `"deposit"` | Direct deposits within `days`, or a deposit kept in the account |
+| `tiers` | array of `{ "need": number, "bonus": number }` | Dollars needed and the cash bonus, one per tier. For points, `bonus` is the estimated dollar value |
+| `points`, `program`, `cpp` | number, string, number | Points bonuses only (else 0, "", 0): points, rewards program, cents per point |
+| `days` | number | Days to complete the requirement |
+| `hold_days` | number | Days the money stays in the account if deposited right away (0 for direct deposit). Used for the "like X% a year" figure |
+| `steps` | array of string | How to earn it, in order |
+| `monthly_fee`, `fee_waiver` | number, string | Monthly fee (0 for none) and how to avoid it |
+| `ends` | string | Offer end date `YYYY-MM-DD`, or `""` |
+| `rule_short`, `eligibility` | string | Who can get the bonus: a short chip text and the full sentence |
+| `payout` | string | When the bonus is paid |
+| `notes` | array of string | Other facts worth knowing, or `[]` |
+| `verified` | string | Where and when the offer was checked (not shown on the page) |
+
+The checker works out the tier a visitor can reach: monthly direct deposit times
+`days / 30`, or the cash they could deposit.
+
 ## referrals.json
 
 `groups` become the sections of the Referrals page, in order. A group with no
@@ -98,5 +136,7 @@ Each item:
 | `id` | Unique id for the entry |
 | `name`, `issuer`, `note` | Shown on the Referrals page |
 | `image` | Card art path in `images/cards/`, or `""` for a placeholder |
+| `logo` | Bank accounts only (optional): a logo in `images/banks/`, shown when there is no `image` |
 | `url` | Your referral link, exactly as the bank gave it |
 | `card_ids` | Ids from `cards.json` this link covers. When one of them appears on the Credit Card Bonus page, its Apply button uses this link. Use `[]` for bank accounts |
+| `account_ids` | Bank accounts only: ids from `banks.json` this link covers, used by the Bank Account Bonus page's Open button |

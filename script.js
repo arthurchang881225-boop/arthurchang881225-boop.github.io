@@ -2,7 +2,7 @@
   Site behavior script:
   - remembers the user's theme choice
   - types the homepage greeting
-  - reveals content on scroll
+  - reveals content block by block as it scrolls into view
   - home page: 40 summers / 40 winters dots and countdown clock, word-by-word reveal
   - pages the arrow buttons of any .gallery
   - shows old .html addresses as clean ones, and keeps the current page visible in the nav
@@ -52,30 +52,105 @@
   setTimeout(type, 600);
 })();
 
-/* ─── Scroll Animations (fade-in + slide-up) ─── */
-(function () {
-  var observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-  );
+/* ─── Scroll Reveal ───
+   Content appears block by block as it scrolls into view, rather than a whole
+   section at once: each block fades in while rising about 48px, and blocks that
+   come into view together follow one another.
 
-  function observe() {
-    document.querySelectorAll('.animate-on-scroll').forEach(function (el) {
-      observer.observe(el);
+   What counts as a block: each direct child of a page section (heading, paragraph,
+   panel…). Lists and grids (ul, ol, .card-grid, .timeline…) are opened up so each
+   item is its own block. Items that scripts add later (credit card and bank
+   account lists, the home gallery, referral groups) are picked up as they appear.
+   Visitors who ask for reduced motion see everything at once. */
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var main = document.querySelector('main');
+  if (!main) return;
+
+  // Page sections whose children are revealed one by one.
+  var SECTIONS = 'main > section, main section.section-block, main .hero';
+  // Containers whose items are revealed one by one instead of all together.
+  var ITEM_LISTS = 'ul, ol, .card-grid, .project-grid, .timeline, .contact-grid, .hero-text, .photo-grid';
+  var STEP_MS = 90;      // delay between blocks that come into view together
+  var MAX_STEPS = 6;     // longest wait, so long lists don't lag
+  var DONE_MS = 1400;    // a little longer than the CSS transition
+  var loadedAt = Date.now();
+
+  var observer = new IntersectionObserver(function (entries) {
+    var shown = entries.filter(function (entry) { return entry.isIntersecting; })
+      .map(function (entry) { return entry.target; })
+      .sort(function (a, b) { return a.getBoundingClientRect().top - b.getBoundingClientRect().top; });
+    shown.forEach(function (node, i) {
+      observer.unobserve(node);
+      var delay = Math.min(i, MAX_STEPS) * STEP_MS;
+      node.style.transitionDelay = delay + 'ms';
+      node.classList.add('in-view');
+      // Once it has arrived, hand the element back to its own styles (hover effects etc.).
+      setTimeout(function () {
+        node.classList.remove('reveal');
+        node.style.transitionDelay = '';
+      }, delay + DONE_MS);
     });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  // Hide one block until it scrolls into view. Blocks a script redraws in place
+  // (for example after a checker answer) appear straight away instead of fading in again.
+  function addBlock(node) {
+    if (node.nodeType !== 1 || node.tagName === 'TEMPLATE' || node.tagName === 'SCRIPT') return;
+    if (node.classList.contains('reveal') || node.classList.contains('in-view')) return;
+    var settled = Date.now() - loadedAt > 1500;
+    if (settled && node.getBoundingClientRect().top < window.innerHeight) {
+      node.classList.add('in-view');
+      return;
+    }
+    node.classList.add('reveal');
+    observer.observe(node);
+  }
+
+  // A block, or each item of a list or grid.
+  function addChild(node) {
+    if (node.nodeType !== 1) return;
+    if (node.matches(ITEM_LISTS)) {
+      node.setAttribute('data-reveal-items', '');
+      Array.prototype.forEach.call(node.children, addBlock);
+    } else {
+      addBlock(node);
+    }
+  }
+
+  function addSection(section) {
+    if (section.hasAttribute('data-reveal-section')) return;
+    section.setAttribute('data-reveal-section', '');
+    Array.prototype.forEach.call(section.children, addChild);
+  }
+
+  function start() {
+    document.querySelectorAll(SECTIONS).forEach(addSection);
+    // Elements marked .animate-on-scroll outside any section still get revealed.
+    document.querySelectorAll('.animate-on-scroll').forEach(function (node) {
+      if (!node.closest('[data-reveal-section]')) addBlock(node);
+    });
+
+    // New content drawn by page scripts.
+    new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        Array.prototype.forEach.call(m.addedNodes, function (node) {
+          if (node.nodeType !== 1) return;
+          var parent = node.parentNode;
+          if (node.matches(SECTIONS)) addSection(node);
+          else if (parent && parent.hasAttribute && parent.hasAttribute('data-reveal-items')) addBlock(node);
+          else if (parent && parent.hasAttribute && parent.hasAttribute('data-reveal-section')) addChild(node);
+        });
+      });
+    }).observe(main, { childList: true, subtree: true });
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', observe);
+    document.addEventListener('DOMContentLoaded', start);
   } else {
-    observe();
+    start();
   }
 })();
 

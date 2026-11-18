@@ -39,7 +39,8 @@
   function buildItem(item, records) {
     var li = el('li', 'card ref-card');
 
-    // Card art, or a plain placeholder for entries without one (for example bank accounts).
+    // Card art; for bank accounts, a tile with the bank's logo (same as the Bank
+    // Account Bonus page); otherwise a plain placeholder with the issuer's name.
     if (item.image) {
       var img = el('img', 'ref-art');
       img.src = item.image;
@@ -48,6 +49,16 @@
       img.width = 220;
       img.height = 139;
       li.appendChild(img);
+    } else if (item.logo) {
+      var tile = el('div', 'ref-art ccb-art-fallback bab-tile');
+      var logo = el('img', 'bab-logo');
+      logo.src = item.logo;
+      logo.alt = '';
+      logo.width = 44;
+      logo.height = 44;
+      tile.appendChild(logo);
+      tile.appendChild(el('span', 'bab-tile-name', item.issuer));
+      li.appendChild(tile);
     } else {
       li.appendChild(el('div', 'ref-art ccb-art-fallback', item.issuer));
     }

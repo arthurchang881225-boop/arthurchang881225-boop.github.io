@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Chang | Bank Account Bonus</title>
+    <meta name="description" content="Checking, savings and business bank accounts paying a sign-up bonus right now, with what each one takes. Checked weekly.">
+    <link rel="canonical" href="https://ayochillout.com/bank-account-bonus">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <!--
+      Bank Account Bonus page.
+      This file is the fixed layout only: every account, bonus and number is drawn by
+      js/bank-account-bonus.js from data/banks.json and data/referrals.json. To change
+      what the page says, edit the data (see data/README.md), not this page.
+    -->
+
+    <!-- Shared page shell: navigation and theme control -->
+    <header>
+      <div class="header-top">
+        <div class="site-brand">
+          <h1><a href="/">Arthur Chang</a></h1>
+        </div>
+        <div class="nav-group">
+          <nav>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/credit-card-bonus">Credit Card Bonus</a></li>
+              <li><a href="/bank-account-bonus" class="active">Bank Bonus</a></li>
+              <li><a href="/referrals">Referrals</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </nav>
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Intro: one-sentence summary of this week's biggest bonuses -->
+      <section class="section-block page-intro animate-on-scroll">
+        <div class="section-header">
+          <h3>Bank Account Bonus</h3>
+          <a href="/referrals#bank-accounts">My referral links</a>
+        </div>
+
+        <div class="ccb-intro">
+          <p class="ccb-lede" id="bab-lede">Loading this week's offers&hellip;</p>
+        </div>
+      </section>
+
+      <!-- Account owner toggle, plus a checking / savings filter when a tab has both -->
+      <section class="section-block animate-on-scroll ccb-toolbar">
+        <div class="ccb-toggle" role="group" aria-label="Account owner">
+          <button type="button" data-segment="personal" aria-pressed="true">Personal</button>
+          <button type="button" data-segment="business" aria-pressed="false">Business</button>
+        </div>
+        <div class="ccb-toggle bab-types" id="bab-types" role="group" aria-label="Account type">
+          <button type="button" data-type="all" aria-pressed="true">All</button>
+          <button type="button" data-type="checking" aria-pressed="false">Checking</button>
+          <button type="button" data-type="savings" aria-pressed="false">Savings</button>
+        </div>
+      </section>
+
+      <!-- Bonus checker: two or three short questions, one at a time. Personal accounts
+           ask about direct deposit; business accounts skip that question.
+           js/bank-account-bonus.js keeps the answers in memory only. -->
+      <section class="section-block animate-on-scroll">
+        <div class="ccb-panel ccb-checker" id="bab-checker">
+
+          <!-- Before starting -->
+          <div class="ccb-check-start" data-panel="start">
+            <div>
+              <h4 class="ccb-panel-title">How much could you earn?</h4>
+              <p class="ccb-meta" id="bab-start-note">A few quick questions. Your answers stay on this page.</p>
+            </div>
+            <button type="button" data-action="start">Find out</button>
+          </div>
+
+          <!-- Questions -->
+          <div class="ccb-quiz" data-panel="quiz" hidden>
+            <div class="ccb-progress">
+              <span>Question <b id="bab-step-num">1</b> of <span id="bab-step-total">3</span></span>
+              <span class="ccb-progress-bar"><i id="bab-step-bar"></i></span>
+            </div>
+
+            <div class="ccb-step" data-question="dd" hidden>
+              <h4 class="ccb-question">About how much of your pay arrives by direct deposit each month?</h4>
+              <p class="ccb-meta">You can send part of a paycheck to a new account; most employers let you split it.</p>
+              <div class="ccb-options" data-field="dd" role="group" aria-label="Monthly direct deposit">
+                <button type="button" data-value="0">None</button>
+                <button type="button" data-value="1000">Under $2,000</button>
+                <button type="button" data-value="2000">$2,000 to $4,000</button>
+                <button type="button" data-value="4000">$4,000 to $7,000</button>
+                <button type="button" data-value="7000">$7,000 or more</button>
+              </div>
+            </div>
+
+            <div class="ccb-step" data-question="cash" hidden>
+              <h4 class="ccb-question" data-personal="How much cash could you leave in a new account for 3 to 4 months?"
+                  data-business="How much could your business leave in a new account for 2 to 4 months?"></h4>
+              <div class="ccb-options" data-field="cash" role="group" aria-label="Cash you could deposit">
+                <button type="button" data-value="0">None</button>
+                <button type="button" data-value="5000">$5,000</button>
+                <button type="button" data-value="15000">$15,000</button>
+                <button type="button" data-value="25000">$25,000</button>
+                <button type="button" data-value="50000">$50,000</button>
+                <button type="button" data-value="100000">$100,000 or more</button>
+              </div>
+            </div>
+
+            <div class="ccb-step" data-question="had" hidden>
+              <h4 class="ccb-question">Do you have, or recently had, an account with any of these banks? Tap any that apply.</h4>
+              <p class="ccb-meta">Banks usually pay a bonus only to new customers, or once every year or two.</p>
+              <div class="ccb-options ccb-options-multi" id="bab-had-options" role="group" aria-label="Banks you have used"></div>
+            </div>
+
+            <div class="ccb-quiz-nav">
+              <button type="button" class="ccb-text-button" data-action="back">Back</button>
+              <button type="button" data-action="next" hidden>None of these</button>
+            </div>
+          </div>
+
+          <!-- After the last question -->
+          <div class="ccb-check-done" data-panel="done" hidden>
+            <p class="ccb-result" id="bab-fit-summary" aria-live="polite"></p>
+            <div class="ccb-answers" id="bab-answers"></div>
+            <div class="ccb-done-actions">
+              <label class="ccb-switch"><input type="checkbox" id="bab-only-fits" checked> Show only accounts that fit</label>
+              <button type="button" class="ccb-text-button" data-action="edit">Change answers</button>
+              <button type="button" class="ccb-text-button" data-action="reset">Start over</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Accounts for the selected tab: bonus chart, then one card per account -->
+      <section class="section-block" id="bab-accounts">
+        <div class="section-header">
+          <h3 id="bab-segment-title">Personal accounts paying a bonus</h3>
+        </div>
+        <p class="ccb-meta" id="bab-list-note"></p>
+
+        <div class="ccb-panel">
+          <h4 class="ccb-panel-title">Bonus by tier</h4>
+          <p class="ccb-meta" id="bab-chart-note">
+            Each bar runs to the account's top bonus. Notches mark the smaller tiers you get for
+            depositing less.
+          </p>
+          <div class="ccb-legend">
+            <span><i class="ccb-swatch bab-swatch-dd"></i>Needs direct deposit</span>
+            <span><i class="ccb-swatch bab-swatch-deposit"></i>Needs a deposit you keep in the account</span>
+          </div>
+          <div class="ccb-chart" id="bab-chart"></div>
+        </div>
+
+        <ol class="cc-grid ccb-list" id="bab-list"></ol>
+      </section>
+
+      <!-- General rules: static reference text -->
+      <section class="section-block animate-on-scroll" id="bab-rules">
+        <details class="ccb-panel">
+          <summary>Before you open an account</summary>
+          <dl class="ccb-rules">
+            <dt>What counts as direct deposit</dt>
+            <dd>A paycheck, pension or government benefit sent by your employer or the government. Transfers you make yourself, Zelle and mobile check deposits usually don't count.</dd>
+            <dt>New money</dt>
+            <dd>Deposit bonuses need money from another bank. Moving money between accounts at the same bank doesn't count.</dd>
+            <dt>Keep the balance until the end</dt>
+            <dd>If the balance dips below the tier you're aiming for during the holding period, you can drop to a smaller bonus or lose it.</dd>
+            <dt>Bonuses are taxed</dt>
+            <dd>Banks report the bonus as interest income on a 1099-INT, so it's added to your taxable income for the year.</dd>
+            <dt>Monthly fees</dt>
+            <dd>Set up the fee waiver from day one, or the fees can eat into the bonus.</dd>
+            <dt>Wait before closing</dt>
+            <dd>Keep the account open until the bonus posts. Some banks take back the bonus or charge a fee if you close within a few months.</dd>
+            <dt>Credit checks and ChexSystems</dt>
+            <dd>Opening a bank account is usually a soft check that doesn't affect your credit score. Banks do check ChexSystems, and opening many accounts quickly can lead to a denial.</dd>
+          </dl>
+        </details>
+      </section>
+
+      <!-- Account layout: js/bank-account-bonus.js copies this once per account and fills each data-slot -->
+      <template id="bab-account-template">
+        <li class="cc-card ccb-card bab-card">
+          <div class="ccb-card-head">
+            <div class="ccb-art bab-mark" data-slot="mark"></div>
+            <div class="ccb-card-title">
+              <div class="cc-issuer" data-slot="issuer"></div>
+              <h4><a data-slot="name" target="_blank" rel="noopener"></a></h4>
+              <div class="ccb-chips" data-slot="chips"></div>
+            </div>
+            <span class="ccb-rank" data-slot="rank"></span>
+          </div>
+
+          <div class="cc-details">
+            <div class="cc-detail-box">
+              <div class="lbl">Bonus</div>
+              <div class="val" data-slot="bonus"></div>
+              <div class="sub" data-slot="bonus-note"></div>
+            </div>
+            <div class="cc-detail-box">
+              <div class="lbl">What it takes</div>
+              <div class="val" data-slot="need"></div>
+              <div class="sub" data-slot="need-note"></div>
+            </div>
+            <div class="cc-detail-box">
+              <div class="lbl">Monthly fee</div>
+              <div class="val" data-slot="fee"></div>
+              <div class="sub" data-slot="fee-note"></div>
+            </div>
+          </div>
+
+          <!-- Three sections: bonus tiers, the steps to earn it, and good-to-know facts -->
+          <div class="ccb-sections">
+            <section>
+              <h5 class="lbl">Bonus tiers</h5>
+              <ul class="ccb-credits bab-tiers" data-slot="tiers"></ul>
+            </section>
+            <section>
+              <h5 class="lbl">How to earn it</h5>
+              <ol class="bab-steps" data-slot="steps"></ol>
+            </section>
+            <section>
+              <h5 class="lbl">Good to know</h5>
+              <ul class="ccb-perks bab-facts" data-slot="facts"></ul>
+            </section>
+          </div>
+
+          <div class="ccb-card-foot">
+            <div class="ccb-actions">
+              <a class="cc-cta" data-slot="open" target="_blank" rel="noopener">Open account &rarr;</a>
+              <a class="ccb-official" data-slot="official" target="_blank" rel="noopener">Official offer page</a>
+            </div>
+          </div>
+        </li>
+      </template>
+</main>
+
+    <footer>
+      <!-- Footer links: social destinations with their logos -->
+      <div class="footer-links">
+        <a href="https://github.com/arthurchang881225-boop" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-github"></use></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/arthurchangcpa" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-linkedin"></use></svg>LinkedIn</a>
+        <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>Instagram</a>
+        <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-spotify"></use></svg>Spotify</a>
+      </div>
+      <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="js/bank-account-bonus.js"></script>
+  </body>
+</html>

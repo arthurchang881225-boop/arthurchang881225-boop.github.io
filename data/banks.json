@@ -1,0 +1,609 @@
+{
+  "updated": "2026-11-17",
+  "accounts": [
+    {
+      "id": "chase_total_checking",
+      "segment": "personal",
+      "type": "checking",
+      "bank": "Chase",
+      "logo": "images/banks/chase.png",
+      "account": "Chase Total Checking",
+      "short": "Chase Total",
+      "url": "https://www.chase.com/personal/offers/checking-tier",
+      "referral_only": false,
+      "requirement": "direct_deposit",
+      "tiers": [
+        {
+          "need": 2500,
+          "bonus": 425
+        },
+        {
+          "need": 5000,
+          "bonus": 600
+        },
+        {
+          "need": 10000,
+          "bonus": 900
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 90,
+      "hold_days": 0,
+      "steps": [
+        "Open a new Chase Total Checking account from the offer page",
+        "Receive direct deposits within 90 days. The total sets your bonus"
+      ],
+      "monthly_fee": 15,
+      "fee_waiver": "$0 with $500 in monthly electronic deposits or a $1,500 daily balance",
+      "ends": "2027-01-27",
+      "rule_short": "Chase pays one checking bonus every 2 years",
+      "eligibility": "Not for current Chase checking customers or accounts closed in the last 90 days. One checking bonus every 2 years.",
+      "payout": "Within 15 days after you qualify",
+      "notes": [],
+      "verified": "Checked on chase.com, Nov 17, 2026"
+    },
+    {
+      "id": "bofa_advantage_checking",
+      "segment": "personal",
+      "type": "checking",
+      "bank": "Bank of America",
+      "logo": "images/banks/bofa.png",
+      "account": "Bank of America Advantage Banking",
+      "short": "BofA Advantage",
+      "url": "https://promotions.bankofamerica.com/en/offers/chooseyourchecking500tiered",
+      "referral_only": false,
+      "requirement": "direct_deposit",
+      "tiers": [
+        {
+          "need": 2000,
+          "bonus": 100
+        },
+        {
+          "need": 5000,
+          "bonus": 300
+        },
+        {
+          "need": 10000,
+          "bonus": 500
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 90,
+      "hold_days": 0,
+      "steps": [
+        "Open SafeBalance, Advantage Plus or Advantage Relationship Banking from the offer page",
+        "Receive direct deposits within 90 days. The total sets your bonus"
+      ],
+      "monthly_fee": 12,
+      "fee_waiver": "For Advantage Plus ($15 from Feb 19, 2027). $0 with a qualifying direct deposit or balance",
+      "ends": "2027-01-31",
+      "rule_short": "One Bank of America checking bonus per customer",
+      "eligibility": "One checking bonus per customer. Can't be combined with other Bank of America checking offers.",
+      "payout": "Within 60 days after the 90 days end",
+      "notes": [],
+      "verified": "Checked on bankofamerica.com, Nov 17, 2026"
+    },
+    {
+      "id": "us_bank_smartly_checking",
+      "segment": "personal",
+      "type": "checking",
+      "bank": "U.S. Bank",
+      "logo": "images/banks/usbank.svg",
+      "account": "U.S. Bank Smartly Checking",
+      "short": "U.S. Bank Smartly",
+      "url": "https://www.usbank.com/splash/checking/2026-all-market-checking-offer.html",
+      "referral_only": false,
+      "requirement": "direct_deposit",
+      "tiers": [
+        {
+          "need": 2000,
+          "bonus": 250
+        },
+        {
+          "need": 5000,
+          "bonus": 350
+        },
+        {
+          "need": 8000,
+          "bonus": 450
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 90,
+      "hold_days": 0,
+      "steps": [
+        "Apply by Dec 30, 2026 and deposit at least $25 within 60 days",
+        "Sign in to the U.S. Bank app or online banking within 90 days",
+        "Receive two or more direct deposits within 90 days. The total sets your bonus"
+      ],
+      "monthly_fee": 12,
+      "fee_waiver": "Free for the first two statements, then $0 with a $1,500 average balance or other options",
+      "ends": "2026-12-30",
+      "rule_short": "No U.S. Bank checking bonus in the last 12 months",
+      "eligibility": "No U.S. Bank checking bonus in the last 12 months, and no current U.S. Bank checking account.",
+      "payout": "Within 30 days after you qualify",
+      "notes": [
+        "Overdrafts of $50 or less have no fee"
+      ],
+      "verified": "Checked on usbank.com, Nov 17, 2026"
+    },
+    {
+      "id": "citi_regular_checking",
+      "segment": "personal",
+      "type": "checking",
+      "bank": "Citi",
+      "logo": "images/banks/citi.png",
+      "account": "Citi Regular Checking",
+      "short": "Citi Regular",
+      "url": "https://banking.citi.com/cbol/OM/checking/direct-deposit-offer/default.htm",
+      "referral_only": false,
+      "requirement": "direct_deposit",
+      "tiers": [
+        {
+          "need": 3000,
+          "bonus": 325
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 90,
+      "hold_days": 0,
+      "steps": [
+        "Open a Regular Checking account by Jan 11, 2027 and enroll in the offer the same day",
+        "Receive two or more direct deposits totaling $3,000 within 90 days"
+      ],
+      "monthly_fee": 15,
+      "fee_waiver": "$0 with $250 in monthly direct deposits ($1,000 from Jan 1, 2027)",
+      "ends": "2027-01-11",
+      "rule_short": "For new Citi checking customers",
+      "eligibility": "For new Citi checking customers.",
+      "payout": "90 to 120 days after you open the account",
+      "notes": [
+        "No overdraft fees"
+      ],
+      "verified": "Checked on citi.com, Nov 17, 2026"
+    },
+    {
+      "id": "sofi_checking_savings",
+      "segment": "personal",
+      "type": "checking",
+      "bank": "SoFi",
+      "logo": "images/banks/sofi.png",
+      "account": "SoFi Checking and Savings",
+      "short": "SoFi",
+      "url": "https://www.sofi.com/banking/",
+      "referral_only": false,
+      "requirement": "direct_deposit",
+      "tiers": [
+        {
+          "need": 1000,
+          "bonus": 50
+        },
+        {
+          "need": 5000,
+          "bonus": 400
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 25,
+      "hold_days": 0,
+      "steps": [
+        "Open your first SoFi Checking and Savings account",
+        "Set up direct deposit. Deposits in the 25 days after the first one set your bonus"
+      ],
+      "monthly_fee": 0,
+      "fee_waiver": "",
+      "ends": "",
+      "rule_short": "SoFi pays the bonus on your first SoFi account only",
+      "eligibility": "Your first SoFi Checking and Savings account only.",
+      "payout": "Within 7 business days after you qualify",
+      "notes": [
+        "Savings earns a boosted APY for up to six months with direct deposit"
+      ],
+      "verified": "Checked on sofi.com, Nov 17, 2026"
+    },
+    {
+      "id": "capital_one_360_checking",
+      "segment": "personal",
+      "type": "checking",
+      "bank": "Capital One",
+      "logo": "images/banks/capitalone.png",
+      "account": "Capital One 360 Checking",
+      "short": "Capital One 360",
+      "url": "https://www.capitalone.com/bank/checking-accounts/online-checking-account/",
+      "referral_only": true,
+      "requirement": "direct_deposit",
+      "tiers": [
+        {
+          "need": 1000,
+          "bonus": 300
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 75,
+      "hold_days": 0,
+      "steps": [
+        "Open a new 360 Checking account with my referral link",
+        "Receive two direct deposits of $500 or more each within 75 days"
+      ],
+      "monthly_fee": 0,
+      "fee_waiver": "",
+      "ends": "",
+      "rule_short": "No Capital One checking account since Jan 1, 2024",
+      "eligibility": "No 360 Checking, Simply Checking or Total Control Checking account with Capital One on or after Jan 1, 2024.",
+      "payout": "Up to 60 days after the 75 days end",
+      "notes": [
+        "No minimum balance",
+        "Paychecks can arrive up to 2 days early"
+      ],
+      "verified": "Checked on the referral page at capitalone.com, Nov 17, 2026"
+    },
+    {
+      "id": "capital_one_360_performance_savings",
+      "segment": "personal",
+      "type": "savings",
+      "bank": "Capital One",
+      "logo": "images/banks/capitalone.png",
+      "account": "Capital One 360 Performance Savings",
+      "short": "Capital One Savings",
+      "url": "https://www.capitalone.com/bank/bonus1500/",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 20000,
+          "bonus": 300
+        },
+        {
+          "need": 50000,
+          "bonus": 750
+        },
+        {
+          "need": 100000,
+          "bonus": 1500
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 105,
+      "hold_days": 105,
+      "steps": [
+        "Open a 360 Performance Savings account with promo code BONUS1500",
+        "Deposit money from another bank within 15 days. The amount sets your bonus",
+        "Keep at least that balance for the next 90 days"
+      ],
+      "monthly_fee": 0,
+      "fee_waiver": "",
+      "ends": "",
+      "rule_short": "No Capital One savings account since Jan 1, 2024",
+      "eligibility": "No Capital One savings account on or after Jan 1, 2024.",
+      "payout": "Within 60 days after the 90 days end",
+      "notes": [
+        "You also earn the account's regular savings rate"
+      ],
+      "verified": "Checked on capitalone.com, Nov 17, 2026"
+    },
+    {
+      "id": "barclays_tiered_savings",
+      "segment": "personal",
+      "type": "savings",
+      "bank": "Barclays",
+      "logo": "images/banks/barclays.png",
+      "account": "Barclays Tiered Savings",
+      "short": "Barclays Savings",
+      "url": "https://banking.us.barclays/tiered-savings.html",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 25000,
+          "bonus": 200
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 150,
+      "hold_days": 120,
+      "steps": [
+        "Open a Tiered Savings account by Jan 31, 2027",
+        "Deposit at least $25,000 within 30 days",
+        "Keep at least $25,000 for 120 days in a row"
+      ],
+      "monthly_fee": 0,
+      "fee_waiver": "",
+      "ends": "2027-01-31",
+      "rule_short": "New Barclays savings customers only",
+      "eligibility": "Not for current or past Barclays savings or CD customers.",
+      "payout": "About 60 days after the 120 days end",
+      "notes": [
+        "You also earn the account's regular savings rate"
+      ],
+      "verified": "Checked on banking.us.barclays, Nov 17, 2026"
+    },
+    {
+      "id": "chase_business_complete",
+      "segment": "business",
+      "type": "checking",
+      "bank": "Chase",
+      "logo": "images/banks/chase.png",
+      "account": "Chase Business Complete Checking",
+      "short": "Chase Business",
+      "url": "https://www.chase.com/business/offers/business-checking",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 2000,
+          "bonus": 400
+        },
+        {
+          "need": 10000,
+          "bonus": 500
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 90,
+      "hold_days": 60,
+      "steps": [
+        "Get the offer code by email from the offer page, then open the account",
+        "Deposit new money within 30 days and keep it there until day 60",
+        "Make 5 transactions within 90 days, such as debit card purchases or ACH payments"
+      ],
+      "monthly_fee": 15,
+      "fee_waiver": "$0 with a $2,000 daily balance, $2,000 in Chase card deposits or $2,000 on Chase business cards",
+      "ends": "2027-01-21",
+      "rule_short": "Not for current Chase business checking customers",
+      "eligibility": "Not for current Chase business checking customers, or accounts closed in the last 90 days.",
+      "payout": "Within 15 days after you qualify",
+      "notes": [],
+      "verified": "Checked on chase.com, Nov 17, 2026"
+    },
+    {
+      "id": "bofa_business_advantage",
+      "segment": "business",
+      "type": "checking",
+      "bank": "Bank of America",
+      "logo": "images/banks/bofa.png",
+      "account": "Bank of America Business Advantage Banking",
+      "short": "BofA Business",
+      "url": "https://promotions.bankofamerica.com/smallbusiness/biz2toffer",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 5000,
+          "bonus": 400
+        },
+        {
+          "need": 15000,
+          "bonus": 750
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 90,
+      "hold_days": 90,
+      "steps": [
+        "Open Business Advantage Fundamentals or Relationship Banking online from the offer page by Dec 31, 2026",
+        "Deposit new money within 30 days. The amount sets your bonus",
+        "Keep at least that balance from day 31 to day 90"
+      ],
+      "monthly_fee": 16,
+      "fee_waiver": "Free for the first 12 months, then $0 with a $5,000 combined average balance or other options",
+      "ends": "2026-12-31",
+      "rule_short": "One Bank of America business bonus per owner",
+      "eligibility": "One Business Advantage bonus per business owner, however many businesses you own.",
+      "payout": "After the 90 days, once all steps are met",
+      "notes": [],
+      "verified": "Checked on bankofamerica.com, Nov 17, 2026"
+    },
+    {
+      "id": "capital_one_business_checking",
+      "segment": "business",
+      "type": "checking",
+      "bank": "Capital One",
+      "logo": "images/banks/capitalone.png",
+      "account": "Capital One Basic Business Checking",
+      "short": "Capital One Business",
+      "url": "https://www.capitalone.com/small-business/bank/bizchecking500/",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 5000,
+          "bonus": 500
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 90,
+      "hold_days": 60,
+      "steps": [
+        "Open Basic or Enhanced Checking online with promo code SBOFFER500",
+        "Deposit $5,000 from another bank within 30 days",
+        "Keep at least $5,000 for 60 of the first 90 days",
+        "Make 10 electronic transactions within 90 days"
+      ],
+      "monthly_fee": 15,
+      "fee_waiver": "$0 with a $2,000 minimum balance",
+      "ends": "",
+      "rule_short": "For new Capital One business checking accounts",
+      "eligibility": "For a new Capital One business checking account, opened online.",
+      "payout": "60 to 90 days after you qualify",
+      "notes": [
+        "Free incoming domestic wires"
+      ],
+      "verified": "Checked on capitalone.com, Nov 17, 2026"
+    },
+    {
+      "id": "us_bank_business_essentials",
+      "segment": "business",
+      "type": "checking",
+      "bank": "U.S. Bank",
+      "logo": "images/banks/usbank.svg",
+      "account": "U.S. Bank Business Essentials",
+      "short": "U.S. Bank Essentials",
+      "url": "https://www.usbank.com/splash/business-checking/business-checking-promo.html",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 5000,
+          "bonus": 400
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 60,
+      "hold_days": 60,
+      "steps": [
+        "Open Business Essentials by Jan 13, 2027 with promo code Q4DIG26",
+        "Deposit $5,000 in new money within 30 days and keep it for 60 days",
+        "Make 6 qualifying transactions within 60 days"
+      ],
+      "monthly_fee": 0,
+      "fee_waiver": "",
+      "ends": "2027-01-13",
+      "rule_short": "For new U.S. Bank business checking accounts",
+      "eligibility": "For a new U.S. Bank business checking account.",
+      "payout": "About 30 days after the end of the month you qualify",
+      "notes": [
+        "Unlimited digital transactions"
+      ],
+      "verified": "Checked on usbank.com, Nov 17, 2026"
+    },
+    {
+      "id": "us_bank_platinum_business",
+      "segment": "business",
+      "type": "checking",
+      "bank": "U.S. Bank",
+      "logo": "images/banks/usbank.svg",
+      "account": "U.S. Bank Platinum Business Checking",
+      "short": "U.S. Bank Platinum",
+      "url": "https://www.usbank.com/splash/business-checking/business-checking-promo.html",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 25000,
+          "bonus": 1200
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 60,
+      "hold_days": 60,
+      "steps": [
+        "Open Platinum Business Checking by Jan 13, 2027 with promo code Q4DIG26",
+        "Deposit $25,000 in new money within 30 days and keep it for 60 days",
+        "Make 6 qualifying transactions within 60 days"
+      ],
+      "monthly_fee": 30,
+      "fee_waiver": "$0 with a $25,000 average balance",
+      "ends": "2027-01-13",
+      "rule_short": "For new U.S. Bank business checking accounts",
+      "eligibility": "For a new U.S. Bank business checking account.",
+      "payout": "About 30 days after the end of the month you qualify",
+      "notes": [
+        "550 free transactions each statement"
+      ],
+      "verified": "Checked on usbank.com, Nov 17, 2026"
+    },
+    {
+      "id": "amex_business_checking",
+      "segment": "business",
+      "type": "checking",
+      "bank": "American Express",
+      "logo": "images/banks/amex.png",
+      "account": "Amex Business Checking",
+      "short": "Amex Business",
+      "url": "https://www.americanexpress.com/en-us/business/banking/",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 5000,
+          "bonus": 700
+        }
+      ],
+      "points": 35000,
+      "program": "Membership Rewards",
+      "cpp": 2.0,
+      "days": 90,
+      "hold_days": 90,
+      "steps": [
+        "Open Amex Business Checking",
+        "Deposit $5,000 within 30 days",
+        "Keep a $5,000 average balance for the next 60 days",
+        "Make 5 qualifying transactions within 60 days, such as mobile check deposits or ACH payments (debit card purchases don't count)"
+      ],
+      "monthly_fee": 0,
+      "fee_waiver": "",
+      "ends": "",
+      "rule_short": "For your first Amex Business Checking account",
+      "eligibility": "For your first Amex Business Checking account.",
+      "payout": "After all steps are met",
+      "notes": [
+        "Debit card purchases earn 1 point per $2"
+      ],
+      "verified": "Checked on americanexpress.com, Nov 17, 2026"
+    },
+    {
+      "id": "bluevine_business_checking",
+      "segment": "business",
+      "type": "checking",
+      "bank": "Bluevine",
+      "logo": "images/banks/bluevine.png",
+      "account": "Bluevine Business Checking",
+      "short": "Bluevine",
+      "url": "https://www.bluevine.com/partner/nerdwallet300-checking",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 5000,
+          "bonus": 500
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 120,
+      "hold_days": 120,
+      "steps": [
+        "Apply by Jan 31, 2027 with code NW500",
+        "Deposit $5,000 within 30 days and keep at least $5,000 from day 31 to day 120",
+        "Every 30 days for 90 days: $5,000 in card-processing deposits, $5,000 in payroll, or $2,000 on Bluevine cards"
+      ],
+      "monthly_fee": 0,
+      "fee_waiver": "",
+      "ends": "2027-01-31",
+      "rule_short": "New Bluevine customers only",
+      "eligibility": "New Bluevine Business Checking customers only.",
+      "payout": "After all steps are met",
+      "notes": [
+        "FDIC insurance up to $3 million through partner banks"
+      ],
+      "verified": "Checked on bluevine.com, Nov 17, 2026"
+    }
+  ]
+}

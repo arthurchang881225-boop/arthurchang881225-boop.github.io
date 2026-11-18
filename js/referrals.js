@@ -44,7 +44,7 @@
     if (item.image) {
       var img = el('img', 'ref-art');
       img.src = item.image;
-      img.alt = item.name + ' card art';
+      img.alt = tx('{name} card art', { name: item.name });
       img.loading = 'lazy';
       img.width = 220;
       img.height = 139;
@@ -70,16 +70,16 @@
     // Badge when one of the covered cards is on this week's record-high list.
     var hit = (item.card_ids || []).filter(function (id) { return records[id]; })[0];
     if (hit) {
-      var badge = el('a', 'cc-badge high ref-badge', 'Record-high bonus this week');
+      var badge = el('a', 'cc-badge high ref-badge', tx('Record-high bonus this week'));
       badge.href = '/credit-card-bonus#' + records[hit];
       li.appendChild(badge);
     }
 
-    var link = el('a', 'cc-cta', 'Open referral link →');
+    var link = el('a', 'cc-cta', tx('Open referral link →'));
     link.href = item.url;
     link.target = '_blank';
     link.rel = 'noopener sponsored';
-    link.setAttribute('aria-label', 'Open referral link for ' + item.name);
+    link.setAttribute('aria-label', tx('Open referral link for {name}', { name: item.name }));
     li.appendChild(link);
     return li;
   }
@@ -93,7 +93,7 @@
       var section = el('section', 'section-block');
       section.id = group.id;
       var header = el('div', 'section-header');
-      header.appendChild(el('h3', null, group.title));
+      header.appendChild(el('h3', null, tx(group.title)));
       section.appendChild(header);
       var list = el('ul', 'card-grid ref-list');
       group.items.forEach(function (item) { list.appendChild(buildItem(item, records)); });
@@ -108,7 +108,7 @@
   ]).then(function (files) {
     draw(files[0], files[1]);
   }).catch(function (err) {
-    document.getElementById('ref-groups').textContent = 'The referral links could not be loaded. Please refresh the page.';
+    document.getElementById('ref-groups').textContent = tx('The referral links could not be loaded. Please refresh the page.');
     if (window.console) console.error(err);
   });
 })();

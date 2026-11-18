@@ -9,6 +9,9 @@
     data/transfers.json  bank transfer bonuses (replaced weekly)
     data/referrals.json  Arthur's referral links, matched to cards by id
 
+  Interface text goes through tx() (script.js / js/i18n.js) so it can show in
+  Traditional Chinese; card details from the data files stay in English.
+
   Sections below:
     1. State and settings
     2. Helpers: formatting and DOM building
@@ -35,6 +38,7 @@
   };
 
   var QUESTIONS = 4; // questions in the bonus checker
+  var LOCALE = (window.I18N && window.I18N.locale) || 'en-US'; // dates follow the page language
 
   // What the visitor has chosen. Kept in memory only, never saved.
   // An answer is null until its question is answered.
@@ -74,11 +78,11 @@
   function fmtDay(s, withYear) {
     var opts = { month: 'short', day: 'numeric', timeZone: 'UTC' };
     if (withYear) opts.year = 'numeric';
-    return parseDay(s).toLocaleDateString('en-US', opts);
+    return parseDay(s).toLocaleDateString(LOCALE, opts);
   }
 
   function fmtMonth(date) {
-    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+    return date.toLocaleDateString(LOCALE, { month: 'short', year: 'numeric', timeZone: 'UTC' });
   }
 
   // Whole days from today (local calendar date) until a YYYY-MM-DD date.
@@ -90,11 +94,7 @@
 
   // Airline cards earn miles; everything else earns points.
   function unit(card) {
-    return /miles/i.test(card.program) ? 'miles' : 'points';
-  }
-
-  function plural(n, one, many) {
-    return n === 1 ? one : many;
+    return /miles/i.test(card.program) ? tx('miles') : tx('points');
   }
 
   // Create an HTML element with an optional class and text.
@@ -124,6 +124,15 @@
 
   function bold(text) {
     return el('b', null, text);
+  }
+
+  // Turn a sentence with {placeholders} into parts for fill(): text stays text,
+  // and each placeholder becomes its value (a string or a node such as bold()).
+  function sentence(template, values) {
+    return template.split(/(\{\w+\})/).filter(Boolean).map(function (piece) {
+      var m = /^\{(\w+)\}$/.exec(piece);
+      return m && values[m[1]] != null ? values[m[1]] : piece;
+    });
   }
 
   function loadJson(url) {
@@ -331,18 +340,24 @@
     function count(segment) {
       return data.ranked.filter(function (r) { return r.segment === segment && r.tier === 'record'; }).length;
     }
-    var parts = [
-      'Right now ', bold(String(count('personal'))), ' personal and ',
-      bold(String(count('business'))), ' business travel cards have a record-high welcome bonus.'
-    ];
+    var parts = sentence(tx('Right now {personal} personal and {business} business travel cards have a record-high welcome bonus.'), {
+      personal: bold(String(count('personal'))), business: bold(String(count('business')))
+    });
     ['personal', 'business'].forEach(function (segment) {
       var r = top(segment);
-      if (r) parts.push(' The top ' + segment + ' pick is ', bold(r.card.card), ', worth about ', bold(fmtUsd(r.estValue)), '.');
+      if (r) {
+        parts = parts.concat(sentence(tx(segment === 'personal'
+          ? ' The top personal pick is {card}, worth about {value}.'
+          : ' The top business pick is {card}, worth about {value}.'), {
+          card: bold(r.card.card), value: bold(fmtUsd(r.estValue))
+        }));
+      }
     });
     var t = data.transfers[0];
     if (t) {
-      parts.push(' The richest transfer bonus is ', bold(t.t.bonus_pct + '%'),
-        ' from ' + t.t.program + ' to ' + t.t.partner + ', through ' + fmtDay(t.t.ends) + '.');
+      parts = parts.concat(sentence(tx(' The richest transfer bonus is {pct} from {from} to {to}, through {date}.'), {
+        pct: bold(t.t.bonus_pct + '%'), from: t.t.program, to: t.t.partner, date: fmtDay(t.t.ends)
+      }));
     }
     fill(document.getElementById('ccb-lede'), parts);
   }
@@ -380,10 +395,10 @@
     var box = document.getElementById('ccb-answers');
     var had = segmentRows().filter(function (r) { return state.had[r.card.id]; }).length;
     var parts = [
-      answerLabel('n524') + ' new cards in 24 months',
-      state.maxFee < 0 ? 'Any annual fee' : 'Annual fee ' + answerLabel('maxFee').replace(/^Up to/, 'up to'),
-      answerLabel('monthly') + ' a month',
-      had ? 'Had ' + had + ' ' + plural(had, 'card', 'cards') + ' listed here' : 'New to these cards'
+      tx('{answer} new cards in 24 months', { answer: answerLabel('n524') }),
+      state.maxFee < 0 ? tx('Any annual fee') : tx('Annual fee {answer}', { answer: answerLabel('maxFee').replace(/^Up to/, 'up to') }),
+      tx('{answer} a month', { answer: answerLabel('monthly') }),
+      had ? tx(had === 1 ? 'Had 1 card listed here' : 'Had {n} cards listed here', { n: had }) : tx('New to these cards')
     ];
     fill(box, parts.map(function (text) { return el('span', 'cc-badge plain', text); }));
   }
@@ -394,10 +409,13 @@
     var rows = segmentRows();
     var ok = rows.filter(function (r) { return checkFit(r.card).fits; }).length;
     var out = document.getElementById('ccb-fit-summary');
+    var personal = state.segment === 'personal';
     if (!ok) {
-      out.textContent = 'None of these ' + state.segment + ' cards fit your answers right now.';
+      out.textContent = tx(personal ? 'None of these personal cards fit your answers right now.' : 'None of these business cards fit your answers right now.');
     } else {
-      fill(out, [bold(ok + ' of ' + rows.length), ' ' + state.segment + ' cards fit your answers.']);
+      fill(out, sentence(tx(personal ? '{count} personal cards fit your answers.' : '{count} business cards fit your answers.'), {
+        count: bold(tx('{ok} of {all}', { ok: ok, all: rows.length }))
+      }));
     }
     drawAnswers();
   }
@@ -407,13 +425,13 @@
     var rows = segmentRows();
     var record = rows.filter(function (r) { return r.tier === 'record'; }).length;
     var near = rows.length - record;
-    var label = state.segment === 'personal' ? 'Personal' : 'Business';
-    document.getElementById('ccb-segment-title').textContent = label + ' travel cards at a record-high bonus';
+    document.getElementById('ccb-segment-title').textContent = tx(state.segment === 'personal'
+      ? 'Personal travel cards at a record-high bonus' : 'Business travel cards at a record-high bonus');
     var note = document.getElementById('ccb-tier-note');
-    if (!rows.length) note.textContent = 'No cards qualify right now.';
-    else if (near === 0) note.textContent = record + ' ' + plural(record, 'card', 'cards') + ' at a record-high bonus, ranked by estimated value.';
-    else note.textContent = record + ' ' + plural(record, 'card is', 'cards are') + ' at a record high, ranked by estimated value. The next ' +
-      near + ' ' + plural(near, 'is', 'are') + ' the closest to their record.';
+    if (!rows.length) note.textContent = tx('No cards qualify right now.');
+    else if (near === 0) note.textContent = tx(record === 1 ? '1 card at a record-high bonus, ranked by estimated value.' : '{n} cards at a record-high bonus, ranked by estimated value.', { n: record });
+    else note.textContent = tx(record === 1 ? '1 card is at a record high, ranked by estimated value.' : '{n} cards are at a record high, ranked by estimated value.', { n: record }) +
+      tx(near === 1 ? ' The next 1 is the closest to its record.' : ' The next {n} are the closest to their record.', { n: near });
   }
 
   /*
@@ -433,7 +451,7 @@
     var height = rows.length * rowH - gap + axisH;
     var svg = svgEl('svg', {
       width: '100%', height: height, viewBox: '0 0 ' + width + ' ' + height, role: 'img',
-      'aria-label': 'Estimated bonus value per $100 of required spending: ' +
+      'aria-label': tx('Estimated bonus value per $100 of required spending: ') +
         rows.map(function (r) { return r.card.short + ' $' + r.returnPer100; }).join(', ')
     });
     box.appendChild(svg);
@@ -495,10 +513,10 @@
         var rect = box.getBoundingClientRect();
         showTip(box, [
           r.card.short,
-          r.tier === 'record' ? 'Record-high offer' : 'Near record: ' + r.pctOfBest + '% of its best',
-          'Bonus worth about ' + fmtUsd(r.estValue),
-          'Required spend ' + fmtUsd(r.card.spend),
-          '$' + r.returnPer100 + ' back per $100 spent'
+          r.tier === 'record' ? tx('Record-high offer') : tx('Near record: {pct}% of its best', { pct: r.pctOfBest }),
+          tx('Bonus worth about {usd}', { usd: fmtUsd(r.estValue) }),
+          tx('Required spend {usd}', { usd: fmtUsd(r.card.spend) }),
+          tx('{usd} back per $100 spent', { usd: '$' + r.returnPer100 })
         ], point.clientX - rect.left, point.clientY - rect.top);
       }
       hit.addEventListener('mousemove', onMove);
@@ -531,7 +549,7 @@
 
     var svg = svgEl('svg', {
       width: '100%', height: height, viewBox: '0 0 ' + width + ' ' + height, role: 'img',
-      'aria-label': 'Offer history for ' + r.card.short + ': ' +
+      'aria-label': tx('Offer history for {card}: ', { card: r.card.short }) +
         pts.map(function (p) { return fmtMonth(p.date) + ' ' + fmtInt(p.value); }).join(', ')
     });
 
@@ -547,7 +565,7 @@
     var from = svgEl('text', { 'class': 'ccb-chart-tick', x: 0, y: height - 4 });
     from.textContent = fmtMonth(pts[0].date);
     var to = svgEl('text', { 'class': 'ccb-chart-tick', x: width - padRight, y: height - 4, 'text-anchor': 'end' });
-    to.textContent = 'Now';
+    to.textContent = tx('Now');
     svg.appendChild(from);
     svg.appendChild(to);
 
@@ -598,8 +616,8 @@
     if (card.first_year_fee < card.annual_fee) {
       feeNode.appendChild(el('s', 'ccb-fee-old', fmtUsd(card.annual_fee)));
       feeNode.appendChild(el('span', null, fmtUsd(card.first_year_fee)));
-      feeNode.setAttribute('aria-label', fmtUsd(card.first_year_fee) + ' the first year, then ' + fmtUsd(card.annual_fee));
-      notes.push('First year, then ' + fmtUsd(card.annual_fee) + ' a year');
+      feeNode.setAttribute('aria-label', tx('{first} the first year, then {fee}', { first: fmtUsd(card.first_year_fee), fee: fmtUsd(card.annual_fee) }));
+      notes.push(tx('First year, then {fee} a year', { fee: fmtUsd(card.annual_fee) }));
     } else {
       feeNode.textContent = fmtUsd(card.annual_fee);
     }
@@ -624,7 +642,7 @@
     if (c.image) {
       var img = el('img');
       img.src = c.image;
-      img.alt = c.card + ' card art';
+      img.alt = tx('{name} card art', { name: c.card });
       img.loading = 'lazy';
       img.width = 220;
       img.height = 139;
@@ -642,26 +660,29 @@
     // Status chips: record tier, best-ever note, end date, eligibility, spending fit.
     var chips = slot('chips');
     chips.appendChild(r.tier === 'record'
-      ? chip('Record-high offer', 'high')
-      : chip('Near record: ' + r.pctOfBest + '% of its best', 'near'));
+      ? chip(tx('Record-high offer'), 'high')
+      : chip(tx('Near record: {pct}% of its best', { pct: r.pctOfBest }), 'near'));
     if (c.best_note) chips.appendChild(chip(c.best_note, 'plain'));
     if (c.ends) {
       var left = daysUntil(c.ends);
       var soon = left >= 0 && left <= 14;
-      chips.appendChild(chip('Ends ' + fmtDay(c.ends, true) + (soon ? ' (' + left + ' ' + plural(left, 'day', 'days') + ' left)' : ''), soon ? 'near' : 'plain'));
+      chips.appendChild(chip(tx('Ends {date}', { date: fmtDay(c.ends, true) }) +
+        (soon ? tx(left === 1 ? ' (1 day left)' : ' ({n} days left)', { n: left }) : ''), soon ? 'near' : 'plain'));
     }
     // Checker results, shown once the visitor has answered something.
-    if (fit.status === 'blocked') chips.appendChild(chip('No bonus for you: ' + fit.rule, 'bad'));
-    if (fit.status === 'caution') chips.appendChild(chip('Check first: ' + fit.rule, 'near'));
-    if (fit.feeOk === false) chips.appendChild(chip('Fee above your ' + fmtUsd(state.maxFee) + ' limit', 'near'));
-    if (fit.spendOk === false) chips.appendChild(chip('Needs about ' + fmtUsd(fit.monthlyNeeded) + ' a month', 'near'));
-    if (state.step === QUESTIONS + 1 && fit.fits) chips.appendChild(chip('Fits your answers', 'high'));
+    if (fit.status === 'blocked') chips.appendChild(chip(tx('No bonus for you: {rule}', { rule: tx(fit.rule) }), 'bad'));
+    if (fit.status === 'caution') chips.appendChild(chip(tx('Check first: {rule}', { rule: tx(fit.rule) }), 'near'));
+    if (fit.feeOk === false) chips.appendChild(chip(tx('Fee above your {usd} limit', { usd: fmtUsd(state.maxFee) }), 'near'));
+    if (fit.spendOk === false) chips.appendChild(chip(tx('Needs about {usd} a month', { usd: fmtUsd(fit.monthlyNeeded) }), 'near'));
+    if (state.step === QUESTIONS + 1 && fit.fits) chips.appendChild(chip(tx('Fits your answers'), 'high'));
 
     // Offer numbers.
-    slot('bonus').textContent = (c.as_high_as ? 'Up to ' : '') + fmtInt(c.bonus_points) + ' ' + unit(c);
-    slot('spend').textContent = 'After ' + fmtUsd(c.spend) + ' in ' + c.months + ' months' + (c.bonus_extra ? '. ' + c.bonus_extra : '');
+    slot('bonus').textContent = tx(c.as_high_as ? 'Up to {n} {unit}' : '{n} {unit}', { n: fmtInt(c.bonus_points), unit: unit(c) });
+    slot('spend').textContent = tx('After {usd} in {months} months', { usd: fmtUsd(c.spend), months: c.months }) + (c.bonus_extra ? '. ' + c.bonus_extra : '');
     slot('value').textContent = '≈ ' + fmtUsd(r.estValue);
-    slot('cpp').textContent = 'At ' + c.cpp + '¢ per ' + unit(c).replace(/s$/, '') + '. $' + r.returnPer100 + ' back per $100 of required spend';
+    slot('cpp').textContent = tx('At {cpp}¢ per {unit}. {usd} back per $100 of required spend', {
+      cpp: c.cpp, unit: unit(c).replace(/s$/, ''), usd: '$' + r.returnPer100
+    });
     drawFee(slot('fee'), slot('fee-note'), c);
 
     // Earning rates: one row per rate.
@@ -681,10 +702,10 @@
       credits.appendChild(li);
     });
     if (!(c.credits || []).length) {
-      credits.appendChild(el('li', 'ccb-none', 'No statement credits'));
+      credits.appendChild(el('li', 'ccb-none', tx('No statement credits')));
     } else if (r.credits > 0) {
       var total = el('li', 'ccb-total');
-      total.appendChild(el('span', null, 'Yearly total, if you use every one'));
+      total.appendChild(el('span', null, tx('Yearly total, if you use every one')));
       total.appendChild(el('b', null, fmtUsd(r.credits)));
       credits.appendChild(total);
     }
@@ -696,15 +717,16 @@
       if (h.value) li.appendChild(el('b', null, h.value));
       slot('highlights').appendChild(li);
     });
-    if (!(c.highlights || []).length) slot('highlights').appendChild(el('li', 'ccb-none', 'None listed'));
+    if (!(c.highlights || []).length) slot('highlights').appendChild(el('li', 'ccb-none', tx('None listed')));
 
     // Footer: Apply (referral link when there is one).
     var apply = slot('apply');
     apply.href = applyUrl;
-    apply.setAttribute('aria-label', 'Apply for ' + c.card);
+    apply.textContent = tx('Apply →');
+    apply.setAttribute('aria-label', tx('Apply for {card}', { card: c.card }));
     var official = slot('official');
     if (referral) {
-      apply.textContent = 'Apply with my referral link →';
+      apply.textContent = tx('Apply with my referral link →');
       apply.rel = 'noopener sponsored';
       name.rel = 'noopener sponsored';
       official.href = c.url;
@@ -732,9 +754,8 @@
       built.push({ node: node, r: r });
     });
     if (hidden > 0) {
-      var note = el('li', 'ccb-empty', hidden + ' ' + plural(hidden, 'card is', 'cards are') + " hidden because " +
-        plural(hidden, "it doesn't", "they don't") + ' fit your answers. ');
-      var showAll = el('button', 'ccb-text-button', 'Show ' + plural(hidden, 'it', 'them'));
+      var note = el('li', 'ccb-empty', tx(hidden === 1 ? "1 card is hidden because it doesn't fit your answers. " : "{n} cards are hidden because they don't fit your answers. ", { n: hidden }));
+      var showAll = el('button', 'ccb-text-button', tx(hidden === 1 ? 'Show it' : 'Show them'));
       showAll.type = 'button';
       showAll.addEventListener('click', function () { setOnlyFits(false); });
       note.appendChild(showAll);
@@ -754,7 +775,7 @@
     body.textContent = '';
     if (!data.transfers.length) {
       var empty = el('tr');
-      var td = el('td', 'ccb-empty', 'No transfer bonuses are running right now.');
+      var td = el('td', 'ccb-empty', tx('No transfer bonuses are running right now.'));
       td.colSpan = 6;
       empty.appendChild(td);
       body.appendChild(empty);
@@ -775,7 +796,7 @@
       cell(row.t.partner);
       cell(row.t.bonus_pct + '%', 'ccb-num ccb-pct');
       cell(fmtDay(row.t.ends, true), 'ccb-date');
-      cell(row.daysLeft === 0 ? 'Last day' : String(row.daysLeft), 'ccb-num' + (row.daysLeft <= 7 ? ' ccb-soon' : ''));
+      cell(row.daysLeft === 0 ? tx('Last day') : String(row.daysLeft), 'ccb-num' + (row.daysLeft <= 7 ? ' ccb-soon' : ''));
       cell(row.t.note, 'ccb-why');
       body.appendChild(tr);
     });
@@ -788,16 +809,16 @@
     list.textContent = '';
     var spots = data.transfers.filter(function (row) { return row.t.sweet_spot && row.pointsWith > 0; });
     if (!spots.length) {
-      list.appendChild(el('li', 'ccb-empty', 'No sweet spots are priced this week.'));
+      list.appendChild(el('li', 'ccb-empty', tx('No sweet spots are priced this week.')));
       return;
     }
     spots.forEach(function (row) {
       var li = el('li', 'card');
-      li.appendChild(el('div', 'meta', row.t.program + ' · ' + row.t.bonus_pct + '% bonus through ' + fmtDay(row.t.ends)));
+      li.appendChild(el('div', 'meta', row.t.program + ' · ' + tx('{pct}% bonus through {date}', { pct: row.t.bonus_pct, date: fmtDay(row.t.ends) })));
       li.appendChild(el('h4', null, row.t.partner));
       li.appendChild(el('p', null, row.t.sweet_spot));
       li.appendChild(el('div', 'ccb-spot-value', fmtInt(row.pointsWith)));
-      li.appendChild(el('p', 'ccb-meta', 'bank points with the bonus, instead of ' + fmtInt(row.pointsWithout)));
+      li.appendChild(el('p', 'ccb-meta', tx('bank points with the bonus, instead of {n}', { n: fmtInt(row.pointsWithout) })));
       list.appendChild(li);
     });
   }
@@ -869,7 +890,7 @@
     back.hidden = state.step <= 1;
     next.hidden = state.step !== QUESTIONS;
     var picked = segmentRows().some(function (r) { return state.had[r.card.id]; });
-    next.textContent = picked ? 'See my cards' : 'None of these';
+    next.textContent = picked ? tx('See my cards') : tx('None of these');
   }
 
   function finishQuiz() {
@@ -959,7 +980,7 @@
     bindControls();
     setSegment((window.location.hash || '').replace('#', ''), false);
   }).catch(function (err) {
-    showError('The card data could not be loaded. Please refresh the page.');
+    showError(tx('The card data could not be loaded. Please refresh the page.'));
     if (window.console) console.error(err);
   });
 })();

@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arthur Chang | Credit Card Bonus</title>
+    <title data-i18n="title.cards">Arthur Chang | Credit Card Bonus</title>
     <meta name="description" content="Travel rewards credit cards with record-high welcome bonuses right now, plus current bank transfer bonuses. Checked weekly.">
     <link rel="canonical" href="https://ayochillout.com/credit-card-bonus">
+    <!-- Language: Chinese text, then the switcher (see js/i18n.js) -->
+    <script src="js/i18n-zh-tw.js"></script>
+    <script src="js/i18n.js"></script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -26,16 +29,17 @@
         <div class="nav-group">
           <nav>
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/blog">Blog</a></li>
-              <li><a href="/credit-card-bonus" class="active">Credit Card Bonus</a></li>
-              <li><a href="/bank-account-bonus">Bank Bonus</a></li>
-              <li><a href="/referrals">Referrals</a></li>
-              <li><a href="/contact">Contact</a></li>
+              <li><a href="/" data-i18n="nav.home">Home</a></li>
+              <li><a href="/about" data-i18n="nav.about">About</a></li>
+              <li><a href="/blog" data-i18n="nav.blog">Blog</a></li>
+              <li><a href="/credit-card-bonus" class="active" data-i18n="nav.cards">Credit Card Bonus</a></li>
+              <li><a href="/bank-account-bonus" data-i18n="nav.banks">Bank Bonus</a></li>
+              <li><a href="/referrals" data-i18n="nav.referrals">Referrals</a></li>
+              <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
             </ul>
           </nav>
-          <button class="theme-toggle" aria-label="Toggle theme">
+          <button type="button" class="lang-toggle">中文</button>
+          <button class="theme-toggle" aria-label="Toggle theme" data-i18n-attr="aria-label:ui.theme">
             <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -53,20 +57,20 @@
       <!-- Intro: one-sentence summary of this week's best offers -->
       <section class="section-block page-intro animate-on-scroll">
         <div class="section-header">
-          <h3>Credit Card Bonus</h3>
-          <a href="/referrals">All my referral links</a>
+          <h3 data-i18n="nav.cards">Credit Card Bonus</h3>
+          <a href="/referrals" data-i18n="cc.allReferrals">All my referral links</a>
         </div>
 
         <div class="ccb-intro">
-          <p class="ccb-lede" id="ccb-lede">Loading this week's offers&hellip;</p>
+          <p class="ccb-lede" id="ccb-lede" data-i18n="ui.loading">Loading this week's offers&hellip;</p>
         </div>
       </section>
 
       <!-- Card type toggle -->
       <section class="section-block animate-on-scroll ccb-toolbar">
         <div class="ccb-toggle" role="group" aria-label="Card type">
-          <button type="button" data-segment="personal" aria-pressed="true">Personal</button>
-          <button type="button" data-segment="business" aria-pressed="false">Business</button>
+          <button type="button" data-segment="personal" aria-pressed="true" data-i18n="ui.personal">Personal</button>
+          <button type="button" data-segment="business" aria-pressed="false" data-i18n="ui.business">Business</button>
         </div>
       </section>
 
@@ -78,58 +82,58 @@
           <!-- Before starting -->
           <div class="ccb-check-start" data-panel="start">
             <div>
-              <h4 class="ccb-panel-title">Which of these bonuses can you get?</h4>
-              <p class="ccb-meta">Four quick questions. Your answers stay on this page.</p>
+              <h4 class="ccb-panel-title" data-i18n="cc.check.title">Which of these bonuses can you get?</h4>
+              <p class="ccb-meta" data-i18n="cc.check.meta">Four quick questions. Your answers stay on this page.</p>
             </div>
-            <button type="button" data-action="start">Find out</button>
+            <button type="button" data-action="start" data-i18n="ui.findOut">Find out</button>
           </div>
 
           <!-- Questions -->
           <div class="ccb-quiz" data-panel="quiz" hidden>
             <div class="ccb-progress">
-              <span>Question <b id="ccb-step-num">1</b> of 4</span>
+              <span data-i18n-html="cc.progress">Question <b id="ccb-step-num">1</b> of 4</span>
               <span class="ccb-progress-bar"><i id="ccb-step-bar"></i></span>
             </div>
 
             <div class="ccb-step" data-step="1">
-              <h4 class="ccb-question">How many personal credit cards have you opened in the last 24 months, at any bank?</h4>
+              <h4 class="ccb-question" data-i18n="cc.q1">How many personal credit cards have you opened in the last 24 months, at any bank?</h4>
               <div class="ccb-options" data-field="n524" role="group" aria-label="Cards opened in the last 24 months">
-                <button type="button" data-value="2">0 to 2</button>
-                <button type="button" data-value="4">3 or 4</button>
+                <button type="button" data-value="2" data-i18n="cc.q1.a">0 to 2</button>
+                <button type="button" data-value="4" data-i18n="cc.q1.b">3 or 4</button>
                 <button type="button" data-value="5">5</button>
-                <button type="button" data-value="6">6 or more</button>
+                <button type="button" data-value="6" data-i18n="cc.q1.d">6 or more</button>
               </div>
             </div>
 
             <div class="ccb-step" data-step="2" hidden>
-              <h4 class="ccb-question">What's the most you'd pay in annual fees for one card?</h4>
+              <h4 class="ccb-question" data-i18n="cc.q2">What's the most you'd pay in annual fees for one card?</h4>
               <div class="ccb-options" data-field="maxFee" role="group" aria-label="Highest annual fee">
                 <button type="button" data-value="0">$0</button>
-                <button type="button" data-value="100">Up to $100</button>
-                <button type="button" data-value="400">Up to $400</button>
-                <button type="button" data-value="700">Up to $700</button>
-                <button type="button" data-value="-1">Any fee</button>
+                <button type="button" data-value="100" data-i18n="cc.q2.b">Up to $100</button>
+                <button type="button" data-value="400" data-i18n="cc.q2.c">Up to $400</button>
+                <button type="button" data-value="700" data-i18n="cc.q2.d">Up to $700</button>
+                <button type="button" data-value="-1" data-i18n="cc.q2.e">Any fee</button>
               </div>
             </div>
 
             <div class="ccb-step" data-step="3" hidden>
-              <h4 class="ccb-question">How much could you put on a new card each month?</h4>
+              <h4 class="ccb-question" data-i18n="cc.q3">How much could you put on a new card each month?</h4>
               <div class="ccb-options" data-field="monthly" role="group" aria-label="Monthly spending">
-                <button type="button" data-value="500">Under $1,000</button>
-                <button type="button" data-value="1000">$1,000 to $2,500</button>
-                <button type="button" data-value="2500">$2,500 to $5,000</button>
-                <button type="button" data-value="5000">$5,000 or more</button>
+                <button type="button" data-value="500" data-i18n="cc.q3.a">Under $1,000</button>
+                <button type="button" data-value="1000" data-i18n="cc.q3.b">$1,000 to $2,500</button>
+                <button type="button" data-value="2500" data-i18n="cc.q3.c">$2,500 to $5,000</button>
+                <button type="button" data-value="5000" data-i18n="cc.q3.d">$5,000 or more</button>
               </div>
             </div>
 
             <div class="ccb-step" data-step="4" hidden>
-              <h4 class="ccb-question">Have you had any of these cards? Tap any that apply.</h4>
-              <p class="ccb-meta">Most banks pay a card's bonus only once, or once every few years.</p>
+              <h4 class="ccb-question" data-i18n="cc.q4">Have you had any of these cards? Tap any that apply.</h4>
+              <p class="ccb-meta" data-i18n="cc.q4.meta">Most banks pay a card's bonus only once, or once every few years.</p>
               <div class="ccb-options ccb-options-multi" id="ccb-had-options" role="group" aria-label="Cards you have had"></div>
             </div>
 
             <div class="ccb-quiz-nav">
-              <button type="button" class="ccb-text-button" data-action="back">Back</button>
+              <button type="button" class="ccb-text-button" data-action="back" data-i18n="ui.back">Back</button>
               <button type="button" data-action="next" hidden>None of these</button>
             </div>
           </div>
@@ -139,9 +143,9 @@
             <p class="ccb-result" id="ccb-fit-summary" aria-live="polite"></p>
             <div class="ccb-answers" id="ccb-answers"></div>
             <div class="ccb-done-actions">
-              <label class="ccb-switch"><input type="checkbox" id="ccb-only-fits" checked> Show only cards that fit</label>
-              <button type="button" class="ccb-text-button" data-action="edit">Change answers</button>
-              <button type="button" class="ccb-text-button" data-action="reset">Start over</button>
+              <label class="ccb-switch" data-i18n-html="cc.onlyFits"><input type="checkbox" id="ccb-only-fits" checked> Show only cards that fit</label>
+              <button type="button" class="ccb-text-button" data-action="edit" data-i18n="ui.changeAnswers">Change answers</button>
+              <button type="button" class="ccb-text-button" data-action="reset" data-i18n="ui.startOver">Start over</button>
             </div>
           </div>
         </div>
@@ -155,14 +159,14 @@
         <p class="ccb-meta" id="ccb-tier-note"></p>
 
         <div class="ccb-panel">
-          <h4 class="ccb-panel-title">Bonus value per $100 of required spending</h4>
-          <p class="ccb-meta">
+          <h4 class="ccb-panel-title" data-i18n="cc.chart.title">Bonus value per $100 of required spending</h4>
+          <p class="ccb-meta" data-i18n="cc.chart.note">
             How hard each bonus works for the spending it asks of you: estimated bonus value divided
             by the minimum spend.
           </p>
           <div class="ccb-legend">
-            <span><i class="ccb-swatch ccb-swatch-record"></i>Record-high offer</span>
-            <span><i class="ccb-swatch ccb-swatch-near"></i>Near record</span>
+            <span data-i18n-html="cc.legend.record"><i class="ccb-swatch ccb-swatch-record"></i>Record-high offer</span>
+            <span data-i18n-html="cc.legend.near"><i class="ccb-swatch ccb-swatch-near"></i>Near record</span>
           </div>
           <div class="ccb-chart" id="ccb-chart"></div>
         </div>
@@ -173,18 +177,18 @@
       <!-- Bank transfer bonuses that have not ended yet -->
       <section class="section-block animate-on-scroll" id="ccb-transfers">
         <div class="section-header">
-          <h3>Bank transfer bonuses running now</h3>
+          <h3 data-i18n="cc.transfers">Bank transfer bonuses running now</h3>
         </div>
         <div class="ccb-table-wrap">
           <table class="ccb-table">
             <thead>
               <tr>
-                <th scope="col">From</th>
-                <th scope="col">To</th>
-                <th scope="col" class="ccb-num">Bonus</th>
-                <th scope="col">Ends</th>
-                <th scope="col" class="ccb-num">Days left</th>
-                <th scope="col">When it is worth it</th>
+                <th scope="col" data-i18n="cc.th.from">From</th>
+                <th scope="col" data-i18n="cc.th.to">To</th>
+                <th scope="col" class="ccb-num" data-i18n="cc.th.bonus">Bonus</th>
+                <th scope="col" data-i18n="cc.th.ends">Ends</th>
+                <th scope="col" class="ccb-num" data-i18n="cc.th.days">Days left</th>
+                <th scope="col" data-i18n="cc.th.why">When it is worth it</th>
               </tr>
             </thead>
             <tbody id="ccb-transfer-rows"></tbody>
@@ -196,9 +200,9 @@
       <!-- Award sweet spots priced with today's transfer bonuses -->
       <section class="section-block animate-on-scroll" id="ccb-sweet-spots">
         <div class="section-header">
-          <h3>Transfer sweet spots, priced with today's bonuses</h3>
+          <h3 data-i18n="cc.spots">Transfer sweet spots, priced with today's bonuses</h3>
         </div>
-        <p class="ccb-meta">
+        <p class="ccb-meta" data-i18n="cc.spots.note">
           Typical starting award prices. Award space and prices change, so search the partner's site
           before you transfer.
         </p>
@@ -208,8 +212,8 @@
       <!-- Issuer rules: static reference text -->
       <section class="section-block animate-on-scroll" id="ccb-rules">
         <details class="ccb-panel">
-          <summary>Before you apply</summary>
-          <dl class="ccb-rules">
+          <summary data-i18n="cc.rules.title">Before you apply</summary>
+          <dl class="ccb-rules" data-i18n-html="cc.rules">
             <dt>Chase 5/24 rule</dt>
             <dd>Chase usually declines you if you opened 5 or more personal cards from any bank in the past 24 months. Most business cards from other banks do not count.</dd>
             <dt>Chase 24-month bonus rule</dt>
@@ -255,40 +259,40 @@
 
           <div class="cc-details">
             <div class="cc-detail-box">
-              <div class="lbl">Welcome bonus</div>
+              <div class="lbl" data-i18n="cc.lbl.bonus">Welcome bonus</div>
               <div class="val" data-slot="bonus"></div>
               <div class="sub" data-slot="spend"></div>
             </div>
             <div class="cc-detail-box">
-              <div class="lbl">Estimated value</div>
+              <div class="lbl" data-i18n="cc.lbl.value">Estimated value</div>
               <div class="val" data-slot="value"></div>
               <div class="sub" data-slot="cpp"></div>
             </div>
             <div class="cc-detail-box">
-              <div class="lbl">Annual fee</div>
+              <div class="lbl" data-i18n="cc.lbl.fee">Annual fee</div>
               <div class="val" data-slot="fee"></div>
               <div class="sub" data-slot="fee-note"></div>
             </div>
           </div>
 
           <div class="ccb-history">
-            <div class="lbl">Offer history</div>
+            <div class="lbl" data-i18n="cc.lbl.history">Offer history</div>
             <div class="ccb-spark" data-slot="spark"></div>
-            <p class="ccb-meta">Dashed line: the best offer before today.</p>
+            <p class="ccb-meta" data-i18n="cc.history.note">Dashed line: the best offer before today.</p>
           </div>
 
           <!-- Three sections: earning rates (one row per rate), credits with a yearly total, highlights -->
           <div class="ccb-sections">
             <section>
-              <h5 class="lbl">Earning rates</h5>
+              <h5 class="lbl" data-i18n="cc.lbl.earn">Earning rates</h5>
               <ul class="ccb-earn" data-slot="earn"></ul>
             </section>
             <section>
-              <h5 class="lbl">Credits</h5>
+              <h5 class="lbl" data-i18n="cc.lbl.credits">Credits</h5>
               <ul class="ccb-credits" data-slot="credits"></ul>
             </section>
             <section>
-              <h5 class="lbl">Highlights</h5>
+              <h5 class="lbl" data-i18n="cc.lbl.highlights">Highlights</h5>
               <ul class="ccb-perks" data-slot="highlights"></ul>
             </section>
           </div>
@@ -296,7 +300,7 @@
           <div class="ccb-card-foot">
             <div class="ccb-actions">
               <a class="cc-cta" data-slot="apply" target="_blank" rel="noopener">Apply &rarr;</a>
-              <a class="ccb-official" data-slot="official" target="_blank" rel="noopener">Official offer page</a>
+              <a class="ccb-official" data-slot="official" target="_blank" rel="noopener" data-i18n="ui.officialPage">Official offer page</a>
             </div>
           </div>
         </li>
@@ -311,7 +315,7 @@
         <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>Instagram</a>
         <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-spotify"></use></svg>Spotify</a>
       </div>
-      <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
+      <p class="copyright" data-i18n-html="footer.copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
     <script src="js/credit-card-bonus.js"></script>

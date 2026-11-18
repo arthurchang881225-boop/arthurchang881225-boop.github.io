@@ -1,5 +1,6 @@
 /*
   Site behavior script:
+  - puts in the Traditional Chinese text when that language is chosen (js/i18n.js)
   - remembers the user's theme choice
   - types the homepage greeting
   - reveals content block by block as it scrolls into view
@@ -8,6 +9,14 @@
   - shows old .html addresses as clean ones, and keeps the current page visible in the nav
   - adds the social logos used in footers and on the contact page
 */
+
+/* ─── Language ───
+   Runs first, so the other parts below (and the page scripts after this file)
+   see the page in the visitor's language. Without js/i18n.js, tx() returns English. */
+if (window.I18N) window.I18N.apply(document);
+var tx = (window.I18N && window.I18N.t) || function (text, vars) {
+  return text.replace(/\{(\w+)\}/g, function (all, name) { return vars && name in vars ? vars[name] : all; });
+};
 
 /* ─── Theme Toggle ─── */
 (function () {
@@ -31,7 +40,7 @@
   var el = document.getElementById('typed-heading');
   if (!el) return;
 
-  var text = 'Arthur here.';
+  var text = tx('Arthur here.');
   var i = 0;
 
   function type() {
@@ -194,7 +203,9 @@
         var dot = document.createElement('span');
         dot.className = 'season-dot ' + kind + ' ' + state;
         dot.style.setProperty('--i', year - FIRST_YEAR);
-        dot.title = kind === 'summer' ? 'Summer ' + year : 'Winter ' + year + '–' + String(year + 1).slice(2);
+        dot.title = kind === 'summer'
+          ? tx('Summer {year}', { year: year })
+          : tx('Winter {years}', { years: year + '–' + String(year + 1).slice(2) });
         row.appendChild(dot);
       }
       var count = document.getElementById(kind + 's-left');
@@ -228,13 +239,13 @@
   }
 
   function drawClock() {
-    var t = timeLeft(new Date());
+    var left = timeLeft(new Date());
     clock.innerHTML =
-      '<div class="unit"><span class="num">' + t.years + '</span><span class="lbl">Years</span></div>' +
-      '<div class="unit"><span class="num">' + t.days + '</span><span class="lbl">Days</span></div>' +
-      '<div class="unit"><span class="num">' + pad(t.hours) + '</span><span class="lbl">Hours</span></div>' +
-      '<div class="unit"><span class="num">' + pad(t.minutes) + '</span><span class="lbl">Minutes</span></div>' +
-      '<div class="unit"><span class="num">' + pad(t.seconds) + '</span><span class="lbl">Seconds</span></div>';
+      '<div class="unit"><span class="num">' + left.years + '</span><span class="lbl">' + tx('Years') + '</span></div>' +
+      '<div class="unit"><span class="num">' + left.days + '</span><span class="lbl">' + tx('Days') + '</span></div>' +
+      '<div class="unit"><span class="num">' + pad(left.hours) + '</span><span class="lbl">' + tx('Hours') + '</span></div>' +
+      '<div class="unit"><span class="num">' + pad(left.minutes) + '</span><span class="lbl">' + tx('Minutes') + '</span></div>' +
+      '<div class="unit"><span class="num">' + pad(left.seconds) + '</span><span class="lbl">' + tx('Seconds') + '</span></div>';
   }
 
   if (grid) drawSeasons();
@@ -252,16 +263,24 @@
   var blocks = document.querySelectorAll('.reveal-words');
   if (!blocks.length) return;
 
+  // Chinese is written without spaces, so it lights up one character at a time.
+  var byCharacter = /^zh/.test(document.documentElement.lang);
+
   blocks.forEach(function (block) {
-    var words = block.textContent.trim().split(/\s+/);
-    block.setAttribute('aria-label', words.join(' '));
+    var text = block.textContent.trim().replace(/\s+/g, ' ');
+    var words = byCharacter ? Array.from(text) : text.split(' ');
+    block.setAttribute('aria-label', text);
     block.textContent = '';
     words.forEach(function (w, i) {
+      if (w === ' ') { // a space between Chinese and a number stays a plain space
+        block.appendChild(document.createTextNode(' '));
+        return;
+      }
       var span = document.createElement('span');
       span.className = 'word';
       span.setAttribute('aria-hidden', 'true');
       span.textContent = w;
-      if (i) block.appendChild(document.createTextNode(' '));
+      if (i && !byCharacter) block.appendChild(document.createTextNode(' '));
       block.appendChild(span);
     });
   });

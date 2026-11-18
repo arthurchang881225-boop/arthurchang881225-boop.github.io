@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arthur Chang</title>
+    <title data-i18n="title.home">Arthur Chang</title>
     <link rel="canonical" href="https://ayochillout.com/">
+    <!-- Language: Chinese text, then the switcher (see js/i18n.js) -->
+    <script src="js/i18n-zh-tw.js"></script>
+    <script src="js/i18n.js"></script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -17,16 +20,17 @@
         <div class="nav-group">
           <nav>
             <ul>
-            <li><a href="/" class="active">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/credit-card-bonus">Credit Card Bonus</a></li>
-            <li><a href="/bank-account-bonus">Bank Bonus</a></li>
-            <li><a href="/referrals">Referrals</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/" class="active" data-i18n="nav.home">Home</a></li>
+            <li><a href="/about" data-i18n="nav.about">About</a></li>
+            <li><a href="/blog" data-i18n="nav.blog">Blog</a></li>
+            <li><a href="/credit-card-bonus" data-i18n="nav.cards">Credit Card Bonus</a></li>
+            <li><a href="/bank-account-bonus" data-i18n="nav.banks">Bank Bonus</a></li>
+            <li><a href="/referrals" data-i18n="nav.referrals">Referrals</a></li>
+            <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
             </ul>
           </nav>
-          <button class="theme-toggle" aria-label="Toggle theme">
+          <button type="button" class="lang-toggle">中文</button>
+          <button class="theme-toggle" aria-label="Toggle theme" data-i18n-attr="aria-label:ui.theme">
             <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -44,45 +48,45 @@
       <!-- Hero section: opening introduction and profile image -->
       <section class="hero animate-on-scroll">
         <div class="hero-text">
-          <span class="greeting">hello,</span>
+          <span class="greeting" data-i18n="home.greeting">hello,</span>
           <h2 id="typed-heading"></h2>
-          <p>
+          <p data-i18n="home.lede">
             CPA, Program Manager @Amazon, Budget Analyst @USAF, and personal finance enthusiast
             documenting the intersection of finance, tech, and building a thoughtful life.
           </p>
           <div class="hero-actions">
-            <a class="button" href="/about">About me</a>
-            <a class="link-more" href="/credit-card-bonus">This week's card bonuses</a>
+            <a class="button" href="/about" data-i18n="home.aboutMe">About me</a>
+            <a class="link-more" href="/credit-card-bonus" data-i18n="home.cardsLink">This week's card bonuses</a>
           </div>
         </div>
 
         <div class="hero-visual">
-          <img src="images/PA.png" alt="Arthur Chang" />
+          <img src="images/PA.png" alt="Arthur Chang" data-i18n-attr="alt:home.photoAlt" />
         </div>
       </section>
 
       <!-- Content feed: highlights the newest writing and curated links -->
       <section class="section-block animate-on-scroll">
         <div class="section-header">
-          <h3>Latest posts</h3>
-          <a href="/blog">See all</a>
+          <h3 data-i18n="home.latest">Latest posts</h3>
+          <a href="/blog" data-i18n="ui.seeAll">See all</a>
         </div>
 
         <div class="card-grid stagger">
           <a href="/blog" class="card animate-on-scroll" style="text-decoration:none;">
-            <div class="meta">August 8, 2026</div>
-            <h4>How the Super Rich Avoid Paying Taxes</h4>
-            <p>Scott Galloway breaks down legal tax strategies the wealthiest use, and why owning beats earning.</p>
+            <div class="meta" data-i18n="date.2026-08-08">August 8, 2026</div>
+            <h4 data-i18n="post.tax.title">How the Super Rich Avoid Paying Taxes</h4>
+            <p data-i18n="post.tax.teaser">Scott Galloway breaks down legal tax strategies the wealthiest use, and why owning beats earning.</p>
           </a>
           <a href="/blog" class="card animate-on-scroll" style="text-decoration:none;">
-            <div class="meta">August 8, 2026</div>
-            <h4>Start by Making Your Bed</h4>
-            <p>Admiral McRaven's 10 life lessons from Navy SEAL training on resilience, hope, and never quitting.</p>
+            <div class="meta" data-i18n="date.2026-08-08">August 8, 2026</div>
+            <h4 data-i18n="post.bed.short">Start by Making Your Bed</h4>
+            <p data-i18n="post.bed.teaser">Admiral McRaven's 10 life lessons from Navy SEAL training on resilience, hope, and never quitting.</p>
           </a>
           <a href="/credit-card-bonus" class="card animate-on-scroll" style="text-decoration:none;">
-            <div class="meta">Rewards Guide</div>
-            <h4>Credit Card Bonus</h4>
-            <p>Travel cards with record-high welcome bonuses right now, plus current transfer bonuses. Checked weekly.</p>
+            <div class="meta" data-i18n="home.rewardsGuide">Rewards Guide</div>
+            <h4 data-i18n="nav.cards">Credit Card Bonus</h4>
+            <p data-i18n="home.cardsBlurb">Travel cards with record-high welcome bonuses right now, plus current transfer bonuses. Checked weekly.</p>
           </a>
         </div>
       </section>
@@ -91,14 +95,14 @@
            (the same data as the Credit Card Bonus page) and hides it if the data can't load -->
       <section class="section-block animate-on-scroll" id="home-bonuses">
         <div class="section-header">
-          <h3>Record-high card bonuses this week</h3>
-          <a href="/credit-card-bonus">See all</a>
+          <h3 data-i18n="home.recordBonuses">Record-high card bonuses this week</h3>
+          <a href="/credit-card-bonus" data-i18n="ui.seeAll">See all</a>
         </div>
         <div class="gallery">
           <ul class="gallery-track" id="home-bonus-track"></ul>
           <div class="gallery-paddles">
-            <button type="button" data-dir="-1" aria-label="Previous cards">&lsaquo;</button>
-            <button type="button" data-dir="1" aria-label="Next cards">&rsaquo;</button>
+            <button type="button" data-dir="-1" aria-label="Previous cards" data-i18n-attr="aria-label:ui.prevCards">&lsaquo;</button>
+            <button type="button" data-dir="1" aria-label="Next cards" data-i18n-attr="aria-label:ui.nextCards">&rsaquo;</button>
           </div>
         </div>
       </section>
@@ -106,34 +110,34 @@
       <!-- 40 summers, 40 winters: the statement, one dot per season and a live countdown.
            script.js fills the counts, the dots and the clock. -->
       <section class="section-block seasons" id="seasons">
-        <span class="eyebrow animate-on-scroll">40 summers. 40 winters.</span>
-        <h3 class="seasons-statement reveal-words">
+        <span class="eyebrow animate-on-scroll" data-i18n="seasons.eyebrow">40 summers. 40 winters.</span>
+        <h3 class="seasons-statement reveal-words" data-i18n="seasons.statement">
           After graduation, most of us get about 40 summers and 40 winters to build the life
           we want. It sounds like plenty. It isn't. Don't waste a single one.
         </h3>
 
-        <p class="seasons-left animate-on-scroll">
+        <p class="seasons-left animate-on-scroll" data-i18n-html="seasons.left">
           <b id="summers-left">40</b> summers and <b id="winters-left">40</b> winters left on my clock.
         </p>
-        <p class="seasons-sub animate-on-scroll">Mine started in 2024 and run through December 31, 2063.</p>
+        <p class="seasons-sub animate-on-scroll" data-i18n="seasons.sub">Mine started in 2024 and run through December 31, 2063.</p>
 
         <div class="season-grid animate-on-scroll" id="season-grid" aria-hidden="true">
-          <span class="season-row-label">Summers</span>
+          <span class="season-row-label" data-i18n="seasons.summers">Summers</span>
           <div class="season-dots" data-season="summer"></div>
-          <span class="season-row-label">Winters</span>
+          <span class="season-row-label" data-i18n="seasons.winters">Winters</span>
           <div class="season-dots" data-season="winter"></div>
         </div>
-        <p class="season-caption">One dot per season, 2024 to 2063. Filled dots are already behind me.</p>
+        <p class="season-caption" data-i18n="seasons.caption">One dot per season, 2024 to 2063. Filled dots are already behind me.</p>
 
-        <div id="countdown" class="countdown" role="timer" aria-label="Time left until December 31, 2063"></div>
-        <p class="countdown-label">until December 31, 2063</p>
+        <div id="countdown" class="countdown" role="timer" aria-label="Time left until December 31, 2063" data-i18n-attr="aria-label:seasons.timerLabel"></div>
+        <p class="countdown-label" data-i18n="seasons.until">until December 31, 2063</p>
       </section>
 
       <!-- Quote block: a short motivational note for the homepage -->
       <section class="section-block animate-on-scroll">
         <div class="quote">
-          <p>&ldquo;The only way to do great work is to love what you do.&rdquo;</p>
-          <cite>Steve Jobs</cite>
+          <p data-i18n-html="home.quote">&ldquo;The only way to do great work is to love what you do.&rdquo;</p>
+          <cite data-i18n="home.quoteBy">Steve Jobs</cite>
         </div>
       </section>
     </main>
@@ -146,7 +150,7 @@
         <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>Instagram</a>
         <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-spotify"></use></svg>Spotify</a>
       </div>
-      <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
+      <p class="copyright" data-i18n-html="footer.copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
     </footer>
 
     <!-- Bonus tile layout: js/home.js copies this once per card and fills each data-slot -->
@@ -158,7 +162,7 @@
           <span data-slot="art"></span>
           <span class="bonus-tile-points" data-slot="points"></span>
           <span class="bonus-tile-value" data-slot="value"></span>
-          <span class="link-more">Learn more</span>
+          <span class="link-more" data-i18n="ui.learnMore">Learn more</span>
         </a>
       </li>
     </template>

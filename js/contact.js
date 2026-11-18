@@ -27,7 +27,7 @@
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     button.disabled = true;
-    button.textContent = 'Sending…';
+    button.textContent = tx('Sending…');
     status.hidden = true;
 
     fetch(form.action, {
@@ -37,19 +37,19 @@
     }).then(function (res) {
       if (res.ok) {
         form.reset();
-        showStatus("Thanks! Your message is on its way, and I'll reply by email.");
+        showStatus(tx("Thanks! Your message is on its way, and I'll reply by email."));
         return;
       }
       // Formspree explains what went wrong (for example an invalid email) in JSON.
       return res.json().catch(function () { return {}; }).then(function (body) {
         var reasons = (body.errors || []).map(function (e) { return e.message; }).filter(Boolean);
-        showStatus(reasons.length ? reasons.join(' ') : 'Sorry, the message could not be sent. Please try again.', true);
+        showStatus(reasons.length ? reasons.join(' ') : tx('Sorry, the message could not be sent. Please try again.'), true);
       });
     }).catch(function () {
-      showStatus('Sorry, the message could not be sent. Check your connection and try again.', true);
+      showStatus(tx('Sorry, the message could not be sent. Check your connection and try again.'), true);
     }).then(function () {
       button.disabled = false;
-      button.textContent = 'Send message';
+      button.textContent = tx('Send message');
     });
   });
 })();

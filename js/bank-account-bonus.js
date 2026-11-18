@@ -9,6 +9,8 @@
     data/referrals.json  Arthur's referral links, matched to accounts by id
 
   It follows the Credit Card Bonus page closely and reuses its styles (.ccb-*, .cc-*).
+  Interface text goes through tx() (script.js / js/i18n.js) so it can show in
+  Traditional Chinese; account details from the data file stay in English.
 
   Sections below:
     1. State and settings
@@ -25,6 +27,7 @@
   /* ─── 1. State and settings ─── */
 
   var SVG_NS = 'http://www.w3.org/2000/svg';
+  var LOCALE = (window.I18N && window.I18N.locale) || 'en-US'; // dates follow the page language
 
   // Loaded data, filled once at start-up.
   var data = {
@@ -68,7 +71,7 @@
   function fmtDay(s, withYear) {
     var opts = { month: 'short', day: 'numeric', timeZone: 'UTC' };
     if (withYear) opts.year = 'numeric';
-    return parseDay(s).toLocaleDateString('en-US', opts);
+    return parseDay(s).toLocaleDateString(LOCALE, opts);
   }
 
   // Whole days from today (local calendar date) until a YYYY-MM-DD date.
@@ -76,10 +79,6 @@
     var now = new Date();
     var today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
     return Math.round((parseDay(s).getTime() - today) / 86400000);
-  }
-
-  function plural(n, one, many) {
-    return n === 1 ? one : many;
   }
 
   function el(tag, className, text) {
@@ -107,6 +106,15 @@
 
   function bold(text) {
     return el('b', null, text);
+  }
+
+  // Turn a sentence with {placeholders} into parts for fill(): text stays text,
+  // and each placeholder becomes its value (a string or a node such as bold()).
+  function sentence(template, values) {
+    return template.split(/(\{\w+\})/).filter(Boolean).map(function (piece) {
+      var m = /^\{(\w+)\}$/.exec(piece);
+      return m && values[m[1]] != null ? values[m[1]] : piece;
+    });
   }
 
   function loadJson(url) {
@@ -163,13 +171,13 @@
 
   // "35,000 points" for points bonuses, "$900" for cash.
   function bonusText(a, tier) {
-    if (a.points > 0 && a.cpp > 0) return fmtInt(Math.round((tier.bonus * 100) / a.cpp)) + ' points';
+    if (a.points > 0 && a.cpp > 0) return tx('{n} points', { n: fmtInt(Math.round((tier.bonus * 100) / a.cpp)) });
     return fmtUsd(tier.bonus);
   }
 
   // "$10,000 in direct deposits" or "$25,000 deposit".
   function needText(a, tier) {
-    return fmtUsd(tier.need) + (isDirectDeposit(a) ? ' in direct deposits' : ' deposit');
+    return tx(isDirectDeposit(a) ? '{usd} in direct deposits' : '{usd} deposit', { usd: fmtUsd(tier.need) });
   }
 
   /*
@@ -274,16 +282,15 @@
     }
     var personal = data.accounts.filter(function (a) { return a.segment === 'personal'; });
     var business = data.accounts.filter(function (a) { return a.segment === 'business'; });
-    var parts = [
-      'Right now ', bold(String(personal.length)), ' personal and ', bold(String(business.length)),
-      ' business bank accounts pay a sign-up bonus.'
-    ];
+    var parts = sentence(tx('Right now {personal} personal and {business} business bank accounts pay a sign-up bonus.'), {
+      personal: bold(String(personal.length)), business: bold(String(business.length))
+    });
     var dd = best(personal.filter(isDirectDeposit));
     var cash = best(personal.filter(function (a) { return !isDirectDeposit(a); }));
     var biz = best(business);
-    if (dd) parts.push(' With direct deposit, the biggest is ', bold(bonusText(dd, topTier(dd))), ' from ' + dd.account + '.');
-    if (cash) parts.push(' For savings you leave in place, it\'s ', bold(bonusText(cash, topTier(cash))), ' from ' + cash.account + '.');
-    if (biz) parts.push(' Businesses can earn up to ', bold(bonusText(biz, topTier(biz))), ' from ' + biz.account + '.');
+    if (dd) parts = parts.concat(sentence(tx(' With direct deposit, the biggest is {bonus} from {account}.'), { bonus: bold(bonusText(dd, topTier(dd))), account: dd.account }));
+    if (cash) parts = parts.concat(sentence(tx(" For savings you leave in place, it's {bonus} from {account}."), { bonus: bold(bonusText(cash, topTier(cash))), account: cash.account }));
+    if (biz) parts = parts.concat(sentence(tx(' Businesses can earn up to {bonus} from {account}.'), { bonus: bold(bonusText(biz, topTier(biz))), account: biz.account }));
     fill(document.getElementById('bab-lede'), parts);
   }
 
@@ -334,10 +341,10 @@
     }).length;
     var parts = [];
     if (state.segment === 'personal') {
-      parts.push(state.dd ? answerLabel('dd') + ' a month by direct deposit' : 'No direct deposit');
+      parts.push(state.dd ? tx('{answer} a month by direct deposit', { answer: answerLabel('dd') }) : tx('No direct deposit'));
     }
-    parts.push(state.cash ? answerLabel('cash') + ' to deposit' : 'No cash to deposit');
-    parts.push(had ? 'Used ' + had + ' ' + plural(had, 'bank', 'banks') + ' listed here' : 'New to these banks');
+    parts.push(state.cash ? tx('{answer} to deposit', { answer: answerLabel('cash') }) : tx('No cash to deposit'));
+    parts.push(had ? tx(had === 1 ? 'Used 1 bank listed here' : 'Used {n} banks listed here', { n: had }) : tx('New to these banks'));
     fill(document.getElementById('bab-answers'), parts.map(function (text) {
       return el('span', 'cc-badge plain', text);
     }));
@@ -349,29 +356,37 @@
     var rows = visibleRows();
     var fits = rows.filter(function (r) { return r.earned > 0; });
     var out = document.getElementById('bab-fit-summary');
-    var kind = state.segment + (state.type === 'all' ? '' : ' ' + state.type);
+    var kind = kindLabel();
     if (!fits.length) {
-      out.textContent = 'None of these ' + kind + ' accounts fit your answers right now.';
+      out.textContent = tx('None of these {kind} accounts fit your answers right now.', { kind: kind });
     } else {
       var top = fits[0];
-      fill(out, [
-        bold(fits.length + ' of ' + rows.length), ' ' + kind + ' accounts fit your answers. The biggest bonus you could earn is ',
-        bold(bonusText(top.a, top.fit.tier)), ' from ' + top.a.account + '.'
-      ]);
+      fill(out, sentence(tx('{count} {kind} accounts fit your answers. The biggest bonus you could earn is {bonus} from {account}.'), {
+        count: bold(tx('{ok} of {all}', { ok: fits.length, all: rows.length })), kind: kind,
+        bonus: bold(bonusText(top.a, top.fit.tier)), account: top.a.account
+      }));
     }
     drawAnswers();
   }
 
+  // "personal", "business savings"… for sentences (in the page language).
+  function kindLabel() {
+    var kind = tx(state.segment === 'personal' ? 'personal' : 'business');
+    if (state.type !== 'all') kind += tx(state.type === 'savings' ? ' savings' : ' checking');
+    return kind;
+  }
+
   function drawHeading(rows) {
-    var label = state.segment === 'personal' ? 'Personal' : 'Business';
-    var type = state.type === 'all' ? '' : ' ' + state.type;
-    document.getElementById('bab-segment-title').textContent = label + type + ' accounts paying a bonus';
+    var kind = kindLabel();
+    document.getElementById('bab-segment-title').textContent =
+      tx('{Kind} accounts paying a bonus', { Kind: kind.charAt(0).toUpperCase() + kind.slice(1) });
     var note = document.getElementById('bab-list-note');
+    var count = tx(rows.length === 1 ? '1 account' : '{n} accounts', { n: rows.length });
     note.textContent = rows.length
-      ? rows.length + ' ' + plural(rows.length, 'account', 'accounts') + (quizDone()
-        ? ', ranked by the bonus you could earn.'
-        : ', ranked by top bonus. Answer the questions above to see what you could earn.')
-      : 'No accounts pay a bonus right now.';
+      ? count + (quizDone()
+        ? tx(', ranked by the bonus you could earn.')
+        : tx(', ranked by top bonus. Answer the questions above to see what you could earn.'))
+      : tx('No accounts pay a bonus right now.');
   }
 
   /*
@@ -391,7 +406,7 @@
     var height = rows.length * rowH - gap + axisH;
     var svg = svgEl('svg', {
       width: '100%', height: height, viewBox: '0 0 ' + width + ' ' + height, role: 'img',
-      'aria-label': 'Top bonus by account: ' + rows.map(function (r) {
+      'aria-label': tx('Top bonus by account: ') + rows.map(function (r) {
         return r.a.short + ' ' + fmtUsd(r.top.bonus);
       }).join(', ')
     });
@@ -464,8 +479,8 @@
         var rect = box.getBoundingClientRect();
         var lines = [r.a.account];
         tiersOf(r.a).forEach(function (t) { lines.push(needText(r.a, t) + ': ' + bonusText(r.a, t)); });
-        if (r.fit.blocked) lines.push('You have used this bank recently');
-        else if (r.fit.answered) lines.push(r.earned ? 'You could earn ' + bonusText(r.a, r.fit.tier) : 'Out of reach with your answers');
+        if (r.fit.blocked) lines.push(tx('You have used this bank recently'));
+        else if (r.fit.answered) lines.push(r.earned ? tx('You could earn {bonus}', { bonus: bonusText(r.a, r.fit.tier) }) : tx('Out of reach with your answers'));
         showTip(box, lines, point.clientX - rect.left, point.clientY - rect.top);
       }
       hit.addEventListener('mousemove', onMove);
@@ -514,42 +529,43 @@
     // Bank logo tile in place of card art (just the name if the logo is missing).
     slot('mark').appendChild(bankTile(a.bank, a.logo));
     slot('rank').textContent = '#' + r.rank;
-    slot('issuer').textContent = a.bank + ' · ' + (a.type === 'savings' ? 'Savings' : 'Checking') +
-      ' · ' + (a.segment === 'business' ? 'Business' : 'Personal');
+    slot('issuer').textContent = a.bank + ' · ' + tx(a.type === 'savings' ? 'Savings' : 'Checking') +
+      ' · ' + tx(a.segment === 'business' ? 'Business' : 'Personal');
     var name = slot('name');
     name.textContent = a.account;
     name.href = openUrl;
 
     // Status chips: what it needs, referral-only, end date, then the checker's result.
     var chips = slot('chips');
-    chips.appendChild(chip(isDirectDeposit(a) ? 'Needs direct deposit' : 'No direct deposit needed', 'plain'));
-    if (a.referral_only) chips.appendChild(chip('Bonus through my referral link', 'high'));
+    chips.appendChild(chip(tx(isDirectDeposit(a) ? 'Needs direct deposit' : 'No direct deposit needed'), 'plain'));
+    if (a.referral_only) chips.appendChild(chip(tx('Bonus through my referral link'), 'high'));
     if (a.ends) {
       var left = daysUntil(a.ends);
       var soon = left >= 0 && left <= 14;
-      chips.appendChild(chip('Ends ' + fmtDay(a.ends, true) + (soon ? ' (' + left + ' ' + plural(left, 'day', 'days') + ' left)' : ''), soon ? 'near' : 'plain'));
+      chips.appendChild(chip(tx('Ends {date}', { date: fmtDay(a.ends, true) }) +
+        (soon ? tx(left === 1 ? ' (1 day left)' : ' ({n} days left)', { n: left }) : ''), soon ? 'near' : 'plain'));
     }
-    if (fit.blocked) chips.appendChild(chip('Likely no bonus: ' + a.rule_short, 'bad'));
-    else if (fit.answered && !fit.tier) chips.appendChild(chip('Needs ' + needText(a, tiersOf(a)[0]), 'near'));
-    else if (fit.answered && fit.tier) chips.appendChild(chip('You could earn ' + bonusText(a, fit.tier), 'high'));
+    if (fit.blocked) chips.appendChild(chip(tx('Likely no bonus: {rule}', { rule: a.rule_short }), 'bad'));
+    else if (fit.answered && !fit.tier) chips.appendChild(chip(tx('Needs {what}', { what: needText(a, tiersOf(a)[0]) }), 'near'));
+    else if (fit.answered && fit.tier) chips.appendChild(chip(tx('You could earn {bonus}', { bonus: bonusText(a, fit.tier) }), 'high'));
 
     // Offer numbers.
     var tiers = tiersOf(a);
-    slot('bonus').textContent = (tiers.length > 1 ? 'Up to ' : '') + bonusText(a, top);
+    slot('bonus').textContent = tiers.length > 1 ? tx('Up to {bonus}', { bonus: bonusText(a, top) }) : bonusText(a, top);
     slot('bonus-note').textContent = a.points > 0
-      ? a.program + ' points, worth about ' + fmtUsd(top.bonus)
-      : tiers.length > 1 ? tiers.length + ' tiers, from ' + bonusText(a, tiers[0]) : 'One bonus amount';
+      ? tx('{program} points, worth about {usd}', { program: a.program, usd: fmtUsd(top.bonus) })
+      : tiers.length > 1 ? tx('{n} tiers, from {bonus}', { n: tiers.length, bonus: bonusText(a, tiers[0]) }) : tx('One bonus amount');
     slot('need').textContent = needText(a, top);
     var rate = yearlyRate(a, top);
     slot('need-note').textContent = isDirectDeposit(a)
-      ? 'Within ' + a.days + ' days'
-      : 'Kept about ' + a.hold_days + ' days. Like earning ' + rate.toFixed(1) + '% a year on it';
+      ? tx('Within {n} days', { n: a.days })
+      : tx('Kept about {n} days. Like earning {rate}% a year on it', { n: a.hold_days, rate: rate.toFixed(1) });
     if (a.monthly_fee > 0) {
       slot('fee').textContent = fmtUsd(a.monthly_fee);
       slot('fee-note').textContent = a.fee_waiver;
     } else {
       slot('fee').textContent = '$0';
-      slot('fee-note').textContent = 'No monthly fee';
+      slot('fee-note').textContent = tx('No monthly fee');
     }
 
     // Bonus tiers, with the one the visitor can reach marked.
@@ -563,21 +579,22 @@
     (a.steps || []).forEach(function (s) { slot('steps').appendChild(el('li', null, s)); });
 
     var facts = slot('facts');
-    facts.appendChild(fact('Who can get it', a.eligibility));
-    facts.appendChild(fact('When it pays', a.payout));
+    facts.appendChild(fact(tx('Who can get it'), a.eligibility));
+    facts.appendChild(fact(tx('When it pays'), a.payout));
     (a.notes || []).forEach(function (n) { facts.appendChild(el('li', 'bab-note', n)); });
 
     // Footer: Open account (referral link when there is one).
     var open = slot('open');
     open.href = openUrl;
-    open.setAttribute('aria-label', 'Open ' + a.account);
+    open.textContent = tx('Open account →');
+    open.setAttribute('aria-label', tx('Open {account}', { account: a.account }));
     var official = slot('official');
     if (referral) {
-      open.textContent = 'Open with my referral link →';
+      open.textContent = tx('Open with my referral link →');
       open.rel = 'noopener sponsored';
       name.rel = 'noopener sponsored';
       official.href = a.url;
-      if (a.referral_only) official.textContent = 'Account details';
+      if (a.referral_only) official.textContent = tx('Account details');
     } else {
       official.remove();
     }
@@ -599,9 +616,8 @@
       list.appendChild(buildAccount(template, r));
     });
     if (hidden > 0) {
-      var note = el('li', 'ccb-empty', hidden + ' ' + plural(hidden, 'account is', 'accounts are') + ' hidden because ' +
-        plural(hidden, "it doesn't", "they don't") + ' fit your answers. ');
-      var showAll = el('button', 'ccb-text-button', 'Show ' + plural(hidden, 'it', 'them'));
+      var note = el('li', 'ccb-empty', tx(hidden === 1 ? "1 account is hidden because it doesn't fit your answers. " : "{n} accounts are hidden because they don't fit your answers. ", { n: hidden }));
+      var showAll = el('button', 'ccb-text-button', tx(hidden === 1 ? 'Show it' : 'Show them'));
       showAll.type = 'button';
       showAll.addEventListener('click', function () { setOnlyFits(false); });
       note.appendChild(showAll);
@@ -654,8 +670,7 @@
   function drawQuestionText() {
     var q = document.querySelector('#bab-checker [data-question="cash"] .ccb-question');
     q.textContent = q.getAttribute('data-' + state.segment);
-    document.getElementById('bab-start-note').textContent = QUESTIONS[state.segment].length +
-      ' quick questions. Your answers stay on this page.';
+    document.getElementById('bab-start-note').textContent = tx('{n} quick questions. Your answers stay on this page.', { n: QUESTIONS[state.segment].length });
   }
 
   function showPanel(name) {
@@ -696,7 +711,7 @@
     back.hidden = state.step <= 1;
     next.hidden = state.step !== QUESTIONS[state.segment].length;
     var picked = segmentAccounts().some(function (a) { return state.had[a.bank]; });
-    next.textContent = picked ? 'See my accounts' : 'None of these';
+    next.textContent = picked ? tx('See my accounts') : tx('None of these');
   }
 
   function finishQuiz() {
@@ -779,7 +794,7 @@
     state.segment = '';  // so the first setSegment counts as a change
     setSegment((window.location.hash || '').replace('#', ''), false);
   }).catch(function (err) {
-    document.getElementById('bab-lede').textContent = 'The account data could not be loaded. Please refresh the page.';
+    document.getElementById('bab-lede').textContent = tx('The account data could not be loaded. Please refresh the page.');
     document.getElementById('bab-list').textContent = '';
     if (window.console) console.error(err);
   });

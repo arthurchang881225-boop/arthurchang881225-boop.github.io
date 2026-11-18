@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arthur Chang | About</title>
+    <title data-i18n="title.about">Arthur Chang | About</title>
     <link rel="canonical" href="https://ayochillout.com/about">
+    <!-- Language: Chinese text, then the switcher (see js/i18n.js) -->
+    <script src="js/i18n-zh-tw.js"></script>
+    <script src="js/i18n.js"></script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -17,16 +20,17 @@
         <div class="nav-group">
           <nav>
             <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about" class="active">About</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/credit-card-bonus">Credit Card Bonus</a></li>
-            <li><a href="/bank-account-bonus">Bank Bonus</a></li>
-            <li><a href="/referrals">Referrals</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/" data-i18n="nav.home">Home</a></li>
+            <li><a href="/about" class="active" data-i18n="nav.about">About</a></li>
+            <li><a href="/blog" data-i18n="nav.blog">Blog</a></li>
+            <li><a href="/credit-card-bonus" data-i18n="nav.cards">Credit Card Bonus</a></li>
+            <li><a href="/bank-account-bonus" data-i18n="nav.banks">Bank Bonus</a></li>
+            <li><a href="/referrals" data-i18n="nav.referrals">Referrals</a></li>
+            <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
             </ul>
           </nav>
-          <button class="theme-toggle" aria-label="Toggle theme">
+          <button type="button" class="lang-toggle">中文</button>
+          <button class="theme-toggle" aria-label="Toggle theme" data-i18n-attr="aria-label:ui.theme">
             <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -44,18 +48,18 @@
       <!-- About intro: personal background and profile imagery -->
       <section class="section-block animate-on-scroll" style="border-top:none; margin-top:0; padding-top:0;">
         <div class="section-header">
-          <h3>About</h3>
+          <h3 data-i18n="nav.about">About</h3>
         </div>
 
         <div class="about-intro">
           <div>
-            <p>
+            <p data-i18n="about.intro1">
               I'm Arthur, a CPA and Senior Financial Analyst at Amazon based in Seattle.
               I work in Accounting within the OPEX Finance Business Integration (FBI) team,
               focused on the Marketing vertical, where I handle journal entry mappings,
               accounting requirements, and financial close processes.
             </p>
-            <p>
+            <p data-i18n="about.intro2">
               Outside of work, I'm a rewards credit card enthusiast who loves optimizing
               points and miles for travel. I also enjoy coding side projects, photography,
               and finding ways to make complex financial topics more approachable.
@@ -64,17 +68,17 @@
 
           <div class="photo-gallery">
             <div class="photo-card animate-on-scroll">
-              <img src="images/PA.png" alt="Arthur" />
+              <img src="images/PA.png" alt="Arthur" data-i18n-attr="alt:home.photoAlt" />
               <div class="caption">
                 <div class="date">2026</div>
-                <div class="place">Portrait</div>
+                <div class="place" data-i18n="about.portrait">Portrait</div>
               </div>
             </div>
             <div class="photo-card animate-on-scroll">
-              <img src="images/Dog.png" alt="Dog" />
+              <img src="images/Dog.png" alt="Dog" data-i18n-attr="alt:about.dogAlt" />
               <div class="caption">
                 <div class="date">2026</div>
-                <div class="place">Best friend</div>
+                <div class="place" data-i18n="about.bestFriend">Best friend</div>
               </div>
             </div>
           </div>
@@ -84,26 +88,26 @@
       <!-- Timeline: major milestones and career progression -->
       <section class="section-block animate-on-scroll">
         <div class="section-header">
-          <h3>Timeline</h3>
+          <h3 data-i18n="about.timeline">Timeline</h3>
         </div>
 
         <div class="timeline stagger">
           <div class="timeline-item animate-on-scroll" style="--tl-color: #f59e0b;">
-            <div class="period">2024 to Present</div>
+            <div class="period" data-i18n="tl.amazon.period">2024 to Present</div>
             <h4>Amazon</h4>
-            <p class="role">Senior Financial Analyst &middot; OPEX FBI, Marketing</p>
-            <p class="detail">Accounting and financial integration for Marketing programs including journal entry mappings, ARDs, and UAT validation.</p>
+            <p class="role" data-i18n-html="tl.amazon.role">Senior Financial Analyst &middot; OPEX FBI, Marketing</p>
+            <p class="detail" data-i18n="tl.amazon.detail">Accounting and financial integration for Marketing programs including journal entry mappings, ARDs, and UAT validation.</p>
           </div>
           <div class="timeline-item animate-on-scroll" style="--tl-color: #3b82f6;">
-            <div class="period">2020 to 2024</div>
-            <h4>University</h4>
-            <p class="role">B.S. Accounting &amp; Finance</p>
-            <p class="detail">Earned CPA eligibility, built the foundation for a career in corporate finance and accounting.</p>
+            <div class="period" data-i18n="tl.school.period">2020 to 2024</div>
+            <h4 data-i18n="tl.school.title">University</h4>
+            <p class="role" data-i18n-html="tl.school.role">B.S. Accounting &amp; Finance</p>
+            <p class="detail" data-i18n="tl.school.detail">Earned CPA eligibility, built the foundation for a career in corporate finance and accounting.</p>
           </div>
           <div class="timeline-item animate-on-scroll" style="--tl-color: #10b981;">
             <div class="period">CPA</div>
-            <h4>Certified Public Accountant</h4>
-            <p class="detail">Licensed CPA, bringing accounting expertise to everything from personal finance to enterprise systems.</p>
+            <h4 data-i18n="tl.cpa.title">Certified Public Accountant</h4>
+            <p class="detail" data-i18n="tl.cpa.detail">Licensed CPA, bringing accounting expertise to everything from personal finance to enterprise systems.</p>
           </div>
         </div>
       </section>
@@ -111,21 +115,21 @@
       <!-- Hobbies grid: personal interests presented as quick highlights -->
       <section class="section-block animate-on-scroll">
         <div class="section-header">
-          <h3>Hobbies</h3>
+          <h3 data-i18n="about.hobbies">Hobbies</h3>
         </div>
 
         <div class="card-grid stagger">
           <div class="card animate-on-scroll">
-            <h4>&#9992;&#65039; Travel Hacking</h4>
-            <p>Maximizing credit card points and miles for premium travel. Check out <a href="/credit-card-bonus" style="text-decoration:underline;">Credit Card Bonus</a> for the cards at record-high bonuses right now.</p>
+            <h4 data-i18n-html="hobby.travel.title">&#9992;&#65039; Travel Hacking</h4>
+            <p data-i18n-html="hobby.travel.text">Maximizing credit card points and miles for premium travel. Check out <a href="/credit-card-bonus" style="text-decoration:underline;">Credit Card Bonus</a> for the cards at record-high bonuses right now.</p>
           </div>
           <div class="card animate-on-scroll">
-            <h4>&#128187; Coding Side Projects</h4>
-            <p>Building tools for personal finance, automation, and anything that makes life a little more efficient.</p>
+            <h4 data-i18n-html="hobby.code.title">&#128187; Coding Side Projects</h4>
+            <p data-i18n="hobby.code.text">Building tools for personal finance, automation, and anything that makes life a little more efficient.</p>
           </div>
           <div class="card animate-on-scroll">
-            <h4>&#128247; Photography</h4>
-            <p>Capturing moments from travels, daily life, and the occasional perfectly plated meal.</p>
+            <h4 data-i18n-html="hobby.photo.title">&#128247; Photography</h4>
+            <p data-i18n="hobby.photo.text">Capturing moments from travels, daily life, and the occasional perfectly plated meal.</p>
           </div>
         </div>
       </section>
@@ -133,21 +137,21 @@
       <!-- Projects section: work and side-project examples -->
       <section class="section-block animate-on-scroll">
         <div class="section-header">
-          <h3>Projects</h3>
+          <h3 data-i18n="about.projects">Projects</h3>
         </div>
 
         <div class="project-grid stagger">
           <a href="/credit-card-bonus" class="project-card animate-on-scroll">
-            <h4>Credit Card Bonus</h4>
-            <p>A weekly-updated tracker of travel cards at record-high welcome bonuses, with transfer bonuses and eligibility checks.</p>
+            <h4 data-i18n="nav.cards">Credit Card Bonus</h4>
+            <p data-i18n="project.cards.text">A weekly-updated tracker of travel cards at record-high welcome bonuses, with transfer bonuses and eligibility checks.</p>
             <div class="tech-tags">
-              <span>Finance</span>
-              <span>Points &amp; Miles</span>
+              <span data-i18n="tag.finance">Finance</span>
+              <span data-i18n="tag.points">Points &amp; Miles</span>
             </div>
           </a>
           <a href="#" class="project-card animate-on-scroll">
-            <h4>Personal Finance Tracker</h4>
-            <p>A budgeting tool that visualizes spending habits and tracks savings goals over time.</p>
+            <h4 data-i18n="project.tracker.title">Personal Finance Tracker</h4>
+            <p data-i18n="project.tracker.text">A budgeting tool that visualizes spending habits and tracks savings goals over time.</p>
             <div class="tech-tags">
               <span>Python</span>
               <span>React</span>
@@ -155,8 +159,8 @@
             </div>
           </a>
           <a href="#" class="project-card animate-on-scroll">
-            <h4>Portfolio Site</h4>
-            <p>This website, built from scratch with plain HTML, CSS, and JavaScript. Clean, fast, minimal.</p>
+            <h4 data-i18n="project.site.title">Portfolio Site</h4>
+            <p data-i18n="project.site.text">This website, built from scratch with plain HTML, CSS, and JavaScript. Clean, fast, minimal.</p>
             <div class="tech-tags">
               <span>HTML</span>
               <span>CSS</span>
@@ -175,7 +179,7 @@
         <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>Instagram</a>
         <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-spotify"></use></svg>Spotify</a>
       </div>
-      <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
+      <p class="copyright" data-i18n-html="footer.copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
   </body>

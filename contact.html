@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arthur Chang | Contact</title>
+    <title data-i18n="title.contact">Arthur Chang | Contact</title>
     <link rel="canonical" href="https://ayochillout.com/contact">
+    <!-- Language: Chinese text, then the switcher (see js/i18n.js) -->
+    <script src="js/i18n-zh-tw.js"></script>
+    <script src="js/i18n.js"></script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -17,16 +20,17 @@
         <div class="nav-group">
           <nav>
             <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/credit-card-bonus">Credit Card Bonus</a></li>
-            <li><a href="/bank-account-bonus">Bank Bonus</a></li>
-            <li><a href="/referrals">Referrals</a></li>
-            <li><a href="/contact" class="active">Contact</a></li>
+            <li><a href="/" data-i18n="nav.home">Home</a></li>
+            <li><a href="/about" data-i18n="nav.about">About</a></li>
+            <li><a href="/blog" data-i18n="nav.blog">Blog</a></li>
+            <li><a href="/credit-card-bonus" data-i18n="nav.cards">Credit Card Bonus</a></li>
+            <li><a href="/bank-account-bonus" data-i18n="nav.banks">Bank Bonus</a></li>
+            <li><a href="/referrals" data-i18n="nav.referrals">Referrals</a></li>
+            <li><a href="/contact" class="active" data-i18n="nav.contact">Contact</a></li>
             </ul>
           </nav>
-          <button class="theme-toggle" aria-label="Toggle theme">
+          <button type="button" class="lang-toggle">中文</button>
+          <button class="theme-toggle" aria-label="Toggle theme" data-i18n-attr="aria-label:ui.theme">
             <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -44,7 +48,7 @@
       <!-- Contact directory: quick-access links to the main profiles and channels -->
       <section class="section-block animate-on-scroll" style="border-top:none; margin-top:0; padding-top:0;">
         <div class="section-header">
-          <h3>Contact</h3>
+          <h3 data-i18n="nav.contact">Contact</h3>
         </div>
 
         <div class="contact-grid stagger">
@@ -62,7 +66,7 @@
           </a>
           <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener" class="contact-card animate-on-scroll" style="text-decoration:none;">
             <div class="label"><svg class="icon" aria-hidden="true"><use href="#icon-spotify"></use></svg>Spotify</div>
-            <div class="value">Arthur's Playlists</div>
+            <div class="value" data-i18n="contact.playlists">Arthur's Playlists</div>
           </a>
         </div>
       </section>
@@ -72,24 +76,24 @@
            without JavaScript the form still posts straight to Formspree. -->
       <section class="section-block animate-on-scroll">
         <div class="contact-form-section">
-          <h3>Or send a message</h3>
+          <h3 data-i18n="contact.formTitle">Or send a message</h3>
           <form id="contact-form" action="https://formspree.io/f/xvkaalny" method="POST">
             <div>
-              <label for="name">Name</label>
+              <label for="name" data-i18n="contact.name">Name</label>
               <input type="text" id="name" name="name" autocomplete="name" required>
             </div>
             <div>
-              <label for="email">Email</label>
+              <label for="email" data-i18n="contact.email">Email</label>
               <input type="email" id="email" name="email" autocomplete="email" required>
             </div>
             <div>
-              <label for="message">Message</label>
+              <label for="message" data-i18n="contact.message">Message</label>
               <textarea id="message" name="message" required></textarea>
             </div>
             <!-- Spam trap: hidden from people; Formspree drops messages that fill it in -->
             <input type="text" name="_gotcha" class="form-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
             <input type="hidden" name="_subject" value="New message from ayochillout.com">
-            <button type="submit">Send message</button>
+            <button type="submit" data-i18n="contact.send">Send message</button>
             <p class="form-status" id="contact-status" role="status" aria-live="polite" hidden></p>
           </form>
         </div>
@@ -104,7 +108,7 @@
         <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>Instagram</a>
         <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-spotify"></use></svg>Spotify</a>
       </div>
-      <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
+      <p class="copyright" data-i18n-html="footer.copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
     <script src="js/contact.js"></script>

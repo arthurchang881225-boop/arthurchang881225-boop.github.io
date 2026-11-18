@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arthur Chang | Blog</title>
+    <title data-i18n="title.blog">Arthur Chang | Blog</title>
     <link rel="canonical" href="https://ayochillout.com/blog">
+    <!-- Language: Chinese text, then the switcher (see js/i18n.js) -->
+    <script src="js/i18n-zh-tw.js"></script>
+    <script src="js/i18n.js"></script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -17,16 +20,17 @@
         <div class="nav-group">
           <nav>
             <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blog" class="active">Blog</a></li>
-            <li><a href="/credit-card-bonus">Credit Card Bonus</a></li>
-            <li><a href="/bank-account-bonus">Bank Bonus</a></li>
-            <li><a href="/referrals">Referrals</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/" data-i18n="nav.home">Home</a></li>
+            <li><a href="/about" data-i18n="nav.about">About</a></li>
+            <li><a href="/blog" class="active" data-i18n="nav.blog">Blog</a></li>
+            <li><a href="/credit-card-bonus" data-i18n="nav.cards">Credit Card Bonus</a></li>
+            <li><a href="/bank-account-bonus" data-i18n="nav.banks">Bank Bonus</a></li>
+            <li><a href="/referrals" data-i18n="nav.referrals">Referrals</a></li>
+            <li><a href="/contact" data-i18n="nav.contact">Contact</a></li>
             </ul>
           </nav>
-          <button class="theme-toggle" aria-label="Toggle theme">
+          <button type="button" class="lang-toggle">中文</button>
+          <button class="theme-toggle" aria-label="Toggle theme" data-i18n-attr="aria-label:ui.theme">
             <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -44,14 +48,14 @@
       <!-- Blog listing: curated essays and video summaries -->
       <section class="section-block animate-on-scroll" style="border-top:none; margin-top:0; padding-top:0;">
         <div class="section-header">
-          <h3>Blog</h3>
+          <h3 data-i18n="nav.blog">Blog</h3>
         </div>
 
         <div class="blog-list stagger">
           <article class="animate-on-scroll">
-            <div class="meta">Published <time datetime="2026-08-08">August 8, 2026</time></div>
-            <h2>How the Super Rich Avoid Paying Taxes</h2>
-            <p>
+            <div class="meta" data-i18n-html="blog.published.2026-08-08">Published <time datetime="2026-08-08">August 8, 2026</time></div>
+            <h2 data-i18n="post.tax.title">How the Super Rich Avoid Paying Taxes</h2>
+            <p data-i18n="post.tax.body">
               Professor Scott Galloway breaks down how the wealthiest individuals and
               corporations use completely legal strategies to slash their tax bills.
               Borrowing against assets instead of selling them, relocating to zero income
@@ -71,9 +75,9 @@
           </article>
 
           <article class="animate-on-scroll">
-            <div class="meta">Published <time datetime="2026-08-08">August 8, 2026</time></div>
-            <h2>If You Want to Change the World, Start by Making Your Bed</h2>
-            <p>
+            <div class="meta" data-i18n-html="blog.published.2026-08-08">Published <time datetime="2026-08-08">August 8, 2026</time></div>
+            <h2 data-i18n="post.bed.title">If You Want to Change the World, Start by Making Your Bed</h2>
+            <p data-i18n="post.bed.body">
               Admiral William H. McRaven's 2014 commencement address at the University
               of Texas at Austin lays out 10 life lessons from Navy SEAL training. Start
               with small wins like making your bed. Find teammates because nobody changes
@@ -104,7 +108,7 @@
         <a href="https://www.instagram.com/ayo.chill.out" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>Instagram</a>
         <a href="https://open.spotify.com/user/s2gosrk3t6dteqrxak48hhbz8" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-spotify"></use></svg>Spotify</a>
       </div>
-      <p class="copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
+      <p class="copyright" data-i18n-html="footer.copyright">&copy; 2026 Arthur Chang. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
   </body>

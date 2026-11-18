@@ -62,14 +62,14 @@
     if (card.segment === 'business') {
       var tag = document.createElement('span');
       tag.className = 'bonus-tile-tag';
-      tag.textContent = ' · Business';
+      tag.textContent = ' · ' + tx('Business');
       issuer.appendChild(tag);
     }
 
     slot('name').textContent = card.short;
     slot('art').replaceWith(artFor(card));
-    slot('points').textContent = (card.as_high_as ? 'Up to ' : '') + fmtInt(card.bonus_points) + ' points';
-    slot('value').textContent = 'Worth about $' + fmtInt(estValue(card));
+    slot('points').textContent = tx(card.as_high_as ? 'Up to {n} points' : '{n} points', { n: fmtInt(card.bonus_points) });
+    slot('value').textContent = tx('Worth about {usd}', { usd: '$' + fmtInt(estValue(card)) });
     return node;
   }
 

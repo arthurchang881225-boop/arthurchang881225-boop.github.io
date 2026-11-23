@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17",
+  "updated": "2026-11-23",
   "accounts": [
     {
       "id": "chase_total_checking",
@@ -42,7 +42,7 @@
       "eligibility": "Not for current Chase checking customers or accounts closed in the last 90 days. One checking bonus every 2 years.",
       "payout": "Within 15 days after you qualify",
       "notes": [],
-      "verified": "Checked on chase.com, Nov 17, 2026"
+      "verified": "Checked on chase.com, Nov 23, 2026"
     },
     {
       "id": "bofa_advantage_checking",
@@ -81,11 +81,11 @@
       "monthly_fee": 12,
       "fee_waiver": "For Advantage Plus ($15 from Feb 19, 2027). $0 with a qualifying direct deposit or balance",
       "ends": "2027-01-31",
-      "rule_short": "One Bank of America checking bonus per customer",
-      "eligibility": "One checking bonus per customer. Can't be combined with other Bank of America checking offers.",
+      "rule_short": "No BofA checking account in the last 12 months",
+      "eligibility": "Not for anyone who had a Bank of America personal checking account in the last 12 months. One checking bonus per customer.",
       "payout": "Within 60 days after the 90 days end",
       "notes": [],
-      "verified": "Checked on bankofamerica.com, Nov 17, 2026"
+      "verified": "Checked on bankofamerica.com, Nov 23, 2026"
     },
     {
       "id": "us_bank_smartly_checking",
@@ -131,7 +131,7 @@
       "notes": [
         "Overdrafts of $50 or less have no fee"
       ],
-      "verified": "Checked on usbank.com, Nov 17, 2026"
+      "verified": "Checked on usbank.com, Nov 23, 2026"
     },
     {
       "id": "citi_regular_checking",
@@ -168,7 +168,7 @@
       "notes": [
         "No overdraft fees"
       ],
-      "verified": "Checked on citi.com, Nov 17, 2026"
+      "verified": "Checked on citi.com, Nov 23, 2026"
     },
     {
       "id": "sofi_checking_savings",
@@ -197,19 +197,19 @@
       "days": 25,
       "hold_days": 0,
       "steps": [
-        "Open your first SoFi Checking and Savings account",
+        "Open a SoFi Checking and Savings account",
         "Set up direct deposit. Deposits in the 25 days after the first one set your bonus"
       ],
       "monthly_fee": 0,
       "fee_waiver": "",
       "ends": "",
-      "rule_short": "SoFi pays the bonus on your first SoFi account only",
-      "eligibility": "Your first SoFi Checking and Savings account only.",
+      "rule_short": "Only if you've never had direct deposit at SoFi",
+      "eligibility": "For new and current SoFi members who have never set up direct deposit with SoFi. One bonus per member.",
       "payout": "Within 7 business days after you qualify",
       "notes": [
         "Savings earns a boosted APY for up to six months with direct deposit"
       ],
-      "verified": "Checked on sofi.com, Nov 17, 2026"
+      "verified": "Checked on sofi.com, Nov 23, 2026"
     },
     {
       "id": "capital_one_360_checking",
@@ -247,7 +247,7 @@
         "No minimum balance",
         "Paychecks can arrive up to 2 days early"
       ],
-      "verified": "Checked on the referral page at capitalone.com, Nov 17, 2026"
+      "verified": "Checked on the referral page at capitalone.com, Nov 23, 2026"
     },
     {
       "id": "capital_one_360_performance_savings",
@@ -293,45 +293,135 @@
       "notes": [
         "You also earn the account's regular savings rate"
       ],
-      "verified": "Checked on capitalone.com, Nov 17, 2026"
+      "verified": "Checked on capitalone.com, Nov 23, 2026"
     },
     {
-      "id": "barclays_tiered_savings",
+      "id": "citi_welcome_checking",
       "segment": "personal",
-      "type": "savings",
-      "bank": "Barclays",
-      "logo": "images/banks/barclays.png",
-      "account": "Barclays Tiered Savings",
-      "short": "Barclays Savings",
-      "url": "https://banking.us.barclays/tiered-savings.html",
+      "type": "checking",
+      "bank": "Citi",
+      "logo": "images/banks/citi.png",
+      "account": "Citi Regular Checking (deposit offer)",
+      "short": "Citi Deposit Offer",
+      "url": "https://banking.citi.com/cbol/OM/checking/tiered/featured-offers/default.htm",
       "referral_only": false,
       "requirement": "deposit",
       "tiers": [
         {
-          "need": 25000,
-          "bonus": 200
+          "need": 30000,
+          "bonus": 500
+        },
+        {
+          "need": 200000,
+          "bonus": 2000
+        },
+        {
+          "need": 1000000,
+          "bonus": 4000
         }
       ],
       "points": 0,
       "program": "",
       "cpp": 0,
-      "days": 150,
-      "hold_days": 120,
+      "days": 90,
+      "hold_days": 90,
       "steps": [
-        "Open a Tiered Savings account by Jan 31, 2027",
-        "Deposit at least $25,000 within 30 days",
-        "Keep at least $25,000 for 120 days in a row"
+        "Open a Regular Checking account from the offer page by Jan 11, 2027 and enroll the same day",
+        "Deposit new money within 45 days, in checking or a new Citi Savings account. The amount sets your bonus",
+        "Keep at least that balance from day 46 to day 90"
+      ],
+      "monthly_fee": 15,
+      "fee_waiver": "$0 with a Relationship Tier ($30,000+ combined balance) or $250 in monthly direct deposits ($1,000 from Jan 1, 2027)",
+      "ends": "2027-01-11",
+      "rule_short": "No Citi checking account in the last 365 days",
+      "eligibility": "Not for anyone who had a Citibank checking account in the last 365 days. One new-to-Citi checking bonus only, so not together with the Citi direct deposit offer.",
+      "payout": "Between day 90 and day 120 after you open the account",
+      "notes": [
+        "Savings in a new Citi Savings account count toward the balance"
+      ],
+      "verified": "Checked on citi.com, Nov 23, 2026"
+    },
+    {
+      "id": "wells_fargo_everyday_checking",
+      "segment": "personal",
+      "type": "checking",
+      "bank": "Wells Fargo",
+      "logo": "images/banks/wellsfargo.png",
+      "account": "Wells Fargo Everyday Checking",
+      "short": "Wells Fargo Everyday",
+      "url": "https://accountoffers.wellsfargo.com/welcomebonus/",
+      "referral_only": false,
+      "requirement": "direct_deposit",
+      "tiers": [
+        {
+          "need": 1000,
+          "bonus": 500
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 90,
+      "hold_days": 0,
+      "steps": [
+        "Open Everyday Checking online from the offer page by Jan 12, 2027. The offer code applies automatically",
+        "Receive $1,000 or more in direct deposits within 90 days"
+      ],
+      "monthly_fee": 15,
+      "fee_waiver": "$0 with $500 in monthly electronic deposits or a $1,500 daily balance",
+      "ends": "2027-01-12",
+      "rule_short": "No Wells Fargo checking bonus in the last 12 months",
+      "eligibility": "For new Wells Fargo checking customers. Not if you got a Wells Fargo checking bonus in the last 12 months.",
+      "payout": "Within 30 days after you qualify",
+      "notes": [],
+      "verified": "Checked on wellsfargo.com, Nov 23, 2026"
+    },
+    {
+      "id": "connexus_xtraordinary_checking",
+      "segment": "personal",
+      "type": "checking",
+      "bank": "Connexus Credit Union",
+      "logo": "images/banks/connexus.png",
+      "account": "Connexus Xtraordinary Checking",
+      "short": "Connexus",
+      "url": "https://www.connexuscu.org/earnmore",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 5000,
+          "bonus": 100
+        },
+        {
+          "need": 10000,
+          "bonus": 200
+        },
+        {
+          "need": 15000,
+          "bonus": 300
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 120,
+      "hold_days": 60,
+      "steps": [
+        "Join Connexus and open Xtraordinary Checking by Dec 20, 2026 with promo code XTRABONUS",
+        "Keep money in the account. Your average balance over two months sets your bonus",
+        "In each of those two months: 15 debit card purchases or $500 spent, a $500 deposit, and eStatements on"
       ],
       "monthly_fee": 0,
       "fee_waiver": "",
-      "ends": "2027-01-31",
-      "rule_short": "New Barclays savings customers only",
-      "eligibility": "Not for current or past Barclays savings or CD customers.",
-      "payout": "About 60 days after the 120 days end",
+      "ends": "2026-12-20",
+      "rule_short": "No Connexus checking since Sep 1, 2025",
+      "eligibility": "Not for current Connexus checking customers or anyone who closed one on or after Sep 1, 2025. One bonus per primary owner.",
+      "payout": "Within 10 business days after you qualify",
       "notes": [
-        "You also earn the account's regular savings rate"
+        "Anyone in the U.S. can join with a one-time $5 donation to the Connexus Association",
+        "Earns 4.50% APY on up to $25,000 in months you meet the requirements"
       ],
-      "verified": "Checked on banking.us.barclays, Nov 17, 2026"
+      "verified": "Checked on connexuscu.org, Nov 23, 2026"
     },
     {
       "id": "chase_business_complete",
@@ -371,7 +461,7 @@
       "eligibility": "Not for current Chase business checking customers, or accounts closed in the last 90 days.",
       "payout": "Within 15 days after you qualify",
       "notes": [],
-      "verified": "Checked on chase.com, Nov 17, 2026"
+      "verified": "Checked on chase.com, Nov 23, 2026"
     },
     {
       "id": "bofa_business_advantage",
@@ -411,7 +501,7 @@
       "eligibility": "One Business Advantage bonus per business owner, however many businesses you own.",
       "payout": "After the 90 days, once all steps are met",
       "notes": [],
-      "verified": "Checked on bankofamerica.com, Nov 17, 2026"
+      "verified": "Checked on bankofamerica.com, Nov 23, 2026"
     },
     {
       "id": "capital_one_business_checking",
@@ -444,13 +534,13 @@
       "monthly_fee": 15,
       "fee_waiver": "$0 with a $2,000 minimum balance",
       "ends": "",
-      "rule_short": "For new Capital One business checking accounts",
-      "eligibility": "For a new Capital One business checking account, opened online.",
+      "rule_short": "No Capital One business checking since 2025",
+      "eligibility": "Not for users on a Capital One business checking account opened on or after Jan 1, 2025. One bonus per business, online applications only.",
       "payout": "60 to 90 days after you qualify",
       "notes": [
-        "Free incoming domestic wires"
+        "Debit card purchases don't count toward the 10 transactions"
       ],
-      "verified": "Checked on capitalone.com, Nov 17, 2026"
+      "verified": "Checked on capitalone.com, Nov 23, 2026"
     },
     {
       "id": "us_bank_business_essentials",
@@ -488,7 +578,7 @@
       "notes": [
         "Unlimited digital transactions"
       ],
-      "verified": "Checked on usbank.com, Nov 17, 2026"
+      "verified": "Checked on usbank.com, Nov 23, 2026"
     },
     {
       "id": "us_bank_platinum_business",
@@ -526,7 +616,7 @@
       "notes": [
         "550 free transactions each statement"
       ],
-      "verified": "Checked on usbank.com, Nov 17, 2026"
+      "verified": "Checked on usbank.com, Nov 23, 2026"
     },
     {
       "id": "amex_business_checking",
@@ -565,7 +655,7 @@
       "notes": [
         "Debit card purchases earn 1 point per $2"
       ],
-      "verified": "Checked on americanexpress.com, Nov 17, 2026"
+      "verified": "Checked on americanexpress.com, Nov 23, 2026"
     },
     {
       "id": "bluevine_business_checking",
@@ -599,11 +689,58 @@
       "ends": "2027-01-31",
       "rule_short": "New Bluevine customers only",
       "eligibility": "New Bluevine Business Checking customers only.",
-      "payout": "After all steps are met",
+      "payout": "By the 10th of the month after you qualify",
       "notes": [
-        "FDIC insurance up to $3 million through partner banks"
+        "FDIC insurance up to $3 million through partner banks",
+        "The bonus can be taken back if you close the account within 150 days of funding"
       ],
-      "verified": "Checked on bluevine.com, Nov 17, 2026"
+      "verified": "Checked on bluevine.com, Nov 23, 2026"
+    },
+    {
+      "id": "wells_fargo_business_checking",
+      "segment": "business",
+      "type": "checking",
+      "bank": "Wells Fargo",
+      "logo": "images/banks/wellsfargo.png",
+      "account": "Wells Fargo Initiate Business Checking",
+      "short": "Wells Fargo Business",
+      "url": "https://accountoffers.wellsfargo.com/business-checking-bonus/",
+      "referral_only": false,
+      "requirement": "deposit",
+      "tiers": [
+        {
+          "need": 2500,
+          "bonus": 400
+        },
+        {
+          "need": 10000,
+          "bonus": 550
+        },
+        {
+          "need": 25000,
+          "bonus": 825
+        }
+      ],
+      "points": 0,
+      "program": "",
+      "cpp": 0,
+      "days": 60,
+      "hold_days": 60,
+      "steps": [
+        "Open Initiate Business Checking online from the offer page by Jan 13, 2027",
+        "Deposit money within 30 days. Your balance on day 30 sets your bonus",
+        "Keep that balance through day 60 and make 5 qualifying transactions, such as debit card purchases or bill payments"
+      ],
+      "monthly_fee": 15,
+      "fee_waiver": "$0 with a $2,000 daily balance or $5,000 in combined business balances",
+      "ends": "2027-01-13",
+      "rule_short": "One Wells Fargo business bonus every 24 months",
+      "eligibility": "Not for current Wells Fargo business checking customers or accounts closed in the last 90 days. One business checking bonus per business and per owner every 24 months.",
+      "payout": "Within 30 days after day 60, once all steps are met",
+      "notes": [
+        "Zelle payments don't count as transactions"
+      ],
+      "verified": "Checked on wellsfargo.com, Nov 23, 2026"
     }
   ]
 }

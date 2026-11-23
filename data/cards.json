@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16",
+  "updated": "2026-11-23",
   "cards": [
     {
       "id": "amex_platinum",
@@ -27,7 +27,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 16, 2026",
+      "verified": "Checked on americanexpress.com, Nov 23, 2026",
       "history": [
         {
           "month": "2021-07",
@@ -98,6 +98,11 @@
           "annual": 200
         },
         {
+          "label": "Oura Ring credit",
+          "value": "$200 a year",
+          "annual": 200
+        },
+        {
           "label": "Walmart+ membership credit",
           "value": "$12.95 a month",
           "annual": 155
@@ -150,7 +155,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 16, 2026",
+      "verified": "Checked on americanexpress.com, Nov 23, 2026",
       "history": [
         {
           "month": "2020-10",
@@ -260,7 +265,7 @@
       "amex_credit": true,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 16, 2026",
+      "verified": "Checked on americanexpress.com, Nov 23, 2026",
       "history": [
         {
           "month": "2025-01",
@@ -353,7 +358,7 @@
       "amex_credit": false,
       "chase_524": true,
       "barclays": false,
-      "verified": "Checked on chase.com, Nov 16, 2026",
+      "verified": "Checked on chase.com, Nov 23, 2026",
       "history": [
         {
           "month": "2022-01",
@@ -500,7 +505,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": true,
-      "verified": "Checked on luxurycard.com, Nov 16, 2026 (card page link fixed)",
+      "verified": "Checked on luxurycard.com, Nov 23, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -579,7 +584,7 @@
       "amex_credit": true,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 16, 2026",
+      "verified": "Checked on americanexpress.com, Nov 23, 2026",
       "history": [
         {
           "month": "2023-07",
@@ -731,7 +736,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on bankofamerica.com, Nov 16, 2026 (card page link fixed)",
+      "verified": "Checked on bankofamerica.com, Nov 23, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -802,7 +807,7 @@
       "amex_credit": false,
       "chase_524": true,
       "barclays": false,
-      "verified": "Checked on chase.com, Nov 16, 2026",
+      "verified": "Checked on chase.com, Nov 23, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -873,7 +878,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on bankofamerica.com, Nov 16, 2026 (card page link fixed)",
+      "verified": "Checked on bankofamerica.com, Nov 23, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -935,7 +940,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 16, 2026",
+      "verified": "Checked on americanexpress.com, Nov 23, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1041,7 +1046,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 16, 2026",
+      "verified": "Checked on americanexpress.com, Nov 23, 2026",
       "history": [
         {
           "month": "2019-11",
@@ -1134,7 +1139,7 @@
       "amex_credit": false,
       "chase_524": true,
       "barclays": false,
-      "verified": "Checked on chase.com, Nov 16, 2026",
+      "verified": "Checked on chase.com, Nov 23, 2026",
       "history": [
         {
           "month": "2025-06",
@@ -1255,7 +1260,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on citi.com, Nov 16, 2026",
+      "verified": "Checked on citi.com, Nov 23, 2026 (figures read from the rendered offer banner)",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1318,7 +1323,7 @@
       "amex_credit": true,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on americanexpress.com, Nov 16, 2026",
+      "verified": "Checked on americanexpress.com, Nov 23, 2026",
       "history": [],
       "history_source": "",
       "earn": [
@@ -1373,7 +1378,7 @@
       "amex_credit": false,
       "chase_524": false,
       "barclays": false,
-      "verified": "Checked on usbank.com, Nov 16, 2026 (record status from CreditCompound and Doctor of Credit)",
+      "verified": "Checked on usbank.com, Nov 23, 2026",
       "history": [
         {
           "month": "2026-03",
@@ -1417,6 +1422,80 @@
         },
         {
           "label": "No foreign transaction fees and free employee cards",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "alaska_atmos_business",
+      "segment": "business",
+      "card": "Atmos Rewards Visa Business Card",
+      "short": "Atmos Business",
+      "issuer": "Bank of America",
+      "program": "Atmos Rewards points",
+      "kind": "Airline",
+      "url": "https://www.alaskaair.com/atmosrewards/content/credit-cards/visa-small-business",
+      "image": "",
+      "bonus_points": 90000,
+      "as_high_as": false,
+      "bonus_extra": "Card refreshed Nov 18, 2026; the $99 Companion Fare is no longer included",
+      "spend": 6000,
+      "months": 3,
+      "ends": "",
+      "best_ever": 85000,
+      "best_note": "Beats its previous best of 85,000",
+      "annual_fee": 195,
+      "first_year_fee": 195,
+      "fee_note": "Free employee cards",
+      "cpp": 1.4,
+      "rule_family": "alaska_business",
+      "amex_credit": false,
+      "chase_524": false,
+      "barclays": false,
+      "verified": "Checked on alaskaair.com, Nov 23, 2026 (earn rates and perks from the Nov 18 refresh, per Doctor of Credit)",
+      "history": [
+        {
+          "month": "2026-11",
+          "points": 90000
+        }
+      ],
+      "history_source": "Doctor of Credit (refresh on Nov 18, 2026; previous best 85,000)",
+      "earn": [
+        {
+          "rate": "3x",
+          "what": "Alaska and Hawaiian Airlines purchases"
+        },
+        {
+          "rate": "2x",
+          "what": "Dining"
+        },
+        {
+          "rate": "1x",
+          "what": "Everything else"
+        }
+      ],
+      "credits": [
+        {
+          "label": "Global Entry or TSA PreCheck fee credit",
+          "value": "$120 every 4 years",
+          "annual": 30
+        }
+      ],
+      "highlights": [
+        {
+          "label": "4 Alaska Lounge passes a year (one a quarter)",
+          "value": "Lounge access"
+        },
+        {
+          "label": "Free checked bag and preferred boarding on Alaska flights",
+          "value": ""
+        },
+        {
+          "label": "50% off a flight and 10,000 status points after $100,000 spend in a year",
+          "value": ""
+        },
+        {
+          "label": "Share points free with up to 10 Atmos members",
           "value": ""
         }
       ]

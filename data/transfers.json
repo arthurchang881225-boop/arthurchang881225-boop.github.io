@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16",
+  "updated": "2026-11-23",
   "note": "Bilt has no partner bonus running. Its Rent Day promotions usually add one-day transfer bonuses on the 1st of the month, so check on December 1. Transfers cannot be undone, so find award space before you move points.",
   "transfers": [
     {
@@ -12,6 +12,17 @@
       "note": "Only for a specific IHG stay you already priced; IHG points are worth about half a cent.",
       "sweet_spot": "A 40,000-point IHG night at a mid-range hotel",
       "partner_points": 40000
+    },
+    {
+      "id": "chase_virgin",
+      "program": "Chase Ultimate Rewards",
+      "partner": "Virgin Atlantic Flying Club",
+      "bonus_pct": 40,
+      "base_ratio": 1,
+      "ends": "2026-12-30",
+      "note": "Back to 40%. Strong for Delta One and ANA business class award space.",
+      "sweet_spot": "One-way Delta One business class to Europe, from about 50,000 points",
+      "partner_points": 50000
     },
     {
       "id": "citi_turkish",
@@ -43,17 +54,6 @@
       "base_ratio": 1,
       "ends": "2026-11-30",
       "note": "Strong for Delta One and ANA business class award space.",
-      "sweet_spot": "One-way Delta One business class to Europe, from about 50,000 points",
-      "partner_points": 50000
-    },
-    {
-      "id": "c1_virgin",
-      "program": "Capital One Miles",
-      "partner": "Virgin Atlantic Flying Club",
-      "bonus_pct": 30,
-      "base_ratio": 1,
-      "ends": "2026-11-20",
-      "note": "Same sweet spots as Amex to Virgin, ending sooner.",
       "sweet_spot": "One-way Delta One business class to Europe, from about 50,000 points",
       "partner_points": 50000
     },
@@ -122,6 +122,28 @@
       "note": "Pair with monthly Promo Rewards to Europe.",
       "sweet_spot": "One-way economy to Europe on a Promo Rewards sale, often from about 15,000 miles",
       "partner_points": 15000
+    },
+    {
+      "id": "c1_qatar",
+      "program": "Capital One Miles",
+      "partner": "Qatar Airways Privilege Club",
+      "bonus_pct": 15,
+      "base_ratio": 1,
+      "ends": "2026-12-14",
+      "note": "First bonus to Qatar since it joined Capital One. Avios for Qsuite business class.",
+      "sweet_spot": "",
+      "partner_points": 0
+    },
+    {
+      "id": "amex_avianca",
+      "program": "Amex Membership Rewards",
+      "partner": "Avianca LifeMiles",
+      "bonus_pct": 10,
+      "base_ratio": 1,
+      "ends": "2026-12-16",
+      "note": "Smaller than the usual 15%; only worth it for an award you are booking now.",
+      "sweet_spot": "",
+      "partner_points": 0
     }
   ]
 }

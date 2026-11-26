@@ -805,6 +805,20 @@ textarea {
   display: block;
 }
 
+/* One portrait photo instead of two side by side */
+.photo-gallery--single {
+  grid-template-columns: 1fr;
+  max-width: 320px;
+  width: 100%;
+  justify-self: center;
+}
+
+.photo-gallery--single .photo-card img {
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-position: center top;
+}
+
 .photo-card .caption {
   padding: 0.6rem 0.75rem;
   background: var(--card);
